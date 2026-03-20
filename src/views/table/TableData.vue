@@ -1,22 +1,22 @@
 <template>
-  <n-input v-model:value="fileNameLike" style="width: 350px;"
-    placeholder="Search by package name, press enter to submit" @keyup.enter="loadData()" />
-  <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-    :row-key="(row: FileEntryDto) => row.downloadURL" />
+  <n-data-table remote :data="data" :columns="columns" :pagination="pagination"
+    :row-key="(row: DownloadableTableDataDto) => row.id" />
 </template>
 
 <script setup lang="tsx">
-import { NButton, NIcon } from 'naive-ui';
-import { findFileEntries, type FileEntryDto } from '@/api/files';
-import type { DataTableColumns } from 'naive-ui';
-import { reactive, ref, type Ref, type VNode } from 'vue';
-import { DownloadOutline as DownloadIcon } from '@vicons/ionicons5';
+import { selectDataList, type DownloadableTableDataDto, type TableData } from '@/api/table';
+import { NButton, NIcon, type DataTableColumns } from 'naive-ui';
+import { reactive, ref, watch, type Ref, type VNode } from 'vue';
+import { DownloadOutline as DownloadIcon, WarningOutline as WarningIcon } from '@vicons/ionicons5';
 
-let loading = ref(false);
+interface Props {
+  headerId?: number
+  level?: string
+};
 
-let data: Ref<Array<FileEntryDto>> = ref([]);
-const fileNameLike = ref(null);
+const props = defineProps<Props>();
 
+const loading = ref(false);
 const pagination = reactive({
   page: 1,
   pageSize: 10,
@@ -33,9 +33,22 @@ const pagination = reactive({
     loadData();
   }
 });
-
-const columns: DataTableColumns<FileEntryDto> = [
-  { title: "Name", key: "fileName" },
+const columns: DataTableColumns<DownloadableTableDataDto> = [
+  {
+    title: "Title", key: "title",
+    render(row: DownloadableTableDataDto): VNode[] {
+      let ret: VNode[] = [];
+      if (row.fileSize == 0) {
+        ret.push((
+          <NIcon color="red">
+            <WarningIcon />
+          </NIcon>
+        ));
+      }
+      ret.push(row.title as any as VNode);
+      return ret;
+    }
+  },
   {
     title: "Size", key: "fileSize",
     render(row) {
@@ -44,7 +57,10 @@ const columns: DataTableColumns<FileEntryDto> = [
   },
   {
     title: "Actions", key: "actions",
-    render(row): VNode {
+    render(row): VNode | null {
+      if (row.fileSize == 0) {
+        return null;
+      }
       return (
         <NButton type="info" onClick={() => window.open(row.downloadURL, '_blank')}>
           <NIcon>
@@ -55,24 +71,30 @@ const columns: DataTableColumns<FileEntryDto> = [
     }
   }
 ];
+const data: Ref<TableData[]> = ref([]);
 
 function loadData() {
-  loading.value = true;
-  findFileEntries({
+  if (props.headerId == null) {
+    return;
+  }
+  selectDataList({
+    headerID: props.headerId,
+    level: props.level ?? "",
     pageRequest: {
       page: pagination.page,
       pageSize: pagination.pageSize
     },
-    fileNameLike: fileNameLike.value ?? "",
-    md5: ""
-  })
-    .then(result => {
-      if (result.data != null) {
-        data.value = [...result.data];
-        pagination.pageCount = result.pageCount;
-      }
-    }).finally(() => { loading.value = false });
+  }).then(result => {
+    if (result.data != null) {
+      data.value = [...result.data];
+      pagination.pageCount = result.pageCount;
+    }
+  }).finally(() => loading.value = false);
 }
+
+watch(props, () => {
+  loadData();
+}, { immediate: true })
 
 /**
  * Format bytes as human-readable text.
@@ -106,6 +128,4 @@ function humanFileSize(bytes: number, si = false, dp = 1) {
 
   return bytes.toFixed(dp) + ' ' + units[u];
 }
-
-loadData();
 </script>

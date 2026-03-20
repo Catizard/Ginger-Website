@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 import type { Component } from 'vue'
 import {
-  BookOutline as BookIcon,
+  BookOutline as TableIcon,
   PersonOutline as PersonIcon,
   Bookmarks as BookmarksIcon,
   TimeOutline as TimeIcon,
@@ -48,6 +48,11 @@ const menuOptions: MenuOption[] = [
     label: renderOption("/home", "Home"),
     key: 'home',
     icon: renderIcon(DownloadIcon)
+  },
+  {
+    label: renderOption("/table", "Table"),
+    key: 'table',
+    icon: renderIcon(TableIcon)
   },
   {
     label: renderOption("/about", "About"),

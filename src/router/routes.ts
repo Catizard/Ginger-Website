@@ -11,6 +11,11 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import("../views/DownloadView.vue"),
   },
   {
+    name: "table",
+    path: "/table",
+    component: () => import("../views/table/TableView.vue")
+  },
+  {
     name: "about",
     path: "/about",
     component: () => import("../views/AboutView.vue"),
