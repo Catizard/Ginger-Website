@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :hljs="hljs">
+  <n-config-provider :hljs="hljs" :theme="theme" :theme-overrides="themeOverrides">
     <n-notification-provider>
       <n-modal-provider>
         <n-global-style />
@@ -27,4 +27,27 @@ hljs.registerLanguage('javascript', javascript)
 
 const osTheme = useOsTheme();
 const theme = computed(() => (osTheme.value == "dark" ? darkTheme : null));
+
+const themeOverrides = {
+  common: {
+    borderRadius: '10px',
+    borderRadiusSmall: '6px',
+  },
+  Card: {
+    borderRadius: '12px',
+  },
+  Button: {
+    borderRadiusMedium: '8px',
+    borderRadiusSmall: '6px',
+  },
+  Input: {
+    borderRadius: '8px',
+  },
+  DataTable: {
+    borderRadius: '8px',
+  },
+  Menu: {
+    borderRadius: '8px',
+  },
+};
 </script>

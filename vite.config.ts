@@ -23,7 +23,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: "http://localhost:11793",
+        target: "https://gingerrush.com",
         changeOrigin: true
       }
     }

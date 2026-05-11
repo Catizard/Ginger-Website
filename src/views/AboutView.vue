@@ -1,30 +1,105 @@
 <template>
-  <n-card title="Hello">
-    Project Ginger-Rush is aiming to serve as a multiple usage service of BMS ecosystem.
+  <n-space vertical :size="24">
+    <n-card class="about-card" :bordered="false">
+      <template #header>
+        <n-space align="center">
+          <n-icon :component="InformationCircleOutline" size="24" color="var(--n-primary-color)" />
+          <n-text strong style="font-size: 20px;">{{ t('aboutTitle') }}</n-text>
+        </n-space>
+      </template>
+      <n-space vertical :size="16">
+        <n-text style="line-height: 1.8;">
+          {{ t('aboutDesc') }}
+        </n-text>
+        <n-divider />
+        <n-space vertical :size="12">
+          <n-space align="center">
+            <n-icon :component="DownloadOutline" size="20" color="var(--n-primary-color)" />
+            <n-text strong>{{ t('bmsDownload') }}</n-text>
+          </n-space>
+          <n-text depth="3" style="margin-left: 28px;">{{ t('bmsDownloadDesc') }}</n-text>
+        </n-space>
+        <n-space vertical :size="12">
+          <n-space align="center">
+            <n-icon :component="ListOutline" size="20" color="var(--n-primary-color)" />
+            <n-text strong>{{ t('tableBrowse') }}</n-text>
+          </n-space>
+          <n-text depth="3" style="margin-left: 28px;">{{ t('tableBrowseDesc') }}</n-text>
+        </n-space>
+      </n-space>
+    </n-card>
 
-    <n-list>
-      <n-list-item>
-        It's a BMS package download website
-      </n-list-item>
-    </n-list>
-    TBD
-  </n-card>
-  <n-card title="Contributors">
-    <n-list>
-      <n-list-item>
-        <n-flex>
-          Catizard
-          <n-button text size="small">
-            <n-icon>
-              <GithubIcon />
-            </n-icon>
-          </n-button>
-        </n-flex>
-      </n-list-item>
-    </n-list>
-  </n-card>
+    <n-card class="about-card" :bordered="false">
+      <template #header>
+        <n-space align="center">
+          <n-icon :component="PeopleOutline" size="24" color="var(--n-primary-color)" />
+          <n-text strong style="font-size: 20px;">{{ t('contributors') }}</n-text>
+        </n-space>
+      </template>
+        <n-list>
+          <n-list-item
+            v-for="contributor in contributors"
+            :key="contributor.name"
+            class="contributor-item"
+            @click="openLink(contributor.url)"
+          >
+            <n-flex align="center">
+              <n-text strong class="contributor-name">{{ contributor.name }}</n-text>
+            </n-flex>
+          </n-list-item>
+        </n-list>
+    </n-card>
+  </n-space>
 </template>
 
 <script setup lang="ts">
-import { LogoGithub as GithubIcon } from '@vicons/ionicons5'
+import { InformationCircleOutline, DownloadOutline, ListOutline, PeopleOutline } from '@vicons/ionicons5';
+import { useI18n } from '@/i18n';
+
+const { t } = useI18n();
+
+const contributors = [
+  { name: 'Catizard', url: 'https://github.com/Catizard' },
+  { name: 'nyannurs', url: 'https://www.twitch.tv/beachsidebunny' },
+  { name: '闯', url: 'https://chuang1213.github.io/' },
+];
+
+function openLink(url: string) {
+  window.open(url, '_blank');
+}
 </script>
+
+<style scoped>
+.about-card {
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid var(--n-border-color, rgba(0, 0, 0, 0.06));
+}
+
+.contributor-item {
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+.contributor-item:hover {
+  background-color: var(--n-color-hover, rgba(0, 0, 0, 0.02));
+}
+
+.contributor-name {
+  transition: color 0.2s ease;
+}
+
+.contributor-item:hover .contributor-name {
+  color: var(--n-primary-color);
+}
+
+:deep(.n-card-header) {
+  padding-bottom: 16px;
+}
+
+:deep(.n-list-item) {
+  padding: 12px 16px;
+  border-radius: 8px;
+}
+</style>
