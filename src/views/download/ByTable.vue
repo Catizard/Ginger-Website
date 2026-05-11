@@ -2,13 +2,7 @@
   <div v-if="!selectedTableId">
     <n-grid :cols="2" :x-gap="20" :y-gap="20">
       <n-grid-item v-for="table in filteredTableList" :key="table.id">
-        <n-card
-          hoverable
-          :title="table.name"
-          @click="selectTable(table.id)"
-          class="table-card"
-          :bordered="false"
-        >
+        <n-card hoverable :title="table.name" @click="selectTable(table.id)" class="table-card" :bordered="false">
           <template #header-extra>
             <n-tag type="info" round size="small">
               {{ ((table.dataCount - table.missingCount) / table.dataCount * 100).toFixed(1) }}%
@@ -34,7 +28,9 @@
       <n-space style="margin-bottom: 20px;" align="center">
         <n-button round @click="selectedTableId = null">
           <template #icon>
-            <n-icon><ArrowBackOutline /></n-icon>
+            <n-icon>
+              <ArrowBackOutline />
+            </n-icon>
           </template>
           {{ t('back') }}
         </n-button>
@@ -44,15 +40,8 @@
 
       <n-collapse v-model:expanded-names="expandedLevels" class="styled-collapse">
         <n-collapse-item v-for="entry in levelEntries" :key="entry.level" :name="entry.level" :title="entry.level">
-          <n-data-table
-            remote
-            :loading="loading"
-            :columns="columns"
-            :data="filteredTableData"
-            :pagination="pagination"
-            :row-key="(row: TableData) => row.id"
-            class="styled-table"
-          />
+          <n-data-table remote :loading="loading" :columns="columns" :data="filteredTableData" :pagination="pagination"
+            :row-key="(row: TableData) => row.id" class="styled-table" />
         </n-collapse-item>
       </n-collapse>
     </n-card>
@@ -212,6 +201,7 @@ watch(expandedLevels, (newVal) => {
     loadTableData();
   }
 });
+
 </script>
 
 <style scoped>
@@ -250,8 +240,11 @@ watch(expandedLevels, (newVal) => {
   margin-bottom: 0;
 }
 
+:deep(.n-collapse .n-collapse-item .n-collapse-item__header) {
+  padding: 0px;
+}
+
 :deep(.n-collapse-item__header) {
-  padding: 12px 16px;
   background: var(--n-color-modal, #fafafa);
 }
 
