@@ -83,7 +83,7 @@ const columns = computed<DataTableColumns<DownloadableTableDataDto>>(() => [
         return null;
       }
       return (
-        <NButton type="info" round size="small" onClick={() => window.open(row.url, '_blank')}>
+        <NButton type="info" round size="small" onClick={() => window.open(row.downloadURL, '_blank')}>
           <NIcon>
             <DownloadIcon />
           </NIcon>
