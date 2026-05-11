@@ -1,4 +1,15 @@
 <template>
+  <div class="search-bar">
+    <n-input v-model:value="fileNameLike" :placeholder="t('search')" clearable class="search-input"
+      @keydown.enter="loadData">
+      <template #prefix>
+        <n-icon>
+          <SearchOutline />
+        </n-icon>
+      </template>
+    </n-input>
+  </div>
+
   <n-card class="download-card" :bordered="false">
     <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
       :row-key="(row: FileEntryDto) => row.downloadURL" class="styled-table" />
@@ -9,8 +20,8 @@
 import { NButton, NIcon } from 'naive-ui';
 import { findFileEntries, type FileEntryDto } from '@/api/files';
 import type { DataTableColumns } from 'naive-ui';
-import { reactive, ref, type Ref, type VNode, computed, onMounted, onUnmounted } from 'vue';
-import { DownloadOutline as DownloadIcon } from '@vicons/ionicons5';
+import { reactive, ref, type Ref, type VNode, computed, watch, onMounted } from 'vue';
+import { DownloadOutline as DownloadIcon, SearchOutline } from '@vicons/ionicons5';
 import { humanFileSize } from '@/utils/format';
 import { useI18n } from '@/i18n';
 
@@ -78,20 +89,8 @@ function loadData() {
     }).finally(() => { loading.value = false });
 }
 
-function handleSearch(event: Event) {
-  const detail = (event as CustomEvent).detail;
-  fileNameLike.value = detail;
-  pagination.page = 1;
-  loadData();
-}
-
 onMounted(() => {
   loadData();
-  window.addEventListener('search-update', handleSearch);
-});
-
-onUnmounted(() => {
-  window.removeEventListener('search-update', handleSearch);
 });
 </script>
 
@@ -118,5 +117,20 @@ onUnmounted(() => {
 
 :deep(.n-pagination) {
   padding: 12px 0;
+}
+
+.search-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 24px;
+  background: var(--n-color);
+  border-bottom: 1px solid var(--n-border-color, rgba(0, 0, 0, 0.06));
+}
+
+.search-input {
+  border-radius: 8px;
 }
 </style>

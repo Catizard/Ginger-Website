@@ -45,7 +45,7 @@ const langOptions = [
 
 const menuOptions = computed(() => [
   {
-    label: renderOption("/download", t.value('download')),
+    label: t.value('download'),
     key: '/download',
     icon: renderIcon(DownloadOutline),
     children: [
