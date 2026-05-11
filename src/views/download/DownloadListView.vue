@@ -1,14 +1,7 @@
 <template>
   <n-card class="download-card" :bordered="false">
-    <n-data-table
-      remote
-      :loading="loading"
-      :columns="columns"
-      :data="data"
-      :pagination="pagination"
-      :row-key="(row: FileEntryDto) => row.downloadURL"
-      class="styled-table"
-    />
+    <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
+      :row-key="(row: FileEntryDto) => row.downloadURL" class="styled-table" />
   </n-card>
 </template>
 

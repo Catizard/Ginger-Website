@@ -27,6 +27,7 @@ import { useRoute } from 'vue-router';
 import { NIcon } from 'naive-ui';
 import { useI18n } from '@/i18n';
 import Sider from "./sider.vue";
+import { SearchOutline } from '@vicons/ionicons5';
 
 const route = useRoute();
 const { t } = useI18n();

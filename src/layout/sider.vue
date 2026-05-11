@@ -5,7 +5,7 @@
       <img src="/gingerrush-title+logo.png" alt="Ginger Rush" class="logo-img" />
     </div>
     <n-menu :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" class="menu"
-      defaultValue="/download/all" />
+      defaultValue="/download/list" />
     <div class="lang-switch">
       <n-select v-model:value="lang" :options="langOptions" size="small" />
     </div>
@@ -45,32 +45,32 @@ const langOptions = [
 
 const menuOptions = computed(() => [
   {
-    label: renderOption("/about", t.value('about')),
-    key: '/about',
-    icon: renderIcon(InformationCircleOutline),
-  },
-  {
     label: renderOption("/download", t.value('download')),
     key: '/download',
     icon: renderIcon(DownloadOutline),
     children: [
       {
-        label: renderOption("/download/by-table", t.value('byTable')),
-        key: '/download/by-table',
+        label: renderOption("/download/select/TABLE", t.value('byTable')),
+        key: '/download/select/TABLE',
         icon: renderIcon(ListOutline),
       },
       {
-        label: renderOption("/download/by-event", t.value('byEvent')),
-        key: '/download/by-event',
+        label: renderOption("/download/select/EVENT", t.value('byEvent')),
+        key: '/download/select/EVENT',
         icon: renderIcon(CalendarOutline),
       },
       {
-        label: renderOption("/download/all", t.value("all")),
-        key: '/download/all',
+        label: renderOption("/download/list", t.value("all")),
+        key: '/download/list',
         icon: renderIcon(FolderOutline),
       }
     ]
-  }
+  },
+  {
+    label: renderOption("/about", t.value('about')),
+    key: '/about',
+    icon: renderIcon(InformationCircleOutline),
+  },
 ]);
 
 function renderIcon(icon: Component) {

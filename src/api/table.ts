@@ -2,8 +2,10 @@
 import request from "./client";
 import { type PageRequest, type PageResponse } from "./page";
 
-export interface QueryTableHeaderVo {
+export type TableType = "TABLE" | "EVENT";
 
+export interface QueryTableHeaderVo {
+  type: TableType;
 }
 
 export interface TableHeader {
@@ -66,7 +68,7 @@ export function selectLevelEntries(id: number): Promise<TableLevelEntry[]> {
   return request.get(`/table/selectLevelEntries/${id}`)
 }
 
-export function selectDataList(query: QueryTableDataVo): Promise<PageResponse<TableData[]>> {
+export function selectDataList(query: QueryTableDataVo): Promise<PageResponse<DownloadableTableDataDto[]>> {
   return request.post('/table/selectDataList', query)
 }
 

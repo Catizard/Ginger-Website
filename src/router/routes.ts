@@ -3,7 +3,7 @@ import { type RouteRecordRaw } from "vue-router";
 const mainRoutes: RouteRecordRaw[] = [
   {
     path: "/",
-    redirect: "/download/all"
+    redirect: "/download/list"
   },
   {
     name: "about",
@@ -11,20 +11,20 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import("../views/AboutView.vue"),
   },
   {
-    name: "download-all",
-    path: "/download/all",
-    component: () => import("../views/download/AllDownload.vue"),
+    name: "download-list",
+    path: "/download/list",
+    component: () => import("../views/download/DownloadListView.vue"),
   },
   {
-    name: "download-by-table",
-    path: "/download/by-table",
-    component: () => import("../views/download/ByTable.vue"),
+    name: "download-select",
+    path: "/download/select/:type",
+    component: () => import("../views/download/DownloadSelect.vue"),
   },
   {
-    name: "download-by-event",
-    path: "/download/by-event",
-    component: () => import("../views/download/ByEvent.vue"),
-  },
+    name: "download-table",
+    path: "/download/table/:id",
+    component: () => import("../views/download/DownloadTableView.vue")
+  }
 ];
 
 const routes: RouteRecordRaw[] = [
