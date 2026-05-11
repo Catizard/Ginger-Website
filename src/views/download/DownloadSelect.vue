@@ -8,14 +8,15 @@
           </n-tag>
         </template>
         <n-space vertical :size="8">
-          <n-space align="center">
-            <n-icon :component="ListOutline" size="16" color="var(--n-text-color-3)" />
-            <n-text depth="3" style="font-size: 13px;">{{ t('difficultyLevel') }}: {{ table.levelOrders }}</n-text>
-          </n-space>
-          <n-space align="center">
+          <n-flex align="center">
+            <!-- TODO: Make this usable -->
+            <!-- <n-icon :component="ListOutline" size="16" color="var(--n-text-color-3)" /> -->
+            <!-- <n-text depth="3" style="font-size: 13px;">{{ t('difficultyLevel') }}: {{ table.levelOrders }}</n-text> -->
+          </n-flex>
+          <n-flex align="center">
             <n-icon :component="MusicalNotesOutline" size="16" color="var(--n-text-color-3)" />
             <n-text depth="3" style="font-size: 13px;">{{ t('trackCount') }}: {{ table.dataCount }}</n-text>
-          </n-space>
+          </n-flex>
         </n-space>
       </n-card>
     </n-grid-item>
