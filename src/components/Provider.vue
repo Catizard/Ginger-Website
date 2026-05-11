@@ -1,5 +1,5 @@
 <template>
-  <n-config-provider :hljs="hljs" :theme="theme" :theme-overrides="themeOverrides">
+  <n-config-provider :hljs="hljs" :theme-overrides="themeOverrides">
     <n-notification-provider>
       <n-modal-provider>
         <n-global-style />
@@ -16,8 +16,6 @@
 </template>
 
 <script lang="ts" setup>
-import { darkTheme, useOsTheme } from "naive-ui";
-import { computed } from "vue";
 import hljs from "highlight.js/lib/core";
 import json from "highlight.js/lib/languages/json"
 import javascript from "highlight.js/lib/languages/javascript";
@@ -25,8 +23,8 @@ import javascript from "highlight.js/lib/languages/javascript";
 hljs.registerLanguage('json', json);
 hljs.registerLanguage('javascript', javascript)
 
-const osTheme = useOsTheme();
-const theme = computed(() => (osTheme.value == "dark" ? darkTheme : null));
+//const osTheme = useOsTheme();
+//const theme = computed(() => (osTheme.value == "dark" ? darkTheme : null));
 
 const themeOverrides = {
   common: {
