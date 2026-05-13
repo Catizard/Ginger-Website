@@ -79,7 +79,7 @@ const columns = computed<DataTableColumns<DownloadableTableDataDto>>(() => [
   {
     title: t.value('actions'), key: "actions",
     render(row): VNode | null {
-      if (!row.url) {
+      if (!row.downloadURL) {
         return null;
       }
       return (
