@@ -91,6 +91,7 @@ const { t } = useI18n();
 const contributors = [
   { name: 'Catizard', url: 'https://github.com/Catizard' },
   { name: 'nyannurs', url: 'https://www.twitch.tv/beachsidebunny' },
+  { name: "Seraxis", url: 'https://github.com/seraxis' },
   { name: '闯', url: 'https://chuang1213.github.io/' },
 ];
 
