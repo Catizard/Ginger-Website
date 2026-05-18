@@ -1,26 +1,36 @@
 <template>
-  <n-grid :cols="2" :x-gap="20" :y-gap="20">
-    <n-grid-item v-for="table in tableList" :key="table.id">
-      <n-card hoverable :title="table.name" @click="handleClickTable(table.id)" class="table-card" :bordered="false">
-        <template #header-extra>
-          <n-tag type="info" round size="small">
-            {{ ((table.dataCount - table.missingCount) / table.dataCount * 100).toFixed(1) }}%
-          </n-tag>
-        </template>
-        <n-space vertical :size="8">
-          <n-flex align="center">
-            <!-- TODO: Make this usable -->
-            <!-- <n-icon :component="ListOutline" size="16" color="var(--n-text-color-3)" /> -->
-            <!-- <n-text depth="3" style="font-size: 13px;">{{ t('difficultyLevel') }}: {{ table.levelOrders }}</n-text> -->
-          </n-flex>
-          <n-flex align="center">
-            <n-icon :component="MusicalNotesOutline" size="16" color="var(--n-text-color-3)" />
-            <n-text depth="3" style="font-size: 13px;">{{ t('trackCount') }}: {{ table.dataCount }}</n-text>
-          </n-flex>
-        </n-space>
-      </n-card>
-    </n-grid-item>
-  </n-grid>
+  <n-collapse :expanded-names="expandedCategories" arrow-placement="right" @item-header-click="handleClickCategory">
+    <n-collapse-item v-for="category in categories" :key="category.categoryName" :name="category.categoryName">
+      <template #header>
+        <n-h2 prefix="bar" type="primary" style="margin-bottom: 0;">
+          {{ category.categoryName }}
+        </n-h2>
+      </template>
+      <n-grid :cols="2" :x-gap="20" :y-gap="20">
+        <n-grid-item v-for="table in category.tables" :key="table.id">
+          <n-card hoverable :title="table.name" @click="handleClickTable(table.id)" class="table-card"
+            :bordered="false">
+            <template #header-extra>
+              <n-tag type="info" round size="small">
+                {{ ((table.dataCount - table.missingCount) / table.dataCount * 100).toFixed(1) }}%
+              </n-tag>
+            </template>
+            <n-space vertical :size="8">
+              <n-flex align="center">
+                <!-- TODO: Fix the garbage data :( -->
+                <!-- <n-icon :component="ListOutline" size="16" color="var(--n-text-color-3)" /> -->
+                <!-- <n-text depth="3" style="font-size: 13px;">{{ t('difficultyLevel') }}: {{ table.levelOrders }}</n-text> -->
+              </n-flex>
+              <n-flex align="center">
+                <n-icon :component="MusicalNotesOutline" size="16" color="var(--n-text-color-3)" />
+                <n-text depth="3" style="font-size: 13px;">{{ t('trackCount') }}: {{ table.dataCount }}</n-text>
+              </n-flex>
+            </n-space>
+          </n-card>
+        </n-grid-item>
+      </n-grid>
+    </n-collapse-item>
+  </n-collapse>
 </template>
 
 <script setup lang="ts">
@@ -28,20 +38,51 @@ import { selectHeaderList, type TableHeader, type TableType } from "@/api/table"
 import { useI18n } from "@/i18n";
 import router from "@/router";
 import { ListOutline, MusicalNotesOutline } from "@vicons/ionicons5"
-import { ref, watch, type Ref } from "vue";
+import { computed, ref, watch, type Ref } from "vue";
 import { useRoute } from "vue-router";
+import { NCollapse } from "naive-ui";
 
 const { t } = useI18n();
 const route = useRoute();
 
-const tableList: Ref<TableHeader[]> = ref([]);
+interface TableCategory {
+  categoryName: string,
+  tables: TableHeader[]
+}
 
-function loadTableList(queryType: TableType) {
-  selectHeaderList({
-    type: queryType
-  }).then(result => {
-    tableList.value = [...result];
-  });
+const categories: Ref<TableCategory[]> = ref([]);
+const expandedCategories: Ref<string[]> = ref([]);
+
+async function loadTableList(queryType: TableType) {
+  try {
+    const headers = await selectHeaderList({ type: queryType });
+    const sortedHeaders = headers.sort((lhs, rhs) => lhs.categoryName.localeCompare(rhs.categoryName));
+    categories.value = [];
+    for (let i = 0; i < sortedHeaders.length; ++i) {
+      let j = i;
+      while (j + 1 < sortedHeaders.length && sortedHeaders[i]?.categoryName == sortedHeaders[j]?.categoryName) j++;
+      const tables = [] as TableHeader[];
+      for (let k = i; k <= j; ++k) tables.push(sortedHeaders[k]!);
+      categories.value.push({
+        categoryName: sortedHeaders[i]?.categoryName!,
+        tables: tables,
+      })
+      i = j;
+    }
+    expandedCategories.value = categories.value.map(cat => cat.categoryName);
+    console.log(expandedCategories.value);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+function handleClickCategory({ name }: { name: string }) {
+  const index = expandedCategories.value.findIndex(cat => cat == name)
+  if (index == -1) {
+    expandedCategories.value.push(name);
+    return;
+  }
+  expandedCategories.value.splice(index, 1);
 }
 
 function handleClickTable(id: number) {

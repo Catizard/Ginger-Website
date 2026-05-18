@@ -17,7 +17,9 @@ export interface TableHeader {
   symbol: string,
   levelOrders: string,
   dataCount: number,
-  missingCount: number
+  missingCount: number,
+  type: string,
+  categoryName: string,
 }
 
 export interface QueryTableDataVo {
