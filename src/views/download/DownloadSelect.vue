@@ -60,7 +60,7 @@ async function loadTableList(queryType: TableType) {
     categories.value = [];
     for (let i = 0; i < sortedHeaders.length; ++i) {
       let j = i;
-      while (j + 1 < sortedHeaders.length && sortedHeaders[i]?.categoryName == sortedHeaders[j]?.categoryName) j++;
+      while (j + 1 < sortedHeaders.length && sortedHeaders[i]?.categoryName == sortedHeaders[j + 1]?.categoryName) j++;
       const tables = [] as TableHeader[];
       for (let k = i; k <= j; ++k) tables.push(sortedHeaders[k]!);
       categories.value.push({
