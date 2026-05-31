@@ -20,6 +20,7 @@ export interface TableHeader {
   missingCount: number,
   type: string,
   categoryName: string,
+  selfhostFlag: boolean,
 }
 
 export interface QueryTableDataVo {

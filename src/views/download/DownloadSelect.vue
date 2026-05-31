@@ -11,9 +11,14 @@
           <n-card hoverable :title="table.name" @click="handleClickTable(table.id)" class="table-card"
             :bordered="false">
             <template #header-extra>
-              <n-tag type="info" round size="small">
-                {{ ((table.dataCount - table.missingCount) / table.dataCount * 100).toFixed(1) }}%
-              </n-tag>
+              <n-flex vertical>
+                <n-tag type="info" round size="small">
+                  {{ ((table.dataCount - table.missingCount) / table.dataCount * 100).toFixed(1) }}%
+                </n-tag>
+                {{ console.log(table) }}
+                <n-button v-if="table.selfhostFlag" size="tiny" @click.stop="handleCopyTableURL(table.id)">Copy
+                  url</n-button>
+              </n-flex>
             </template>
             <n-space vertical :size="8">
               <n-flex align="center">
@@ -87,6 +92,11 @@ function handleClickCategory({ name }: { name: string }) {
 
 function handleClickTable(id: number) {
   router.push(`/download/table/${id}`);
+}
+
+function handleCopyTableURL(id: number) {
+  const url = `https://gingerrush.com/api/v1/table/meta/header/${id}.json`
+  navigator.clipboard.writeText(url);
 }
 
 watch(() => route.params.type, (queryType) => {
