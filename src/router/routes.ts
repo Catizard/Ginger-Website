@@ -6,6 +6,11 @@ const mainRoutes: RouteRecordRaw[] = [
     redirect: "/download/list"
   },
   {
+    name: "missing",
+    path: "/missing",
+    component: () => import("../views/MissingSabunsView.vue")
+  },
+  {
     name: "about",
     path: "/about",
     component: () => import("../views/AboutView.vue"),

@@ -63,6 +63,24 @@ export interface DownloadableTableDataDto {
   downloadURL: string,
 }
 
+export interface MissingTableData {
+  id: number,
+  headerName: string,
+  headerSymbol: string,
+  headerID: number,
+  artist: string,
+  comment: string,
+  level: string,
+  sha256: string,
+  md5: string,
+  title: string,
+  url: string,
+}
+
+export interface QueryMissingTableDataVo {
+  pageRequest: PageRequest
+}
+
 export function selectHeaderList(query: QueryTableHeaderVo): Promise<TableHeader[]> {
   return request.post('/table/selectHeaderList', query)
 }
@@ -73,5 +91,9 @@ export function selectLevelEntries(id: number): Promise<TableLevelEntry[]> {
 
 export function selectDataList(query: QueryTableDataVo): Promise<PageResponse<DownloadableTableDataDto[]>> {
   return request.post('/table/selectDataList', query)
+}
+
+export function selectMissingSabunList(query: QueryMissingTableDataVo): Promise<PageResponse<MissingTableData[]>> {
+  return request.post("/table/selectMissingDataList", query)
 }
 

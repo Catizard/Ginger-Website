@@ -32,7 +32,6 @@ const columns: DataTableColumns<DownloadableTableDataDto> = [
       )
     }
   },
-  { title: t.value('artist'), key: "artist" },
   {
     title: t.value('size'), key: "fileSize",
     render(row) {

@@ -22,7 +22,8 @@ import {
   DownloadOutline,
   ListOutline,
   CalendarOutline,
-  FolderOutline
+  FolderOutline,
+  Help
 } from '@vicons/ionicons5';
 
 const router = useRouter();
@@ -63,8 +64,13 @@ const menuOptions = computed(() => [
         label: renderOption("/download/list", t.value("all")),
         key: '/download/list',
         icon: renderIcon(FolderOutline),
-      }
+      },
     ]
+  },
+  {
+    label: renderOption("/missing", t.value('missing')),
+    key: "/missing",
+    icon: renderIcon(Help),
   },
   {
     label: renderOption("/about", t.value('about')),

@@ -9,11 +9,11 @@
 </template>
 
 <script setup lang="ts">
-import type { DownloadableTableDataDto } from '@/api/table';
+import type { DownloadableTableDataDto, MissingTableData } from '@/api/table';
 import { WarningOutline } from '@vicons/ionicons5';
 
 const { data, lost } = defineProps<{
-  data: DownloadableTableDataDto,
+  data: DownloadableTableDataDto | MissingTableData,
   lost?: boolean
 }>();
 </script>

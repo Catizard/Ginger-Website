@@ -37,6 +37,9 @@ const messages = {
     uploadPackageStep1: '首先，你需要将 BMS 文件压缩成一个简单的压缩包。假设你想上传这个谱面（硬核機動），它是存储在你磁盘上的一个目录：',
     uploadPackageStep2: '你需要将整个目录（硬核機動）压缩成单个归档文件，并将其放在任何文件共享服务上。我建议使用 <a href="https://gofile.io">gofile</a>。',
     uploadPackageStep3: '打包完成后，你需要在 GitHub 上创建一个 ticket，或者更准确地说，在这个 GitHub 仓库中创建一个新 issue：<a href="https://github.com/Catizard/Ginger-Tracker">Ginger-Tracker</a>，之后一切都会处理妥当。',
+    missing: "缺失差分",
+    table: "难度表",
+    symbol: "标志"
   },
   en: {
     about: 'About',
@@ -72,6 +75,9 @@ const messages = {
     uploadPackageStep1: 'First, you\'ll have to compress your bms files into a simple compressed archive. Suppose you want to upload this package(硬核機動), it\'s a directory stored on your disk:',
     uploadPackageStep2: 'You need to compress the whole directory (硬核機動) into a single archive file, and put it on any file share service. I suggest using <a href="https://gofile.io">gofile</a>.',
     uploadPackageStep3: 'After packaging it, you\'ll need to open a ticket on github, or more accurately, open a new issue in this github repo: <a href="https://github.com/Catizard/Ginger-Tracker">Ginger-Tracker</a> and everything will be handled then.',
+    missing: "Missing",
+    table: "Table",
+    symbol: "Symbol"
   },
   ja: {
     about: '概要',
