@@ -113,10 +113,13 @@ const messages = {
     uploadPackageStep1: 'まず、BMS ファイルを単純な圧縮アーカイブに圧縮する必要があります。例えば、このパッケージ（硬核機動）をアップロードしたい場合、それはディスク上に保存されたディレクトリです：',
     uploadPackageStep2: 'ディレクトリ全体（硬核機動）を単一のアーカイブファイルに圧縮し、ファイル共有サービスにアップロードする必要があります。<a href="https://gofile.io">gofile</a> の使用を推奨します。',
     uploadPackageStep3: 'パッケージ化完成后、GitHub でチケットを作成する必要があります。より正確には、この GitHub リポジトリで新しい issue を作成してください：<a href="https://github.com/Catizard/Ginger-Tracker">Ginger-Tracker</a>。その後、すべて処理されます。',
+    missing: "欠落",
+    table: "表",
+    symbol: "符号"
   },
 };
 
-const currentLang = ref<Lang>('zh');
+const currentLang = ref<Lang>('en');
 
 export function useI18n() {
   const t = computed(() => (key: keyof typeof messages.zh) => {
