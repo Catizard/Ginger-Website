@@ -7,7 +7,7 @@ import { selectMissingSabunList, type MissingTableData } from '@/api/table';
 import SongTitleParagraph from '@/components/SongTitleParagraph.vue';
 import { useI18n } from '@/i18n';
 import { Link } from '@vicons/ionicons5';
-import { NButton, NIcon, NDataTable, type DataTableColumns } from 'naive-ui';
+import { NButton, NIcon, NDataTable, type DataTableColumns, NFlex, NDropdown } from 'naive-ui';
 import { reactive, ref, type Ref, type VNode } from 'vue';
 
 const { t } = useI18n();
@@ -25,6 +25,9 @@ const columns: DataTableColumns<MissingTableData> = [
     }
   },
   {
+    title: "md5", key: "md5"
+  },
+  {
     title: t.value('table'), key: "headerName",
   },
   {
@@ -40,11 +43,13 @@ const columns: DataTableColumns<MissingTableData> = [
         return null;
       }
       return (
-        <NButton type="info" round size='small' onClick={() => window.open(row.url, '')}>
-          <NIcon>
-            <Link />
-          </NIcon>
-        </NButton>
+        <NFlex>
+          <NButton type="info" round size='small' onClick={() => window.open(row.url, '')}>
+            <NIcon>
+              <Link />
+            </NIcon>
+          </NButton>
+        </NFlex>
       )
     }
   }
