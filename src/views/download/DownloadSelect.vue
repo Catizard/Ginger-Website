@@ -12,12 +12,13 @@
             :bordered="false">
             <template #header-extra>
               <n-flex vertical>
-                <n-tag type="info" round size="small">
+                <n-tag v-if="table.dataCount != table.missingCount" type="info" round size="small">
                   {{ ((table.dataCount - table.missingCount) / table.dataCount * 100).toFixed(1) }}%
                 </n-tag>
-                {{ console.log(table) }}
-                <n-button v-if="table.selfhostFlag" size="tiny" @click.stop="handleCopyTableURL(table.id)">Copy
-                  url</n-button>
+                <n-icon v-else :component="CheckmarkCircle" size="24" color="#0E7A0D" />
+                <n-button v-if="table.selfhostFlag" size="tiny" @click.stop="handleCopyTableURL(table.id)">
+                  Copy url
+                </n-button>
               </n-flex>
             </template>
             <n-space vertical :size="8">
@@ -42,10 +43,10 @@
 import { selectHeaderList, type TableHeader, type TableType } from "@/api/table";
 import { useI18n } from "@/i18n";
 import router from "@/router";
-import { ListOutline, MusicalNotesOutline } from "@vicons/ionicons5"
-import { computed, ref, watch, type Ref } from "vue";
+import { CheckmarkCircle, MusicalNotesOutline } from "@vicons/ionicons5"
+import { ref, watch, type Ref } from "vue";
 import { useRoute } from "vue-router";
-import { NCollapse } from "naive-ui";
+import { NCollapse, NIcon } from "naive-ui";
 
 const { t } = useI18n();
 const route = useRoute();
