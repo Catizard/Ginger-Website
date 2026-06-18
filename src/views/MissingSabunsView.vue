@@ -42,6 +42,7 @@ const columns: DataTableColumns<MissingTableData> = [
       if (!row.url) {
         return null;
       }
+      console.log(row.urlDiff);
       return (
         <NFlex>
           <NButton type="info" round size='small' onClick={() => window.open(row.url, '')}>
@@ -49,6 +50,15 @@ const columns: DataTableColumns<MissingTableData> = [
               <Link />
             </NIcon>
           </NButton>
+          {
+            row.urlDiff != null && row.urlDiff != "" && (
+              <NButton v-if={row.urlDiff != null && row.urlDiff != ""} type="tertiary" round size='small' onClick={() => window.open(row.urlDiff, '')}>
+                <NIcon>
+                  <Link />
+                </NIcon>
+              </NButton>
+            )
+          }
         </NFlex>
       )
     }

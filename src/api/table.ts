@@ -75,6 +75,7 @@ export interface MissingTableData {
   md5: string,
   title: string,
   url: string,
+  urlDiff: string,
 }
 
 export interface QueryMissingTableDataVo {
