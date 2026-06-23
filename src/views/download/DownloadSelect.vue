@@ -122,4 +122,8 @@ watch(() => route.params.type, (queryType) => {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
+
+:deep(.n-tag) {
+  justify-content: center;
+}
 </style>
