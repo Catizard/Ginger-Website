@@ -17,6 +17,10 @@ export default defineConfig({
       {
         find: "@",
         replacement: fileURLToPath(new URL("./src", import.meta.url)),
+      },
+      {
+        find: "@images",
+        replacement: fileURLToPath(new URL("./src/assets/images", import.meta.url)),
       }
     ]
   },

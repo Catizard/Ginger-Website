@@ -24,7 +24,8 @@ import {
   ListOutline,
   CalendarOutline,
   FolderOutline,
-  Help
+  Help,
+  BonfireOutline,
 } from '@vicons/ionicons5';
 
 const router = useRouter();
@@ -66,6 +67,11 @@ const menuOptions = computed(() => [
         icon: renderIcon(FolderOutline),
       },
     ]
+  },
+  {
+    label: renderOption("/integrations", t("integrations")),
+    key: "/integrations",
+    icon: renderIcon(BonfireOutline)
   },
   {
     label: renderOption("/missing", t('missing')),

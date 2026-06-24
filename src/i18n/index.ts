@@ -12,8 +12,6 @@ const messages = {
     all: '全部',
     search: '搜索...',
     back: '返回',
-    comingSoon: '即将推出',
-    comingSoonDesc: '按活动功能正在开发中，敬请期待！',
     aboutTitle: '关于 Ginger Rush',
     aboutDesc: 'Project Ginger-Rush 旨在成为 BMS 生态系统的多功能服务平台。',
     features: '功能',
@@ -40,7 +38,16 @@ const messages = {
     uploadPackageStep3: '打包完成后，你需要在 GitHub 上创建一个 ticket，或者更准确地说，在这个 GitHub 仓库中创建一个新 issue：<a href="https://github.com/Catizard/Ginger-Tracker">Ginger-Tracker</a>，之后一切都会处理妥当。',
     missing: "缺失差分",
     table: "难度表",
-    symbol: "标志"
+    symbol: "标志",
+    integrations: "整合",
+    desc: {
+      integrations: {
+        endlessdreamAfter0_4_0: "Ginger已内置于Endless Dream中，你只需切换下载源为ginger并且保持'Default Http Server URL' 和 'Override Http Server URL' 这两个选项原样即可",
+        endlessdream0_3_0AndBefore: "Ginger在该版本中还不存在，但是它可以作为wriggle的替代， 要使用它你需要先将下载源设置为wriggle并且将Ginger的URL放置到'Override Http Server URL'选项中，见下图",
+        lampghost: "Lampghost是一个同时支持Beatoraja和LR2的离线存档查看工具。 Ginger 在0.3.2版本之后作为一个可用的下载源添加了进去。 如果要下载它，见它的仓库的分发列表: ",
+        gingerdownloader: "GingerDownloader是一个专为从Ginger下载缺失的包而设计的工具。他也支持Beatoraja和LR2。但是相对的它更geek并且对于普通用户来说更难使用， 如果要下载它，见它的仓库的分发列表:  "
+      }
+    },
   },
   en: {
     about: 'About',
@@ -50,8 +57,6 @@ const messages = {
     all: 'All',
     search: 'Search...',
     back: 'Back',
-    comingSoon: 'Coming Soon',
-    comingSoonDesc: 'Event feature is under development, stay tuned!',
     aboutTitle: 'About Ginger Rush',
     aboutDesc: 'Project Ginger-Rush is aiming to serve as a multiple usage service of BMS ecosystem.',
     features: 'Features',
@@ -78,7 +83,16 @@ const messages = {
     uploadPackageStep3: 'After packaging it, you\'ll need to open a ticket on github, or more accurately, open a new issue in this github repo: <a href="https://github.com/Catizard/Ginger-Tracker">Ginger-Tracker</a> and everything will be handled then.',
     missing: "Missing",
     table: "Table",
-    symbol: "Symbol"
+    symbol: "Symbol",
+    integrations: "Integrations",
+    desc: {
+      integrations: {
+        endlessdreamAfter0_4_0: "Ginger is included in Endless Dream directly, to use it you need to switch the download source to ginger as below. Keep 'Default Http Server URL' and 'Override Http Server URL' as unchanged.",
+        endlessdream0_3_0AndBefore: "Ginger is not an usable download source in these versions. But it still can be used as a wriggle's replacement, to use it you need to configure your download source to wriggle, and put ginger's url in 'Override Http Server URL' as below",
+        lampghost: "Lampghost is an offline tool for both Beatoraja & LR2 users. Ginger is a choosable download source after 0.3.2. To download it see releases of its own repo: ",
+        gingerdownloader: "Ginger Downloader is a dedicated tool for downloading missing packages from ginger. It supports both beatoraja and LR2.Yet it's more geek and harder to use for casual users. To download it see releases of its own repo: "
+      }
+    },
   },
   ja: {
     about: '概要',
@@ -88,8 +102,6 @@ const messages = {
     all: 'すべて',
     search: '検索...',
     back: '戻る',
-    comingSoon: '近日公開',
-    comingSoonDesc: 'イベント機能は開発中です。お楽しみに！',
     aboutTitle: 'Ginger Rush について',
     aboutDesc: 'Project Ginger-Rush は、BMSエコシステムの多目的サービスを目指しています。',
     features: '機能',
@@ -116,7 +128,16 @@ const messages = {
     uploadPackageStep3: 'パッケージ化完成后、GitHub でチケットを作成する必要があります。より正確には、この GitHub リポジトリで新しい issue を作成してください：<a href="https://github.com/Catizard/Ginger-Tracker">Ginger-Tracker</a>。その後、すべて処理されます。',
     missing: "欠落",
     table: "表",
-    symbol: "符号"
+    symbol: "符号",
+    integrations: "統合",
+    desc: {
+      integrations: {
+        endlessdreamAfter0_4_0: "GingerはEndless Dreamに直接組み込まれています。これを使用するには、以下のようにダウンロードソースをgingerに切り替える必要があります。「Default Http Server URL」と「Override Http Server URL」は変更しないでください。",
+        endlessdream0_3_0AndBefore: "Endless Dream 0.3.0 以前のバージョンでは、Ginger は利用可能なダウンロードソースではありません。ただし、wriggle の代替として使用することは可能です。使用するには、ダウンロードソースを wriggle に設定し、下記のように 'Override Http Server URL' に Ginger の URL を入力してください。",
+        lampghost: "Lampghost は Beatoraja と LR2 の両方のユーザー向けのオフラインツールです。Ginger は 0.3.2 以降で選択可能なダウンロードソースになります。ダウンロードするには、専用のリポジトリのリリースページをご覧ください：",
+        gingerdownloader: "Ginger Downloader は、Ginger から欠落したパッケージをダウンロードするための専用ツールです。Beatoraja と LR2 の両方をサポートしています。ただし、よりマニア向けであり、一般ユーザーには使いにくい面があります。ダウンロードするには、専用のリポジトリのリリースページをご覧ください。"
+      }
+    }
   },
 };
 
