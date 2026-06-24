@@ -16,7 +16,7 @@ const loading = ref(false);
 const data: Ref<MissingTableData[]> = ref([]);
 const columns: DataTableColumns<MissingTableData> = [
   {
-    title: t('title'), key: "title",
+    title: t('columns.title'), key: "title",
     render: (row: MissingTableData): VNode => {
       // To not render the missing icon
       return (
@@ -28,21 +28,20 @@ const columns: DataTableColumns<MissingTableData> = [
     title: "md5", key: "md5"
   },
   {
-    title: t('table'), key: "headerName",
+    title: t('columns.table'), key: "headerName",
   },
   {
-    title: t('symbol'), key: "headerSymbol"
+    title: t('columns.symbol'), key: "headerSymbol"
   },
   {
-    title: t('level'), key: "level",
+    title: t('columns.level'), key: "level",
   },
   {
-    title: t('actions'), key: "actions",
+    title: t('columns.actions'), key: "actions",
     render: (row: MissingTableData): VNode | null => {
       if (!row.url) {
         return null;
       }
-      console.log(row.urlDiff);
       return (
         <NFlex>
           <NButton type="info" round size='small' onClick={() => window.open(row.url, '')}>

@@ -49,22 +49,22 @@ const pagination = reactive({
 });
 
 const columns = computed<DataTableColumns<FileEntryDto>>(() => [
-  { title: t('name'), key: "fileName" },
+  { title: t('columns.name'), key: "fileName" },
   {
-    title: t('size'), key: "fileSize",
+    title: t('columns.size'), key: "fileSize",
     render(row) {
       return humanFileSize(row.fileSize);
     }
   },
   {
-    title: t('actions'), key: "actions",
+    title: t('columns.actions'), key: "actions",
     render(row): VNode {
       return (
         <NButton type="info" round size="small" onClick={() => window.open(row.downloadURL, '_blank')}>
           <NIcon>
             <DownloadIcon />
           </NIcon>
-          {t('downloadBtn')}
+          {t('button.download')}
         </NButton>
       )
     }

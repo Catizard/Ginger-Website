@@ -7,7 +7,7 @@
             <ArrowBackOutline />
           </n-icon>
         </template>
-        {{ t('back') }}
+        {{ t('button.back') }}
       </n-button>
       <n-divider vertical />
       <n-text strong style="font-size: 18px;">{{ currentTableName }}</n-text>

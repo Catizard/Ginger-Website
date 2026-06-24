@@ -4,44 +4,44 @@
       <template #header>
         <n-flex align="center">
           <n-icon :component="InformationCircleOutline" size="24" color="var(--n-primary-color)" />
-          <n-text strong style="font-size: 20px;">{{ t('aboutTitle') }}</n-text>
+          <n-text strong style="font-size: 20px;">{{ t('title.about') }}</n-text>
         </n-flex>
       </template>
       <n-space vertical :size="16">
         <n-text style="line-height: 1.8;">
-          {{ t('aboutDesc') }}
+          {{ t('desc.about') }}
         </n-text>
         <n-divider />
         <n-space vertical :size="12">
           <n-flex align="center">
             <n-icon :component="DownloadOutline" size="20" color="var(--n-primary-color)" />
-            <n-text strong>{{ t('bmsDownload') }}</n-text>
+            <n-text strong>{{ t('title.bmsDownload') }}</n-text>
           </n-flex>
-          <n-text depth="3" style="margin-left: 28px;">{{ t('bmsDownloadDesc') }}</n-text>
+          <n-text depth="3" style="margin-left: 28px;">{{ t('desc.bmsDownload') }}</n-text>
         </n-space>
         <n-space vertical :size="12">
           <n-flex align="center">
             <n-icon :component="ListOutline" size="20" color="var(--n-primary-color)" />
-            <n-text strong>{{ t('tableBrowse') }}</n-text>
+            <n-text strong>{{ t('title.tableBrowse') }}</n-text>
           </n-flex>
-          <n-text depth="3" style="margin-left: 28px;">{{ t('tableBrowseDesc') }}</n-text>
+          <n-text depth="3" style="margin-left: 28px;">{{ t('desc.tableBrowse') }}</n-text>
         </n-space>
       </n-space>
     </n-card>
 
-    <n-card class="about-card" :bordered="false" title="Request to upload a package">
+    <n-card class="about-card" :bordered="false">
       <template #header>
         <n-flex align="center">
           <n-icon :component="CloudUploadOutline" size="24" color="var(--n-primary-color)" />
-          <n-text strong style="font-size: 20px;">{{ t('uploadPackageTitle') }}</n-text>
+          <n-text strong style="font-size: 20px;">{{ t('title.uploadPackage') }}</n-text>
         </n-flex>
       </template>
       <n-space vertical :size="16">
         <n-text style="line-height: 1.8;">
-          {{ t('uploadPackageDesc') }}
+          {{ t('desc.uploadPackage.overview') }}
         </n-text>
         <n-text style="line-height: 1.8;">
-          {{ t('uploadPackageStep1') }}
+          {{ t('desc.uploadPackage.step1') }}
         </n-text>
         <pre class="package-tree">
           硬核機動
@@ -57,8 +57,8 @@
           ├── 硬核機動[9KEYS-H].pms
           └── .......
         </pre>
-        <n-text style="line-height: 1.8;" v-html="t('uploadPackageStep2')"></n-text>
-        <n-text style="line-height: 1.8;" v-html="t('uploadPackageStep3')"></n-text>
+        <n-text style="line-height: 1.8;" v-html="t('desc.uploadPackage.step2')"></n-text>
+        <n-text style="line-height: 1.8;" v-html="t('desc.uploadPackage.step3')"></n-text>
       </n-space>
     </n-card>
 
@@ -66,7 +66,7 @@
       <template #header>
         <n-flex align="center">
           <n-icon :component="PeopleOutline" size="24" color="var(--n-primary-color)" />
-          <n-text strong style="font-size: 20px;">{{ t('contributors') }}</n-text>
+          <n-text strong style="font-size: 20px;">{{ t('title.contributors') }}</n-text>
         </n-flex>
       </template>
       <n-list>

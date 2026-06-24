@@ -29,7 +29,7 @@
               </n-flex>
               <n-flex align="center">
                 <n-icon :component="MusicalNotesOutline" size="16" color="var(--n-text-color-3)" />
-                <n-text depth="3" style="font-size: 13px;">{{ t('trackCount') }}: {{ table.dataCount }}</n-text>
+                <n-text depth="3" style="font-size: 13px;">{{ t('misc.trackCount') }}: {{ table.dataCount }}</n-text>
               </n-flex>
             </n-space>
           </n-card>

@@ -47,39 +47,39 @@ const langOptions = [
 
 const menuOptions = computed(() => [
   {
-    label: t('download'),
+    label: t('menu.download.download'),
     key: '/download',
     icon: renderIcon(DownloadOutline),
     children: [
       {
-        label: renderOption("/download/select/TABLE", t('byTable')),
+        label: renderOption("/download/select/TABLE", t('menu.download.byTable')),
         key: '/download/select/TABLE',
         icon: renderIcon(ListOutline),
       },
       {
-        label: renderOption("/download/select/EVENT", t('byEvent')),
+        label: renderOption("/download/select/EVENT", t('menu.download.byEvent')),
         key: '/download/select/EVENT',
         icon: renderIcon(CalendarOutline),
       },
       {
-        label: renderOption("/download/list", t("all")),
+        label: renderOption("/download/list", t("menu.download.all")),
         key: '/download/list',
         icon: renderIcon(FolderOutline),
       },
     ]
   },
   {
-    label: renderOption("/integrations", t("integrations")),
+    label: renderOption("/integrations", t("menu.integrations")),
     key: "/integrations",
     icon: renderIcon(BonfireOutline)
   },
   {
-    label: renderOption("/missing", t('missing')),
+    label: renderOption("/missing", t('menu.missing')),
     key: "/missing",
     icon: renderIcon(Help),
   },
   {
-    label: renderOption("/about", t('about')),
+    label: renderOption("/about", t('menu.about')),
     key: '/about',
     icon: renderIcon(InformationCircleOutline),
   },

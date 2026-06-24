@@ -25,7 +25,7 @@ const loading = ref(false);
 const data: Ref<DownloadableTableDataDto[]> = ref([]);
 const columns: DataTableColumns<DownloadableTableDataDto> = [
   {
-    title: t('title'), key: "title",
+    title: t('columns.title'), key: "title",
     render: (row: DownloadableTableDataDto): VNode => {
       return (
         <SongTitleParagraph lost={!row.downloadURL} data={row} />
@@ -33,13 +33,13 @@ const columns: DataTableColumns<DownloadableTableDataDto> = [
     }
   },
   {
-    title: t('size'), key: "fileSize",
+    title: t('columns.size'), key: "fileSize",
     render(row) {
       return humanFileSize(row.fileSize)
     }
   },
   {
-    title: t('actions'), key: "actions",
+    title: t('columns.actions'), key: "actions",
     render(row): VNode | null {
       if (!row.downloadURL) {
         return null;
@@ -49,7 +49,7 @@ const columns: DataTableColumns<DownloadableTableDataDto> = [
           <NIcon>
             <DownloadIcon />
           </NIcon>
-          {t('downloadBtn')}
+          {t('button.download')}
         </NButton>
       )
     }
