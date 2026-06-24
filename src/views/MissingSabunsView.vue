@@ -5,7 +5,7 @@
 <script setup lang="tsx">
 import { selectMissingSabunList, type MissingTableData } from '@/api/table';
 import SongTitleParagraph from '@/components/SongTitleParagraph.vue';
-import { useI18n } from '@/i18n';
+import { useI18n } from 'vue-i18n';
 import { Link } from '@vicons/ionicons5';
 import { NButton, NIcon, NDataTable, type DataTableColumns, NFlex, NDropdown } from 'naive-ui';
 import { reactive, ref, type Ref, type VNode } from 'vue';
@@ -16,7 +16,7 @@ const loading = ref(false);
 const data: Ref<MissingTableData[]> = ref([]);
 const columns: DataTableColumns<MissingTableData> = [
   {
-    title: t.value('title'), key: "title",
+    title: t('title'), key: "title",
     render: (row: MissingTableData): VNode => {
       // To not render the missing icon
       return (
@@ -28,16 +28,16 @@ const columns: DataTableColumns<MissingTableData> = [
     title: "md5", key: "md5"
   },
   {
-    title: t.value('table'), key: "headerName",
+    title: t('table'), key: "headerName",
   },
   {
-    title: t.value('symbol'), key: "headerSymbol"
+    title: t('symbol'), key: "headerSymbol"
   },
   {
-    title: t.value('level'), key: "level",
+    title: t('level'), key: "level",
   },
   {
-    title: t.value('actions'), key: "actions",
+    title: t('actions'), key: "actions",
     render: (row: MissingTableData): VNode | null => {
       if (!row.url) {
         return null;

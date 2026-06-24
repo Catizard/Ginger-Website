@@ -8,7 +8,7 @@
 import { reactive, ref, watch, type Ref, type VNode } from 'vue';
 import { NDataTable, type DataTableColumns, NButton, NIcon } from 'naive-ui';
 import { selectDataList, type DownloadableTableDataDto, type TableData } from '@/api/table';
-import { useI18n } from '@/i18n';
+import { useI18n } from 'vue-i18n';
 import { humanFileSize } from '@/utils/format';
 import { DownloadOutline as DownloadIcon } from "@vicons/ionicons5";
 import SongTitleParagraph from '@/components/SongTitleParagraph.vue';
@@ -25,7 +25,7 @@ const loading = ref(false);
 const data: Ref<DownloadableTableDataDto[]> = ref([]);
 const columns: DataTableColumns<DownloadableTableDataDto> = [
   {
-    title: t.value('title'), key: "title",
+    title: t('title'), key: "title",
     render: (row: DownloadableTableDataDto): VNode => {
       return (
         <SongTitleParagraph lost={!row.downloadURL} data={row} />
@@ -33,13 +33,13 @@ const columns: DataTableColumns<DownloadableTableDataDto> = [
     }
   },
   {
-    title: t.value('size'), key: "fileSize",
+    title: t('size'), key: "fileSize",
     render(row) {
       return humanFileSize(row.fileSize)
     }
   },
   {
-    title: t.value('actions'), key: "actions",
+    title: t('actions'), key: "actions",
     render(row): VNode | null {
       if (!row.downloadURL) {
         return null;
@@ -49,7 +49,7 @@ const columns: DataTableColumns<DownloadableTableDataDto> = [
           <NIcon>
             <DownloadIcon />
           </NIcon>
-          {t.value('downloadBtn')}
+          {t('downloadBtn')}
         </NButton>
       )
     }

@@ -41,7 +41,7 @@
 
 <script setup lang="ts">
 import { selectHeaderList, type TableHeader, type TableType } from "@/api/table";
-import { useI18n } from "@/i18n";
+import { useI18n } from "vue-i18n";
 import router from "@/router";
 import { CheckmarkCircle, MusicalNotesOutline } from "@vicons/ionicons5"
 import { ref, watch, type Ref } from "vue";

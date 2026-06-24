@@ -1,4 +1,5 @@
-import { ref, computed } from 'vue';
+import { createI18n } from "vue-i18n";
+import type { I18nOptions } from "vue-i18n";
 
 export type Lang = 'zh' | 'en' | 'ja';
 
@@ -119,24 +120,23 @@ const messages = {
   },
 };
 
-const currentLang = ref<Lang>('en');
-
-export function useI18n() {
-  const t = computed(() => (key: keyof typeof messages.zh) => {
-    return messages[currentLang.value][key] || messages.en[key] || key;
-  });
-
-  const setLang = (lang: Lang) => {
-    currentLang.value = lang;
-    localStorage.setItem('lang', lang);
-  };
-
-  const initLang = () => {
-    const saved = localStorage.getItem('lang') as Lang;
-    if (saved && messages[saved]) {
-      currentLang.value = saved;
-    }
-  };
-
-  return { t, currentLang, setLang, initLang };
+function getSavedLocale(): Lang {
+  return (localStorage.getItem('lang') as Lang) || 'en';
 }
+
+const i18n = createI18n<I18nOptions, 'en'>({
+  legacy: false,
+  locale: getSavedLocale(),
+  fallbackLocale: 'en',
+  messages,
+  missing: (locale, key) => {
+    return key;
+  },
+});
+
+export function setLocale(lang: Lang) {
+  (i18n.global.locale as any).value = lang;
+  localStorage.setItem('lang', lang);
+}
+
+export default i18n;

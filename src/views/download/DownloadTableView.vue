@@ -26,7 +26,7 @@ import { NButton, NIcon, NText } from 'naive-ui';
 import { type TableLevelEntry, selectLevelEntries } from '@/api/table';
 import { ref, type Ref, watch } from 'vue';
 import { ArrowBackOutline } from '@vicons/ionicons5';
-import { useI18n } from '@/i18n';
+import { useI18n } from "vue-i18n";
 import { useRoute } from 'vue-router';
 import router from '@/router';
 import TableDetail from './TableDetail.vue';

@@ -3,13 +3,11 @@ import App from './App.vue'
 import router from './router'
 import naive from 'naive-ui'
 import './assets/global.css'
-import { useI18n } from './i18n'
+import i18n from "./i18n";
 
 const app = createApp(App)
 
-const { initLang } = useI18n()
-initLang()
-
+app.use(i18n);
 app.use(router)
 app.use(naive)
 

@@ -23,7 +23,7 @@ import type { DataTableColumns } from 'naive-ui';
 import { reactive, ref, type Ref, type VNode, computed, watch, onMounted } from 'vue';
 import { DownloadOutline as DownloadIcon, SearchOutline } from '@vicons/ionicons5';
 import { humanFileSize } from '@/utils/format';
-import { useI18n } from '@/i18n';
+import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
 
@@ -49,22 +49,22 @@ const pagination = reactive({
 });
 
 const columns = computed<DataTableColumns<FileEntryDto>>(() => [
-  { title: t.value('name'), key: "fileName" },
+  { title: t('name'), key: "fileName" },
   {
-    title: t.value('size'), key: "fileSize",
+    title: t('size'), key: "fileSize",
     render(row) {
       return humanFileSize(row.fileSize);
     }
   },
   {
-    title: t.value('actions'), key: "actions",
+    title: t('actions'), key: "actions",
     render(row): VNode {
       return (
         <NButton type="info" round size="small" onClick={() => window.open(row.downloadURL, '_blank')}>
           <NIcon>
             <DownloadIcon />
           </NIcon>
-          {t.value('downloadBtn')}
+          {t('downloadBtn')}
         </NButton>
       )
     }

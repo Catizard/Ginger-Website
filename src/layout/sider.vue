@@ -7,13 +7,14 @@
     <n-menu :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" class="menu"
       defaultValue="/download/list" />
     <div class="lang-switch">
-      <n-select v-model:value="lang" :options="langOptions" size="small" />
+      <n-select @update:value="handleSelectLang" :defaultValue="locale" :options="langOptions" size="small" />
     </div>
   </n-layout-sider>
 </template>
 
 <script setup lang="ts">
-import { useI18n, type Lang } from '@/i18n';
+import { useI18n } from 'vue-i18n';
+import { setLocale, type Lang } from '@/i18n';
 import { NIcon } from 'naive-ui';
 import { computed, h, type Component } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
@@ -27,16 +28,15 @@ import {
 } from '@vicons/ionicons5';
 
 const router = useRouter();
-const { t, currentLang, setLang } = useI18n();
+const { t, locale } = useI18n();
+
+function handleSelectLang(lang: Lang) {
+  setLocale(lang);
+}
 
 function handleClickLogo() {
   router.push('/about');
 }
-
-const lang = computed({
-  get: () => currentLang.value,
-  set: (val: Lang) => setLang(val)
-});
 
 const langOptions = [
   { label: '中文', value: 'zh' },
@@ -46,34 +46,34 @@ const langOptions = [
 
 const menuOptions = computed(() => [
   {
-    label: t.value('download'),
+    label: t('download'),
     key: '/download',
     icon: renderIcon(DownloadOutline),
     children: [
       {
-        label: renderOption("/download/select/TABLE", t.value('byTable')),
+        label: renderOption("/download/select/TABLE", t('byTable')),
         key: '/download/select/TABLE',
         icon: renderIcon(ListOutline),
       },
       {
-        label: renderOption("/download/select/EVENT", t.value('byEvent')),
+        label: renderOption("/download/select/EVENT", t('byEvent')),
         key: '/download/select/EVENT',
         icon: renderIcon(CalendarOutline),
       },
       {
-        label: renderOption("/download/list", t.value("all")),
+        label: renderOption("/download/list", t("all")),
         key: '/download/list',
         icon: renderIcon(FolderOutline),
       },
     ]
   },
   {
-    label: renderOption("/missing", t.value('missing')),
+    label: renderOption("/missing", t('missing')),
     key: "/missing",
     icon: renderIcon(Help),
   },
   {
-    label: renderOption("/about", t.value('about')),
+    label: renderOption("/about", t('about')),
     key: '/about',
     icon: renderIcon(InformationCircleOutline),
   },
