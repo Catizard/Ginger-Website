@@ -32,7 +32,7 @@ export interface QueryTableDataVo {
 export interface TableLevelEntry {
   headerID: number,
   name: string,
-  level: string
+  level: string,
 }
 
 export interface TableData {
@@ -84,6 +84,10 @@ export interface QueryMissingTableDataVo {
 
 export function selectHeaderList(query: QueryTableHeaderVo): Promise<TableHeader[]> {
   return request.post('/table/selectHeaderList', query)
+}
+
+export function selectOneHeader(id: number): Promise<TableHeader> {
+  return request.get(`/table/selectOneHeader/${id}`)
 }
 
 export function selectLevelEntries(id: number): Promise<TableLevelEntry[]> {

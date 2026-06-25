@@ -12,20 +12,22 @@
           {{ t('desc.about') }}
         </n-text>
         <n-divider />
-        <n-space vertical :size="12">
-          <n-flex align="center">
-            <n-icon :component="DownloadOutline" size="20" color="var(--n-primary-color)" />
-            <n-text strong>{{ t('title.bmsDownload') }}</n-text>
+        <n-flex justify="start">
+          <n-flex vertical>
+            <n-flex>
+              <n-icon :component="DownloadOutline" size="20" color="var(--n-primary-color)" />
+              <n-text strong>{{ t('title.bmsDownload') }}</n-text>
+            </n-flex>
+            <n-text depth="3" style="margin-left: 32px;">{{ t('desc.bmsDownload') }}</n-text>
           </n-flex>
-          <n-text depth="3" style="margin-left: 28px;">{{ t('desc.bmsDownload') }}</n-text>
-        </n-space>
-        <n-space vertical :size="12">
-          <n-flex align="center">
-            <n-icon :component="ListOutline" size="20" color="var(--n-primary-color)" />
-            <n-text strong>{{ t('title.tableBrowse') }}</n-text>
+          <n-flex vertical>
+            <n-flex>
+              <n-icon :component="ListOutline" size="20" color="var(--n-primary-color)" />
+              <n-text strong>{{ t('title.tableBrowse') }}</n-text>
+            </n-flex>
+            <n-text depth="3" style="margin-left: 32px;">{{ t('desc.tableBrowse') }}</n-text>
           </n-flex>
-          <n-text depth="3" style="margin-left: 28px;">{{ t('desc.tableBrowse') }}</n-text>
-        </n-space>
+        </n-flex>
       </n-space>
     </n-card>
 
@@ -85,6 +87,7 @@
 <script setup lang="ts">
 import { InformationCircleOutline, DownloadOutline, ListOutline, PeopleOutline, CloudUploadOutline } from '@vicons/ionicons5';
 import { useI18n } from 'vue-i18n';
+import { NFlex } from 'naive-ui';
 
 const { t } = useI18n();
 
