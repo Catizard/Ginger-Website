@@ -1,21 +1,22 @@
+<!-- Render a table component of the package entries from server -->
 <template>
-  <n-input v-model:value="fileNameLike" style="width: 350px;"
-    placeholder="Search by package name, press enter to submit" @keyup.enter="loadData()" />
   <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
     :row-key="(row: FileEntryDto) => row.downloadURL" />
 </template>
 
-<script setup lang="tsx">
-import { NButton, NIcon } from 'naive-ui';
+<script lang="tsx" setup>
 import { findFileEntries, type FileEntryDto } from '@/api/files';
-import type { DataTableColumns } from 'naive-ui';
-import { reactive, ref, type Ref, type VNode } from 'vue';
+import { NButton, NIcon, type DataTableColumns } from 'naive-ui';
+import { reactive, ref, watch, type Ref, type VNode } from 'vue';
 import { DownloadOutline as DownloadIcon } from '@vicons/ionicons5';
 
-let loading = ref(false);
+const props = defineProps<{
+  tableID?: number | null,
+  fileNameLike?: string | null,
+}>()
 
+const loading: Ref<boolean> = ref(false);
 let data: Ref<Array<FileEntryDto>> = ref([]);
-const fileNameLike = ref(null);
 
 const pagination = reactive({
   page: 1,
@@ -58,18 +59,22 @@ const columns: DataTableColumns<FileEntryDto> = [
 
 function loadData() {
   loading.value = true;
+  console.log(props.fileNameLike);
+  console.log(props.tableID);
   findFileEntries({
     pageRequest: {
       page: pagination.page,
       pageSize: pagination.pageSize
     },
-    fileNameLike: fileNameLike.value ?? "",
-    md5: ""
+    fileNameLike: props.fileNameLike ?? null,
+    md5: "",
+    tableID: props.tableID,
   })
     .then(result => {
       if (result.data != null) {
         data.value = [...result.data];
         pagination.pageCount = result.pageCount;
+        console.log(result.data);
       }
     }).finally(() => { loading.value = false });
 }
@@ -107,5 +112,7 @@ function humanFileSize(bytes: number, si = false, dp = 1) {
   return bytes.toFixed(dp) + ' ' + units[u];
 }
 
-loadData();
+watch(() => props, () => {
+  loadData();
+}, { immediate: true });
 </script>

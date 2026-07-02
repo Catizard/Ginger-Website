@@ -13,62 +13,61 @@
       <n-text strong style="font-size: 18px;">{{ currentTableName }}</n-text>
     </n-space>
 
-    <n-collapse v-model:expanded-names="expandedLevels" class="styled-collapse">
-      <n-collapse-item v-for="entry in levelEntries" :key="entry.level" :name="entry.level"
-        :title="tableLevelTitle(entry)">
-        <TableDetail :table-id="tableID" :level="entry.level" />
-      </n-collapse-item>
-    </n-collapse>
+    <n-flex horizontal :wrap="false">
+      <n-radio-group v-model:value="viewingLevel">
+        <n-radio-button value="package" default-checked>
+          {{ "Package" }}
+        </n-radio-button>
+        <n-radio-button value="sabun">
+          {{ "Sabun" }}
+        </n-radio-button>
+      </n-radio-group>
+      <n-input :disabled="viewingLevel != 'package'" v-model:value="fileNameLike"
+        placeholder="Search by package name, press enter to submit" />
+    </n-flex>
+
+    <n-divider></n-divider>
+
+    <FileDataTable v-if="viewingLevel == 'package'" :tableID="tableID" :fileNameLike="fileNameLike" />
+    <LevelDataTable v-else :tableID="tableID" :tableName="currentTableName" :tableSymbol="currentTableSymbol" />
   </n-card>
 </template>
 
 <script setup lang="tsx">
 import { NButton, NIcon, NText } from 'naive-ui';
-import { type TableLevelEntry, selectLevelEntries, selectOneHeader } from '@/api/table';
-import { ref, type Ref, watch } from 'vue';
+import { computed, ref, type Ref, watch } from 'vue';
 import { ArrowBackOutline } from '@vicons/ionicons5';
 import { useI18n } from "vue-i18n";
 import { useRoute } from 'vue-router';
 import router from '@/router';
-import TableDetail from './TableDetail.vue';
+import FileDataTable from './components/FileDataTable.vue';
+import LevelDataTable from './components/LevelDataTable.vue';
+import { selectOneHeader, type TableHeader } from '@/api/table';
 
 const { t } = useI18n();
 const route = useRoute();
+
 const tableID: Ref<number | null> = ref(null);
 
-const currentTableName = ref('');
-const currentTableSymbol = ref('');
-const levelEntries: Ref<TableLevelEntry[]> = ref([]);
-const expandedLevels = ref<string[]>([]);
+type ViewingLevel = "package" | "sabun";
+const viewingLevel: Ref<ViewingLevel> = ref("package");
 
-async function loadData(id: number) {
-  try {
-    tableID.value = id;
-    const { name, symbol } = await selectOneHeader(id);
-    const levelEntriesRet = await selectLevelEntries(id);
+const fileNameLike: Ref<string | null> = ref(null);
+const currentTableHeader: Ref<TableHeader | null> = ref(null);
 
-    currentTableName.value = name;
-    currentTableSymbol.value = symbol;
-    levelEntries.value = [...levelEntriesRet];
-    if (levelEntriesRet.length > 0) {
-      const first = levelEntriesRet[0]!.level;
-      expandedLevels.value = [first];
-    }
-  } catch (ex) {
-    console.error(ex);
-  }
+async function loadData() {
+  const header = await selectOneHeader(tableID.value!!);
+  currentTableHeader.value = header;
 }
 
-function tableLevelTitle(entry: TableLevelEntry): string {
-  if (currentTableSymbol.value != "") {
-    return currentTableSymbol.value + entry.level;
-  }
-  return entry.level;
-}
+const currentTableName = computed(() => currentTableHeader.value?.name ?? "");
+const currentTableSymbol = computed(() => currentTableHeader.value?.symbol ?? "");
 
 watch(() => route.params.id, (newValue) => {
   if (typeof newValue === "string") {
-    loadData(Number.parseInt(newValue));
+    const id = Number.parseInt(newValue);
+    tableID.value = id;
+    loadData();
   } else {
     throw "No id passed"
   }
@@ -114,4 +113,9 @@ watch(() => route.params.id, (newValue) => {
 /* :deep(.n-data-table-wrapper) { */
 /*   border-radius: 8px; */
 /* } */
+
+.viewingPackageRadioGroup {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
 </style>

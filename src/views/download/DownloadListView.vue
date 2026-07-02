@@ -1,7 +1,6 @@
 <template>
   <div class="search-bar">
-    <n-input v-model:value="fileNameLike" :placeholder="t('search')" clearable class="search-input"
-      @keydown.enter="loadData">
+    <n-input v-model:value="fileNameLike" clearable class="search-input" @keydown.enter="loadData">
       <template #prefix>
         <n-icon>
           <SearchOutline />
@@ -11,8 +10,7 @@
   </div>
 
   <n-card class="download-card" :bordered="false">
-    <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-      :row-key="(row: FileEntryDto) => row.downloadURL" class="styled-table" />
+    <FileDataTable />
   </n-card>
 </template>
 
@@ -24,6 +22,8 @@ import { reactive, ref, type Ref, type VNode, computed, watch, onMounted } from 
 import { DownloadOutline as DownloadIcon, SearchOutline } from '@vicons/ionicons5';
 import { humanFileSize } from '@/utils/format';
 import { useI18n } from 'vue-i18n';
+import FileDataTable from './components/FileDataTable.vue';
+
 
 const { t } = useI18n();
 

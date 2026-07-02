@@ -3,9 +3,10 @@ import request from './client';
 import { type PageRequest, type PageResponse } from './page';
 
 export interface QueryFileEntryVo {
-  fileNameLike: String,
-  md5: String,
-  pageRequest: PageRequest
+  fileNameLike?: String | null,
+  md5?: String | null,
+  tableID?: number | null,
+  pageRequest: PageRequest,
 }
 
 export interface FileEntryDto {

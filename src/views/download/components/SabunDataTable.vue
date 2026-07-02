@@ -16,7 +16,7 @@ import SongTitleParagraph from '@/components/SongTitleParagraph.vue';
 const { t } = useI18n();
 
 const props = defineProps<{
-  tableId: number | null,
+  tableID: number | null,
   level: string | null,
 }>();
 
@@ -75,13 +75,13 @@ const pagination = reactive({
 
 
 function loadData() {
-  if (props.level == null || props.tableId == null) {
+  if (props.level == null || props.tableID == null) {
     return;
   }
   loading.value = true;
   selectDataList({
     level: props.level,
-    headerID: props.tableId,
+    headerID: props.tableID,
     pageRequest: pagination
   }).then(result => {
     console.log(result);
