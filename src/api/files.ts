@@ -3,8 +3,9 @@ import request from './client';
 import { type PageRequest, type PageResponse } from './page';
 
 export interface QueryFileEntryVo {
-  fileNameLike?: String | null,
-  md5?: String | null,
+  fileNameLike?: string | null,
+  fuzzyKeyword?: string | null,
+  md5?: string | null,
   tableID?: number | null,
   pageRequest: PageRequest,
 }

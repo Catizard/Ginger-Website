@@ -9,10 +9,12 @@ import { findFileEntries, type FileEntryDto } from '@/api/files';
 import { NButton, NIcon, type DataTableColumns } from 'naive-ui';
 import { reactive, ref, watch, type Ref, type VNode } from 'vue';
 import { DownloadOutline as DownloadIcon } from '@vicons/ionicons5';
+import { useDebounceFn } from '@vueuse/core';
 
 const props = defineProps<{
   tableID?: number | null,
   fileNameLike?: string | null,
+  fuzzyKeyword?: string | null,
 }>()
 
 const loading: Ref<boolean> = ref(false);
@@ -57,16 +59,16 @@ const columns: DataTableColumns<FileEntryDto> = [
   }
 ];
 
+const debouncedLoadData = useDebounceFn(loadData, 500);
+
 function loadData() {
-  loading.value = true;
-  console.log(props.fileNameLike);
-  console.log(props.tableID);
   findFileEntries({
     pageRequest: {
       page: pagination.page,
       pageSize: pagination.pageSize
     },
     fileNameLike: props.fileNameLike ?? null,
+    fuzzyKeyword: props.fuzzyKeyword ?? null,
     md5: "",
     tableID: props.tableID,
   })
@@ -74,7 +76,6 @@ function loadData() {
       if (result.data != null) {
         data.value = [...result.data];
         pagination.pageCount = result.pageCount;
-        console.log(result.data);
       }
     }).finally(() => { loading.value = false });
 }
@@ -112,7 +113,8 @@ function humanFileSize(bytes: number, si = false, dp = 1) {
   return bytes.toFixed(dp) + ' ' + units[u];
 }
 
-watch(() => props, () => {
-  loadData();
+watch([() => props.tableID, () => props.fuzzyKeyword, () => props.fileNameLike], () => {
+  loading.value = true;
+  debouncedLoadData();
 }, { immediate: true });
 </script>
