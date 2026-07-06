@@ -3,8 +3,10 @@ import request from './client';
 import { type PageRequest, type PageResponse } from './page';
 
 export interface QueryFileEntryVo {
-  fileNameLike?: string | null,
   fuzzyKeyword?: string | null,
+  fileNameLike?: string | null,
+  titleLike?: string | null,
+  artistLike?: string | null,
   md5?: string | null,
   tableID?: number | null,
   pageRequest: PageRequest,

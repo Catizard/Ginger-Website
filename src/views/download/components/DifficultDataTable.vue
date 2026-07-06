@@ -1,4 +1,16 @@
-<!-- Render a table component of the package entries from server -->
+<!-- 
+  Render a table component of a difficult table from server
+
+  Unlike LevelDataTable, this component renders a 'flatten' version of sabuns,
+    LevelDataTable is rendering a 2-levels table: first is levels, second is
+    sabuns under the level. This causes search under a difficult table cannot
+    be done. You simply cannot search cross 2 levels.
+
+  Therefore, DifficultDataTable is aiming to fix this problem by 'flatting'
+    the data from 2-levels to 1. Making the difficult level as a field instead
+    of a separated table. This allows us to search things under a difficult 
+    table.
+-->
 <template>
   <!-- Search Area -->
   <n-flex gap="8" vertical>
@@ -22,7 +34,6 @@
     </n-flex>
     <template v-if="useAdvancedSearch">
       <n-input-group>
-        <n-input v-model:value="fileNameLike" clearable :placeholder="t('placeholder.searchFuzzyFileName')" />
         <n-input v-model:value="titleLike" clearable :placeholder="t('placeholder.searchFuzzyTitle')" />
         <n-input v-model:value="artistLike" clearable :placeholder="t('placeholder.searchFuzzyArtist')" />
       </n-input-group>
@@ -30,7 +41,7 @@
   </n-flex>
 
   <!-- data table -->
-  <div style="margin-top: 8px">
+  <div style="margin-top: 8px;">
     <n-data-table v-if="disableCard" remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
       :row-key="(row: FileEntryDto) => row.downloadURL" />
     <n-card v-else>
@@ -41,32 +52,22 @@
 </template>
 
 <script lang="tsx" setup>
-import { findFileEntries, type FileEntryDto, type QueryFileEntryVo } from '@/api/files';
-import { NButton, NIcon, type DataTableColumns, NFlex, NInput } from 'naive-ui';
 import { reactive, ref, watch, type Ref, type VNode } from 'vue';
-import { DownloadOutline as DownloadIcon, SearchOutline as SearchIcon, ColorWandOutline as AdvancedSearchIcon } from '@vicons/ionicons5';
 import { debounce } from 'lodash-es';
+import { selectDataList, type DownloadableTableDataDto, type QueryTableDataVo } from '@/api/table';
+import type { FileEntryDto } from '@/api/files';
 import { useI18n } from 'vue-i18n';
+import { SearchOutline as SearchIcon, ColorWandOutline as AdvancedSearchIcon, DownloadOutline as DownloadIcon } from '@vicons/ionicons5';
+import { NButton, NIcon, type DataTableColumns } from 'naive-ui';
+import SongTitleParagraph from '@/components/SongTitleParagraph.vue';
 import { humanFileSize } from '@/utils/format';
 
-const { t } = useI18n();
 const props = defineProps<{
-  tableID?: number | null,
+  tableID: number | null,
   disableCard?: boolean
 }>();
 
-const loading: Ref<boolean> = ref(false);
-
-// searching parameters
-const fuzzyKeyword: Ref<string | null> = ref(null);
-const fileNameLike: Ref<string | null> = ref(null);
-const titleLike: Ref<string | null> = ref(null);
-const artistLike: Ref<string | null> = ref(null);
-
-// show advanced search tab?
-const useAdvancedSearch = ref(false);
-
-let data: Ref<Array<FileEntryDto>> = ref([]);
+const { t } = useI18n();
 
 const pagination = reactive({
   page: 1,
@@ -85,49 +86,68 @@ const pagination = reactive({
   }
 });
 
-const columns: DataTableColumns<FileEntryDto> = [
-  { title: "Name", key: "fileName" },
+const loading = ref(false);
+// searching parameters 
+const fuzzyKeyword: Ref<string | null> = ref(null);
+const titleLike: Ref<string | null> = ref(null);
+const artistLike: Ref<string | null> = ref(null);
+
+// show advanced search tab?
+const useAdvancedSearch = ref(false);
+
+let data: Ref<DownloadableTableDataDto[]> = ref([]);
+const columns: DataTableColumns<DownloadableTableDataDto> = [
   {
-    title: "Size", key: "fileSize",
-    render(row) {
-      return humanFileSize(row.fileSize);
+    title: t('columns.title'), key: "title",
+    render: (row: DownloadableTableDataDto): VNode => {
+      return (
+        <SongTitleParagraph lost={!row.downloadURL} data={row} />
+      )
     }
   },
   {
-    title: "Actions", key: "actions",
-    render(row): VNode {
+    title: t('columns.level'), key: "level",
+  },
+  {
+    title: t('columns.size'), key: "fileSize",
+    render(row) {
+      return humanFileSize(row.fileSize)
+    }
+  },
+  {
+    title: t('columns.actions'), key: "actions",
+    render(row): VNode | null {
+      if (!row.downloadURL) {
+        return null;
+      }
       return (
-        <NButton type="info" onClick={() => window.open(row.downloadURL, '_blank')}>
+        <NButton type="info" round size="small" onClick={() => window.open(row.downloadURL, '_blank')}>
           <NIcon>
             <DownloadIcon />
           </NIcon>
+          {t('button.download')}
         </NButton>
       )
     }
   }
 ];
 
-const debouncedLoadData = debounce(loadData, 500);
-
 function loadData() {
-  let query: QueryFileEntryVo = {
+  let query: QueryTableDataVo = {
     pageRequest: {
       page: pagination.page,
-      pageSize: pagination.pageSize
+      pageSize: pagination.pageSize,
     },
-
+    headerID: props.tableID!!,
     fuzzyKeyword: fuzzyKeyword.value ?? null,
-    md5: "",
-    tableID: props.tableID,
-  };
-
-  if (useAdvancedSearch.value) {
-    query.fileNameLike = fileNameLike.value ?? null;
-    query.titleLike = titleLike.value ?? null;
-    query.artistLike = artistLike.value ?? null;
   }
 
-  findFileEntries(query)
+  if (useAdvancedSearch.value) {
+    query.artistLike = artistLike.value ?? null;
+    query.titleLike = titleLike.value ?? null;
+  }
+
+  selectDataList(query)
     .then(result => {
       if (result.data != null) {
         data.value = [...result.data];
@@ -141,18 +161,11 @@ function clickSearch() {
   loadData();
 }
 
-watch([() => props.tableID, fuzzyKeyword, fileNameLike, titleLike, artistLike], () => {
+const debouncedLoadData = debounce(loadData, 500);
+
+watch([() => props.tableID, fuzzyKeyword, titleLike, artistLike], () => {
   loading.value = true;
   pagination.page = 1;
   debouncedLoadData();
 }, { immediate: true });
 </script>
-
-<style scoped>
-.download-card {
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
-  border: 1px solid var(--n-border-color, rgba(0, 0, 0, 0.06));
-  overflow: hidden;
-}
-</style>

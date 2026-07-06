@@ -51,7 +51,14 @@ const messages = {
     },
     button: {
       back: '返回',
-      download: "下载"
+      download: "下载",
+      search: "搜索"
+    },
+    placeholder: {
+      searchFuzzyKeyword: "根据文件名，标题或艺术家搜索",
+      searchFuzzyFileName: "根据文件名搜索",
+      searchFuzzyTitle: "根据标题搜索",
+      searchFuzzyArtist: "根据艺术家搜索"
     },
     misc: {
       trackCount: '曲目数',
@@ -105,6 +112,13 @@ const messages = {
     button: {
       back: 'Back',
       download: "Download",
+      search: "Search"
+    },
+    placeholder: {
+      searchFuzzyKeyword: "Search by file name, title or artist",
+      searchFuzzyFileName: "Search by file name",
+      searchFuzzyTitle: "Search by title",
+      searchFuzzyArtist: "Search by artist"
     },
     misc: {
       trackCount: 'Track Count',
@@ -158,6 +172,13 @@ const messages = {
     button: {
       back: '戻る',
       download: 'ダウンロード',
+      search: "検索"
+    },
+    placeholder: {
+      searchFuzzyKeyword: "ファイル名、タイトル、またはアーティストで検索",
+      searchFuzzyFileName: "ファイル名で検索",
+      searchFuzzyTitle: "タイトルで検索",
+      searchFuzzyArtist: "アーティストで検索"
     },
     misc: {
       trackCount: '収録曲数',

@@ -12,10 +12,11 @@
             :bordered="false">
             <template #header-extra>
               <n-flex vertical>
-                <n-tag v-if="table.dataCount != table.missingCount" type="info" round size="small">
-                  {{ ((table.dataCount - table.missingCount) / table.dataCount * 100).toFixed(1) }}%
+                <n-icon v-if="table.missingCount == 0 && table.dataCount != 0" :component="CheckmarkCircle" size="24"
+                  color="#0E7A0D" />
+                <n-tag v-else type="info" round size="small">
+                  {{ ((table.dataCount - table.missingCount) * 100 / table.dataCount).toFixed(1) }}%
                 </n-tag>
-                <n-icon v-else :component="CheckmarkCircle" size="24" color="#0E7A0D" />
                 <n-button v-if="table.selfhostFlag" size="tiny" @click.stop="handleCopyTableURL(table.id)">
                   Copy url
                 </n-button>

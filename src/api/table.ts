@@ -26,7 +26,10 @@ export interface TableHeader {
 export interface QueryTableDataVo {
   pageRequest: PageRequest,
   headerID: number,
-  level: string
+  level?: string | null,
+  fuzzyKeyword?: string | null,
+  titleLike?: string | null,
+  artistLike?: string | null,
 }
 
 export interface TableLevelEntry {

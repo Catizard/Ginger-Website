@@ -22,14 +22,12 @@
           {{ "Sabun" }}
         </n-radio-button>
       </n-radio-group>
-      <n-input :disabled="viewingLevel != 'package'" v-model:value="fileNameLike"
-        placeholder="Search by package name, press enter to submit" />
     </n-flex>
 
     <n-divider></n-divider>
 
-    <FileDataTable v-if="viewingLevel == 'package'" :tableID="tableID" :fileNameLike="fileNameLike" />
-    <LevelDataTable v-else :tableID="tableID" :tableName="currentTableName" :tableSymbol="currentTableSymbol" />
+    <FileDataTable v-if="viewingLevel == 'package'" :tableID="tableID" disableCard />
+    <DifficultDataTable v-else :tableID="tableID" disableCard />
   </n-card>
 </template>
 
@@ -41,8 +39,9 @@ import { useI18n } from "vue-i18n";
 import { useRoute } from 'vue-router';
 import router from '@/router';
 import FileDataTable from './components/FileDataTable.vue';
-import LevelDataTable from './components/LevelDataTable.vue';
 import { selectOneHeader, type TableHeader } from '@/api/table';
+import DifficultDataTable from './components/DifficultDataTable.vue';
+
 
 const { t } = useI18n();
 const route = useRoute();
@@ -52,7 +51,6 @@ const tableID: Ref<number | null> = ref(null);
 type ViewingLevel = "package" | "sabun";
 const viewingLevel: Ref<ViewingLevel> = ref("package");
 
-const fileNameLike: Ref<string | null> = ref(null);
 const currentTableHeader: Ref<TableHeader | null> = ref(null);
 
 async function loadData() {
@@ -61,7 +59,6 @@ async function loadData() {
 }
 
 const currentTableName = computed(() => currentTableHeader.value?.name ?? "");
-const currentTableSymbol = computed(() => currentTableHeader.value?.symbol ?? "");
 
 watch(() => route.params.id, (newValue) => {
   if (typeof newValue === "string") {
