@@ -48,6 +48,7 @@ import { DownloadOutline as DownloadIcon, SearchOutline as SearchIcon, ColorWand
 import { debounce } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
 import { humanFileSize } from '@/utils/format';
+import SongDataTable from './SongDataTable.vue';
 
 const { t } = useI18n();
 const props = defineProps<{
@@ -86,6 +87,15 @@ const pagination = reactive({
 });
 
 const columns: DataTableColumns<FileEntryDto> = [
+  {
+    type: "expand",
+    renderExpand(row: FileEntryDto): VNode {
+      console.log(row);
+      return (
+        <SongDataTable entryID={row.id} />
+      )
+    }
+  },
   { title: "Name", key: "fileName" },
   {
     title: "Size", key: "fileSize",

@@ -13,6 +13,7 @@ export interface QueryFileEntryVo {
 }
 
 export interface FileEntryDto {
+  id: number,
   shardMD5: string,
   fileName: string,
   fileSize: number,
