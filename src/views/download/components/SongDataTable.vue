@@ -1,6 +1,6 @@
 <!-- Renders the songs under a file on server -->
 <template>
-  <n-data-table :columns="columns" :data="data" :pagination="pagination" />
+  <n-data-table :columns="columns" :data="data" :pagination="pagination" :rowKey="(sd: SongData) => sd.id" />
 </template>
 
 <script setup lang="tsx">
@@ -27,17 +27,21 @@ const columns: DataTableColumns<SongData> = [
       )
     }
   },
-
 ];
 
 const pagination = reactive({
   page: 1,
   pageSize: 5,
-  pageCount: 0,
   showSizePicker: true,
   pageSizes: [5, 10, 20],
+  onChange: (page: number) => {
+    pagination.page = page;
+  },
+  onUpdatePageSize: (pageSize: number) => {
+    pagination.pageSize = pageSize;
+    pagination.page = 1;
+  }
 });
-
 
 async function loadData() {
   loading.value = true;
