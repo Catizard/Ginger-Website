@@ -61,6 +61,7 @@ import { SearchOutline as SearchIcon, ColorWandOutline as AdvancedSearchIcon, Do
 import { NButton, NIcon, type DataTableColumns } from 'naive-ui';
 import SongTitleParagraph from '@/components/SongTitleParagraph.vue';
 import { humanFileSize } from '@/utils/format';
+import DownloadButton from './DownloadButton.vue';
 
 const props = defineProps<{
   tableID: number | null,
@@ -121,12 +122,7 @@ const columns: DataTableColumns<DownloadableTableDataDto> = [
         return null;
       }
       return (
-        <NButton type="info" round size="small" onClick={() => window.open(row.downloadURL, '_blank')}>
-          <NIcon>
-            <DownloadIcon />
-          </NIcon>
-          {t('button.download')}
-        </NButton>
+        <DownloadButton downloadURL={row.downloadURL} />
       )
     }
   }

@@ -44,11 +44,12 @@
 import { findFileEntries, type FileEntryDto, type QueryFileEntryVo } from '@/api/files';
 import { NButton, NIcon, type DataTableColumns, NFlex, NInput } from 'naive-ui';
 import { reactive, ref, watch, type Ref, type VNode } from 'vue';
-import { DownloadOutline as DownloadIcon, SearchOutline as SearchIcon, ColorWandOutline as AdvancedSearchIcon } from '@vicons/ionicons5';
+import { SearchOutline as SearchIcon, ColorWandOutline as AdvancedSearchIcon } from '@vicons/ionicons5';
 import { debounce } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
 import { humanFileSize } from '@/utils/format';
 import SongDataTable from './SongDataTable.vue';
+import DownloadButton from './DownloadButton.vue';
 
 const { t } = useI18n();
 const props = defineProps<{
@@ -107,11 +108,7 @@ const columns: DataTableColumns<FileEntryDto> = [
     title: "Actions", key: "actions",
     render(row): VNode {
       return (
-        <NButton type="info" onClick={() => window.open(row.downloadURL, '_blank')}>
-          <NIcon>
-            <DownloadIcon />
-          </NIcon>
-        </NButton>
+        <DownloadButton downloadURL={row.downloadURL} />
       )
     }
   }
