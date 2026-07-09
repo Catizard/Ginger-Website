@@ -21,6 +21,10 @@ export interface TableHeader {
   type: string,
   categoryName: string,
   selfhostFlag: boolean,
+  tagName: string,
+  tagColor: string,
+  tagTextColor: string,
+  tagComment: string | null,
 }
 
 export interface QueryTableDataVo {

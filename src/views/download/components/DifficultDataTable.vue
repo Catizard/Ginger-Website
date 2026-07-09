@@ -54,7 +54,7 @@
 <script lang="tsx" setup>
 import { reactive, ref, watch, type Ref, type VNode } from 'vue';
 import { debounce } from 'lodash-es';
-import { selectDataList, type DownloadableTableDataDto, type QueryTableDataVo } from '@/api/table';
+import { selectDataList, type DownloadableTableDataDto, type QueryTableDataVo, type TableHeader } from '@/api/table';
 import type { FileEntryDto } from '@/api/files';
 import { useI18n } from 'vue-i18n';
 import { SearchOutline as SearchIcon, ColorWandOutline as AdvancedSearchIcon, DownloadOutline as DownloadIcon } from '@vicons/ionicons5';
@@ -62,9 +62,11 @@ import { NButton, NIcon, type DataTableColumns } from 'naive-ui';
 import SongTitleParagraph from '@/components/SongTitleParagraph.vue';
 import { humanFileSize } from '@/utils/format';
 import DownloadButton from './DownloadButton.vue';
+import ColorTag from '@/components/ColorTag.vue';
 
 const props = defineProps<{
   tableID: number | null,
+  header: TableHeader | null,
   disableCard?: boolean
 }>();
 
@@ -108,6 +110,16 @@ const columns: DataTableColumns<DownloadableTableDataDto> = [
   },
   {
     title: t('columns.level'), key: "level",
+    render(row: DownloadableTableDataDto): VNode {
+      return (
+        <ColorTag
+          name={tagName(row.level)}
+          color={tagColor()}
+          textColor={tagTextColor()}
+          comment={tagComment()}
+        />
+      )
+    }
   },
   {
     title: t('columns.size'), key: "fileSize",
@@ -158,6 +170,26 @@ function clickSearch() {
 }
 
 const debouncedLoadData = debounce(loadData, 500);
+
+function tagName(level: string): string {
+  if (props.header == null || props.header.tagName == "") {
+    return level;
+  }
+  console.log('in tagName, level: ', level, "tagName: ", props.header.tagName)
+  return `${props.header.tagName}${level}`;
+}
+
+function tagColor(): string | null {
+  return props.header?.tagColor ?? null;
+}
+
+function tagTextColor(): string | null {
+  return props.header?.tagTextColor ?? null;
+}
+
+function tagComment(): string | null {
+  return props.header?.tagComment ?? null;
+}
 
 watch([() => props.tableID, fuzzyKeyword, titleLike, artistLike], () => {
   loading.value = true;

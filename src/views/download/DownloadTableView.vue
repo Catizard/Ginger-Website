@@ -27,7 +27,7 @@
     <n-divider></n-divider>
 
     <FileDataTable v-if="viewingLevel == 'package'" :tableID="tableID" disableCard />
-    <DifficultDataTable v-else :tableID="tableID" disableCard />
+    <DifficultDataTable v-else :tableID="tableID" :header="currentTableHeader" disableCard />
   </n-card>
 </template>
 
