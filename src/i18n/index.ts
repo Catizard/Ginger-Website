@@ -1,3 +1,4 @@
+import { bindTagToTable } from "@/api/tags";
 import { createI18n } from "vue-i18n";
 import type { I18nOptions } from "vue-i18n";
 
@@ -29,6 +30,17 @@ const messages = {
         byEvent: '按活动',
         all: '全部',
       },
+      admin: {
+        table: {
+          table: "难度表",
+          manage: "管理",
+          category: "分组"
+        },
+        tag: {
+          tag: "颜色标签",
+          manage: "管理"
+        }
+      },
       integrations: "整合",
       about: '关于',
       missing: "缺失差分",
@@ -41,6 +53,12 @@ const messages = {
       symbol: "标志",
       level: '难度',
       name: '名称',
+      missingCount: "缺失差分数",
+      dataCount: "差分总数",
+      tag: "标签",
+      category: "分类组",
+      orderIndex: "排序索引",
+      preview: "预览"
     },
     title: {
       about: '关于 Ginger Rush',
@@ -48,11 +66,24 @@ const messages = {
       tableBrowse: '难度表浏览',
       uploadPackage: '申请上传谱面包',
       contributors: '贡献者',
+      admin: {
+        tableManage: "难度表管理",
+        refreshTableCoverage: "你确定你真的要刷新这个表的覆盖率吗?",
+        tableCategoryManage: "难度表分类组管理",
+        deleteTag: "删除颜色标签"
+      },
+      bindTagToTable: "绑定一个标签到该难度表",
+      editTableHeader: "修改难度表信息",
+      newColorTag: "新建颜色标签",
+      newTableCategory: "新建分类组"
     },
     button: {
       back: '返回',
       download: "下载",
-      search: "搜索"
+      search: "搜索",
+      yes: "确认",
+      delete: "删除",
+      newTag: "创建新的颜色标签"
     },
     placeholder: {
       searchFuzzyKeyword: "根据文件名，标题或艺术家搜索",
@@ -62,6 +93,26 @@ const messages = {
     },
     misc: {
       trackCount: '曲目数',
+      table: {
+        event: "活动包",
+        table: "普通包",
+        selfHost: "自主维护",
+        external: "外部导入"
+      }
+    },
+    dialog: {
+      importTable: {
+        success: "导入难度表成功"
+      },
+      requestSent: "请求已发送, 如果你想看到提交后的数据, 请稍后刷新页面查看"
+    },
+    form: {
+      name: "名称",
+      symbol: "标志",
+      category: "分类组",
+      tagColor: "标签颜色",
+      tagTextColor: "文本颜色",
+      tagComment: "注释"
     }
   },
   en: {
@@ -89,6 +140,17 @@ const messages = {
         byEvent: 'By Event',
         all: 'All',
       },
+      admin: {
+        table: {
+          table: "Table",
+          manage: "Manage",
+          category: "Category"
+        },
+        tag: {
+          tag: "Color Tag",
+          manage: "Manage"
+        }
+      },
       integrations: "Integrations",
       about: 'About',
       missing: "Missing",
@@ -101,6 +163,14 @@ const messages = {
       symbol: "Symbol",
       level: 'Level',
       name: 'Name',
+      missingCount: "Missing Count",
+      dataCount: "Data Count",
+      type: "Type",
+      selfHost: "Self Host",
+      tag: "Tag",
+      category: "Category",
+      orderIndex: "Order Index",
+      preview: "Preview"
     },
     title: {
       about: 'About Ginger Rush',
@@ -108,11 +178,30 @@ const messages = {
       tableBrowse: 'Difficulty Table Browser',
       uploadPackage: 'Request to upload a package',
       contributors: 'Contributors',
+      admin: {
+        tableManage: "Manage Difficult Tables",
+        importTableFromURL: "Import Table From URL",
+        refreshTableCoverage: "Do you really want to update this table's coverage?",
+        categoryManage: "Manage Table Categories",
+        deleteTag: "Delete this color tag"
+      },
+      bindTagToTable: "Bind a color tag to this table",
+      editTableHeader: "Edit Table Info",
+      newColorTag: "Create color tag",
+      newTableCategory: "Create category"
     },
     button: {
       back: 'Back',
       download: "Download",
-      search: "Search"
+      search: "Search",
+      import: "Import",
+      cancel: "Cancel",
+      submit: "Submit",
+      yes: "Yes",
+      delete: "Delete",
+      newCategory: "New Category",
+      sortCategories: "Sort Categories",
+      newTag: "New Color Tag"
     },
     placeholder: {
       searchFuzzyKeyword: "Search by file name, title or artist",
@@ -122,6 +211,26 @@ const messages = {
     },
     misc: {
       trackCount: 'Track Count',
+      table: {
+        event: "Event",
+        table: "Table",
+        selfHost: "Self Host",
+        external: "External"
+      }
+    },
+    dialog: {
+      importTable: {
+        success: "Importing difficult table successfully"
+      },
+      requestSent: "Request has been sent. If you want to see the data change, refresh the page later"
+    },
+    form: {
+      name: "Name",
+      symbol: "Symbol",
+      category: "Category",
+      tagColor: "Tag Color",
+      tagTextColor: "Text Color",
+      tagComment: "Comment"
     }
   },
   ja: {

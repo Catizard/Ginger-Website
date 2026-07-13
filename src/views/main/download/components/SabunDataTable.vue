@@ -10,8 +10,8 @@ import { NDataTable, type DataTableColumns, NButton, NIcon } from 'naive-ui';
 import { selectDataList, type DownloadableTableDataDto, type TableData } from '@/api/table';
 import { useI18n } from 'vue-i18n';
 import { humanFileSize } from '@/utils/format';
-import { DownloadOutline as DownloadIcon } from "@vicons/ionicons5";
 import SongTitleParagraph from '@/components/SongTitleParagraph.vue';
+import { icons } from "@/utils/icons";
 
 const { t } = useI18n();
 
@@ -46,8 +46,7 @@ const columns: DataTableColumns<DownloadableTableDataDto> = [
       }
       return (
         <NButton type="info" round size="small" onClick={() => window.open(row.downloadURL, '_blank')}>
-          <NIcon>
-            <DownloadIcon />
+          <NIcon component={icons.download}>
           </NIcon>
           {t('button.download')}
         </NButton>
@@ -72,7 +71,6 @@ const pagination = reactive({
     loadData();
   }
 });
-
 
 function loadData() {
   if (props.level == null || props.tableID == null) {

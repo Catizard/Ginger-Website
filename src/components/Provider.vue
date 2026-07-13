@@ -7,6 +7,7 @@
           <n-message-provider>
             <n-dialog-provider>
               <slot />
+              <Message />
             </n-dialog-provider>
           </n-message-provider>
         </n-loading-bar-provider>
@@ -16,6 +17,7 @@
 </template>
 
 <script lang="ts" setup>
+import Message from './Message.vue';
 
 //const osTheme = useOsTheme();
 //const theme = computed(() => (osTheme.value == "dark" ? darkTheme : null));

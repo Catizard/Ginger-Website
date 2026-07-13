@@ -18,3 +18,7 @@ export function humanFileSize(bytes: number, si = false, dp = 1): string {
 
   return bytes.toFixed(dp) + ' ' + units[u];
 }
+
+export function withinCoverage(a: number, b: number): string {
+  return ((a - b) * 100 / a).toFixed(1) + "%";
+}

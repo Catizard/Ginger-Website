@@ -15,7 +15,7 @@
                 <n-icon v-if="table.missingCount == 0 && table.dataCount != 0" :component="CheckmarkCircle" size="24"
                   color="#0E7A0D" />
                 <n-tag v-else type="info" round size="small">
-                  {{ ((table.dataCount - table.missingCount) * 100 / table.dataCount).toFixed(1) }}%
+                  {{ withinCoverage(table.dataCount, table.missingCount) }}
                 </n-tag>
                 <n-button v-if="table.selfhostFlag" size="tiny" @click.stop="handleCopyTableURL(table.id)">
                   Copy url
@@ -41,13 +41,14 @@
 </template>
 
 <script setup lang="ts">
-import { selectHeaderList, type TableHeader, type TableType } from "@/api/table";
+import { selectHeaderListWithFullInfo, type TableHeader, type TableType } from "@/api/table";
 import { useI18n } from "vue-i18n";
 import router from "@/router";
 import { CheckmarkCircle, MusicalNotesOutline } from "@vicons/ionicons5"
 import { ref, watch, type Ref } from "vue";
 import { useRoute } from "vue-router";
 import { NCollapse, NIcon } from "naive-ui";
+import { withinCoverage } from "@/utils/format";
 
 const { t } = useI18n();
 const route = useRoute();
@@ -62,7 +63,7 @@ const expandedCategories: Ref<string[]> = ref([]);
 
 async function loadTableList(queryType: TableType) {
   try {
-    const headers = await selectHeaderList({ type: queryType });
+    const headers = await selectHeaderListWithFullInfo({ type: queryType });
     const sortedHeaders = headers.sort((lhs, rhs) => lhs.categoryName.localeCompare(rhs.categoryName));
     categories.value = [];
     for (let i = 0; i < sortedHeaders.length; ++i) {

@@ -5,7 +5,7 @@ import { type PageRequest, type PageResponse } from "./page";
 export type TableType = "TABLE" | "EVENT";
 
 export interface QueryTableHeaderVo {
-  type: TableType;
+  type?: TableType;
 }
 
 export interface TableHeader {
@@ -18,9 +18,11 @@ export interface TableHeader {
   levelOrders: string,
   dataCount: number,
   missingCount: number,
-  type: string,
+  type: "TABLE" | "EVENT",
+  categoryID: number,
   categoryName: string,
   selfhostFlag: boolean,
+  tagID: number,
   tagName: string,
   tagColor: string,
   tagTextColor: string,
@@ -85,12 +87,29 @@ export interface MissingTableData {
   urlDiff: string,
 }
 
+export interface UpdateTableHeaderVo {
+  id: number,
+  name: string,
+  categoryID: number,
+  symbol: String
+}
+
 export interface QueryMissingTableDataVo {
   pageRequest: PageRequest
 }
 
+export interface SwitchTableFlagsVo {
+  id: number,
+  type?: boolean,
+  selfhostFlag?: boolean,
+}
+
 export function selectHeaderList(query: QueryTableHeaderVo): Promise<TableHeader[]> {
   return request.post('/table/selectHeaderList', query)
+}
+
+export function selectHeaderListWithFullInfo(query: QueryTableHeaderVo): Promise<TableHeader[]> {
+  return request.post('/table/selectHeaderListWithFullInfo', query)
 }
 
 export function selectOneHeader(id: number): Promise<TableHeader> {
@@ -109,3 +128,14 @@ export function selectMissingSabunList(query: QueryMissingTableDataVo): Promise<
   return request.post("/table/selectMissingDataList", query)
 }
 
+export function deleteTable(id: number): Promise<void> {
+  return request.get(`/admin/table/delete/${id}`);
+}
+
+export function updateTableHeader(updateParam: UpdateTableHeaderVo): Promise<void> {
+  return request.post("/admin/table/update/header", updateParam);
+}
+
+export function switchTableFlags(flags: SwitchTableFlagsVo): Promise<void> {
+  return request.post("/admin/table/switchFlags", flags);
+}

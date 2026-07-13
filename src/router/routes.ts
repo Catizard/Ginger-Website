@@ -8,47 +8,76 @@ const mainRoutes: RouteRecordRaw[] = [
   {
     name: "missing",
     path: "/missing",
-    component: () => import("../views/MissingSabunsView.vue")
+    component: () => import("../views/main/MissingSabunsView.vue")
   },
   {
     name: "about",
     path: "/about",
-    component: () => import("../views/AboutView.vue"),
+    component: () => import("../views/main/AboutView.vue"),
   },
   {
     name: "integrations",
     path: "/integrations",
-    component: () => import("../views/Integrations.vue"),
+    component: () => import("../views/main/Integrations.vue"),
   },
   {
     name: "download-list",
     path: "/download/list",
-    component: () => import("../views/download/DownloadListView.vue"),
+    component: () => import("../views/main/download/DownloadListView.vue"),
   },
   {
     name: "download-select",
     path: "/download/select/:type",
-    component: () => import("../views/download/DownloadSelect.vue"),
+    component: () => import("../views/main/download/DownloadSelect.vue"),
   },
   {
     name: "download-table",
     path: "/download/table/:id",
-    component: () => import("../views/download/DownloadTableView.vue")
+    component: () => import("../views/main/download/DownloadTableView.vue")
+  }
+];
+
+const adminRoutes: RouteRecordRaw[] = [
+  {
+    name: "admin-table-manage",
+    path: "/admin/table/manage",
+    component: () => import("../views/admin/table/Manage.vue")
+  },
+  {
+    name: "admin-table-category",
+    path: "/admin/table/category",
+    component: () => import("../views/admin/table/Category.vue")
+  },
+  {
+    name: "admin-tag-manage",
+    path: "/admin/tag/manage",
+    component: () => import("../views/admin/tag/Manage.vue")
   }
 ];
 
 const routes: RouteRecordRaw[] = [
   {
     name: "not-found",
-    path: "/:path*",
     component: () => import("../views/ErrorPage.vue"),
+    path: "/:path*",
   },
   {
-    name: "layout",
+    name: "main-entrance",
     path: "/",
-    component: () => import("../layout/index.vue"),
+    component: () => import("../views/main/layout/index.vue"),
     children: [...mainRoutes],
   },
+  {
+    name: "admin-entrance",
+    path: "/admin",
+    component: () => import("../views/admin/layout/index.vue"),
+    children: [...adminRoutes],
+  },
+  {
+    name: "admin-login",
+    path: "/admin/login",
+    component: () => import("../views/admin/Login.vue")
+  }
 ];
 
 export default routes;
