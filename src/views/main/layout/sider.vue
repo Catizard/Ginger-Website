@@ -79,8 +79,8 @@ const menuOptions = computed(() => [
     icon: renderIcon(Help),
   },
   {
-    label: renderOption("/about", t('menu.about')),
-    key: '/about',
+    label: renderOption("/faq", t('menu.faq')),
+    key: '/faq',
     icon: renderIcon(InformationCircleOutline),
   },
 ]);

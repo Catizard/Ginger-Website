@@ -52,6 +52,11 @@ const menuOptions = computed(() => [
         label: renderOption("/admin/table/category", t('menu.admin.table.category')),
         key: '/admin/table/category',
         icon: renderIcon(ListOutline)
+      },
+      {
+        label: renderOption("/admin/table/special", t("menu.admin.table.special")),
+        key: "/admin/table/special",
+        icon: renderIcon(ListOutline)
       }
     ]
   },

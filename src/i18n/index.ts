@@ -1,4 +1,3 @@
-import { bindTagToTable } from "@/api/tags";
 import { createI18n } from "vue-i18n";
 import type { I18nOptions } from "vue-i18n";
 
@@ -13,7 +12,7 @@ const messages = {
         lampghost: "Lampghost是一个同时支持Beatoraja和LR2的离线存档查看工具。 Ginger 在0.3.2版本之后作为一个可用的下载源添加了进去。 如果要下载它，见它的仓库的分发列表: ",
         gingerdownloader: "GingerDownloader是一个专为从Ginger下载缺失的包而设计的工具。他也支持Beatoraja和LR2。但是相对的它更geek并且对于普通用户来说更难使用， 如果要下载它，见它的仓库的分发列表:  "
       },
-      about: 'Project Ginger-Rush 旨在成为 BMS 生态系统的多功能服务平台。',
+      about: '欢迎来到 GingerRush，试试在上面的输入框输入点什么开始搜索BMS。GingerRush是一个为BMS社区架设的简单并稳定的下载站。你也可以按难度表或活动的等级来查看服务器上的包和差分。如果你有关于GingerRush的问题，可以先看看FAQ栏。如果FAQ没有覆盖到你的问题，你可以通过下面的信息联系我们',
       bmsDownload: '提供 BMS 谱面包的下载服务',
       tableBrowse: '查看和筛选各类难度表',
       uploadPackage: {
@@ -44,6 +43,7 @@ const messages = {
       integrations: "整合",
       about: '关于',
       missing: "缺失差分",
+      faq: "FAQ"
     },
     columns: {
       title: '标题',
@@ -66,16 +66,22 @@ const messages = {
       tableBrowse: '难度表浏览',
       uploadPackage: '申请上传谱面包',
       contributors: '贡献者',
+      codeContributors: "代码贡献者",
+      specialThanks: "特别致谢",
       admin: {
         tableManage: "难度表管理",
         refreshTableCoverage: "你确定你真的要刷新这个表的覆盖率吗?",
         tableCategoryManage: "难度表分类组管理",
-        deleteTag: "删除颜色标签"
+        deleteTag: "删除颜色标签",
+        specialTables: "特别标注难度表管理"
       },
       bindTagToTable: "绑定一个标签到该难度表",
       editTableHeader: "修改难度表信息",
       newColorTag: "新建颜色标签",
-      newTableCategory: "新建分类组"
+      newTableCategory: "新建分类组",
+      specialTables: "常用难度表",
+      specialEvents: "最近活动",
+      welcome: "欢迎"
     },
     button: {
       back: '返回',
@@ -83,7 +89,9 @@ const messages = {
       search: "搜索",
       yes: "确认",
       delete: "删除",
-      newTag: "创建新的颜色标签"
+      newTag: "创建新的颜色标签",
+      new: "创建",
+      seeMore: "查看所有"
     },
     placeholder: {
       searchFuzzyKeyword: "根据文件名，标题或艺术家搜索",
@@ -123,7 +131,7 @@ const messages = {
         lampghost: "Lampghost is an offline tool for both Beatoraja & LR2 users. Ginger is a choosable download source after 0.3.2. To download it see releases of its own repo: ",
         gingerdownloader: "Ginger Downloader is a dedicated tool for downloading missing packages from ginger. It supports both beatoraja and LR2.Yet it's more geek and harder to use for casual users. To download it see releases of its own repo: "
       },
-      about: 'Project Ginger-Rush is aiming to serve as a multiple usage service of BMS ecosystem.',
+      about: "Welcome to GingerRush, try typing something in the inputbox above to begin searching. GingerRush is a simple and stable package download service for BMS community. You can also view the packages and sabuns presented on this server at table or event level. If you have questions about GingerRush, check FAQ section. If the FAQ section doesn't answer your question, you can reach us by the information below",
       bmsDownload: 'Download service for BMS packages',
       tableBrowse: 'Browse and filter various difficulty tables',
       uploadPackage: {
@@ -154,6 +162,7 @@ const messages = {
       integrations: "Integrations",
       about: 'About',
       missing: "Missing",
+      faq: "FAQ"
     },
     columns: {
       title: "Title",
@@ -178,17 +187,23 @@ const messages = {
       tableBrowse: 'Difficulty Table Browser',
       uploadPackage: 'Request to upload a package',
       contributors: 'Contributors',
+      codeContributors: "Code Contributors",
+      specialThanks: "Special Thanks",
       admin: {
         tableManage: "Manage Difficult Tables",
         importTableFromURL: "Import Table From URL",
         refreshTableCoverage: "Do you really want to update this table's coverage?",
         categoryManage: "Manage Table Categories",
-        deleteTag: "Delete this color tag"
+        deleteTag: "Delete this color tag",
+        specialTablesManage: "Manage Special Tables"
       },
       bindTagToTable: "Bind a color tag to this table",
       editTableHeader: "Edit Table Info",
       newColorTag: "Create color tag",
-      newTableCategory: "Create category"
+      newTableCategory: "Create category",
+      specialTables: "Commonly Used Tables",
+      specialEvents: "Recent Activity",
+      welcome: "Welcome"
     },
     button: {
       back: 'Back',
@@ -201,7 +216,9 @@ const messages = {
       delete: "Delete",
       newCategory: "New Category",
       sortCategories: "Sort Categories",
-      newTag: "New Color Tag"
+      newTag: "New Color Tag",
+      new: "Create",
+      seeMore: "See More"
     },
     placeholder: {
       searchFuzzyKeyword: "Search by file name, title or artist",

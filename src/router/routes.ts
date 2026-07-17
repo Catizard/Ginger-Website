@@ -11,9 +11,9 @@ const mainRoutes: RouteRecordRaw[] = [
     component: () => import("../views/main/MissingSabunsView.vue")
   },
   {
-    name: "about",
-    path: "/about",
-    component: () => import("../views/main/AboutView.vue"),
+    name: "faq",
+    path: "/faq",
+    component: () => import("../views/main/FAQ.vue"),
   },
   {
     name: "integrations",
@@ -42,6 +42,11 @@ const adminRoutes: RouteRecordRaw[] = [
     name: "admin-table-manage",
     path: "/admin/table/manage",
     component: () => import("../views/admin/table/Manage.vue")
+  },
+  {
+    name: "admin-table-special",
+    path: "/admin/table/special",
+    component: () => import("../views/admin/table/Special.vue")
   },
   {
     name: "admin-table-category",

@@ -4,7 +4,7 @@
   <n-flex gap="8" vertical>
     <n-flex gap="8" horizontal :wrap="false">
       <n-input-group>
-        <n-input v-model:value="fuzzyKeyword" clearable :placeholder="t('placeholder.searchFuzzyKeyword')">
+        <n-input v-model:value="fuzzyKeyword" clearable :placeholder="t('placeholder.searchFuzzyKeyword')" autofocus>
           <template #prefix>
             <n-icon :component="SearchIcon" />
           </template>
@@ -29,8 +29,8 @@
     </template>
   </n-flex>
 
-  <!-- data table -->
-  <div style="margin-top: 8px">
+  <!-- data table, auto hide itself if no data -->
+  <div style="margin-top: 8px" v-if="data.length > 0">
     <n-data-table v-if="disableCard" remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
       :row-key="(row: FileEntryDto) => row.downloadURL" />
     <n-card v-else>
@@ -152,7 +152,7 @@ watch([() => props.tableID, fuzzyKeyword, fileNameLike, titleLike, artistLike], 
   loading.value = true;
   pagination.page = 1;
   debouncedLoadData();
-}, { immediate: true });
+});
 </script>
 
 <style scoped>
