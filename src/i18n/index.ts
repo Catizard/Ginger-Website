@@ -1,7 +1,7 @@
 import { createI18n } from "vue-i18n";
 import type { I18nOptions } from "vue-i18n";
 
-export type Lang = 'zh' | 'en' | 'ja';
+export type Lang = 'zh' | 'en';
 
 const messages = {
   zh: {
@@ -248,66 +248,6 @@ const messages = {
       tagColor: "Tag Color",
       tagTextColor: "Text Color",
       tagComment: "Comment"
-    }
-  },
-  ja: {
-    menu: {
-      download: {
-        download: 'ダウンロード',
-        byTable: '難易度表から探す',
-        byEvent: 'イベントから探す',
-        all: 'すべて',
-      },
-      integrations: "統合",
-      about: '概要',
-      missing: "欠落",
-    },
-    desc: {
-      integrations: {
-        endlessdreamAfter0_4_0: "GingerはEndless Dreamに直接組み込まれています。これを使用するには、以下のようにダウンロードソースをgingerに切り替える必要があります。「Default Http Server URL」と「Override Http Server URL」は変更しないでください。",
-        endlessdream0_3_0AndBefore: "Endless Dream 0.3.0 以前のバージョンでは、Ginger は利用可能なダウンロードソースではありません。ただし、wriggle の代替として使用することは可能です。使用するには、ダウンロードソースを wriggle に設定し、下記のように 'Override Http Server URL' に Ginger の URL を入力してください。",
-        lampghost: "Lampghost は Beatoraja と LR2 の両方のユーザー向けのオフラインツールです。Ginger は 0.3.2 以降で選択可能なダウンロードソースになります。ダウンロードするには、専用のリポジトリのリリースページをご覧ください：",
-        gingerdownloader: "Ginger Downloader は、Ginger から欠落したパッケージをダウンロードするための専用ツールです。Beatoraja と LR2 の両方をサポートしています。ただし、よりマニア向けであり、一般ユーザーには使いにくい面があります。ダウンロードするには、専用のリポジトリのリリースページをご覧ください。"
-      },
-      about: 'Project Ginger-Rush は、BMSエコシステムの多目的サービスを目指しています。',
-      bmsDownload: 'BMS譜面パッケージのダウンロードサービス',
-      tableBrowse: '様々な難易度表の閲覧・フィルタリング',
-      uploadPackage: {
-        overview: 'Ginger Rush に収録されていない BMS パッケージがある場合、アップロードをリクエストできます。',
-        step1: 'まず、BMS ファイルを単純な圧縮アーカイブに圧縮する必要があります。例えば、このパッケージ（硬核機動）をアップロードしたい場合、それはディスク上に保存されたディレクトリです：',
-        step2: 'ディレクトリ全体（硬核機動）を単一のアーカイブファイルに圧縮し、ファイル共有サービスにアップロードする必要があります。<a href="https://gofile.io">gofile</a> の使用を推奨します。',
-        step3: 'パッケージ化完成后、GitHub でチケットを作成する必要があります。より正確には、この GitHub リポジトリで新しい issue を作成してください：<a href="https://github.com/Catizard/Ginger-Tracker">Ginger-Tracker</a>。その後、すべて処理されます。',
-      },
-    },
-    columns: {
-      title: 'タイトル',
-      size: 'サイズ',
-      actions: '操作',
-      table: "表",
-      symbol: "符号",
-      level: 'レベル',
-      name: '名称',
-    },
-    title: {
-      about: 'Ginger Rush について',
-      bmsDownload: 'BMS 譜面ダウンロード',
-      tableBrowse: '難易度表ブラウザ',
-      uploadPackage: '譜面アップロードのリクエスト',
-      contributors: 'コントリビューター',
-    },
-    button: {
-      back: '戻る',
-      download: 'ダウンロード',
-      search: "検索"
-    },
-    placeholder: {
-      searchFuzzyKeyword: "ファイル名、タイトル、またはアーティストで検索",
-      searchFuzzyFileName: "ファイル名で検索",
-      searchFuzzyTitle: "タイトルで検索",
-      searchFuzzyArtist: "アーティストで検索"
-    },
-    misc: {
-      trackCount: '収録曲数',
     }
   },
 };

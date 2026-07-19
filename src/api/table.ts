@@ -6,6 +6,7 @@ export type TableType = "TABLE" | "EVENT";
 
 export interface QueryTableHeaderVo {
   type?: TableType;
+  headerIDs?: number[] | null;
 }
 
 export interface TableHeader {

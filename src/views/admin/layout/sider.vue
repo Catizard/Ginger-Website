@@ -34,7 +34,6 @@ function handleClickLogo() {
 const langOptions = [
   { label: '中文', value: 'zh' },
   { label: 'English', value: 'en' },
-  { label: '日本語', value: 'ja' },
 ];
 
 const menuOptions = computed(() => [
