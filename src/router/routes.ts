@@ -57,6 +57,11 @@ const adminRoutes: RouteRecordRaw[] = [
     name: "admin-tag-manage",
     path: "/admin/tag/manage",
     component: () => import("../views/admin/tag/Manage.vue")
+  },
+  {
+    name: "admin-files-log",
+    path: "/admin/files/log",
+    component: () => import("../views/admin/files/FileLogs.vue")
   }
 ];
 

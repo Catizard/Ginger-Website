@@ -38,6 +38,10 @@ const messages = {
         tag: {
           tag: "颜色标签",
           manage: "管理"
+        },
+        files: {
+          filesStorage: "文件存储",
+          log: "日志"
         }
       },
       integrations: "整合",
@@ -157,6 +161,10 @@ const messages = {
         tag: {
           tag: "Color Tag",
           manage: "Manage"
+        },
+        files: {
+          filesStorage: "File Storage",
+          log: "Logs"
         }
       },
       integrations: "Integrations",
@@ -179,7 +187,8 @@ const messages = {
       tag: "Tag",
       category: "Category",
       orderIndex: "Order Index",
-      preview: "Preview"
+      preview: "Preview",
+      time: "Time"
     },
     title: {
       about: 'About Ginger Rush',

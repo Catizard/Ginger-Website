@@ -10,4 +10,5 @@ export interface PageResponse<T> {
   pageCount: number,
   data: T | null
   pageSize: number,
+  total: number
 }

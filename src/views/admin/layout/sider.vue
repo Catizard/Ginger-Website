@@ -70,6 +70,18 @@ const menuOptions = computed(() => [
         icon: renderIcon(ListOutline),
       }
     ]
+  },
+  {
+    label: t('menu.admin.files.filesStorage'),
+    key: "admin/files",
+    icon: renderIcon(DownloadOutline),
+    children: [
+      {
+        label: renderOption("/admin/files/log", t('menu.admin.files.log')),
+        key: "/admin/files/log",
+        icon: renderIcon(ListOutline)
+      }
+    ]
   }
 ]);
 

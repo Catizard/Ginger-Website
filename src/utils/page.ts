@@ -1,6 +1,7 @@
-import { reactive } from "vue";
+import type { PaginationProps } from "naive-ui";
+import { reactive, type Reactive } from "vue";
 
-export function createPagination(load: (() => void) | undefined = undefined): any {
+export function createPagination(load: (() => void) | undefined = undefined): Reactive<PaginationProps> {
   const raw = {
     page: 1,
     pageSize: 10,

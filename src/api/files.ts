@@ -20,6 +20,21 @@ export interface FileEntryDto {
   downloadURL: string,
 }
 
+export interface FileLog {
+  id: number,
+  fileName: string,
+  fileSize: number,
+  createTime: number,
+}
+
+export interface QueryFileLogVo {
+  pageRequest: PageRequest,
+}
+
 export function findFileEntries(query: QueryFileEntryVo): Promise<PageResponse<FileEntryDto[]>> {
   return request.post('/files/selectList', query);
+}
+
+export function selectFileLogs(query: QueryFileLogVo): Promise<PageResponse<FileLog[]>> {
+  return request.post('/files/selectLogList', query);
 }
