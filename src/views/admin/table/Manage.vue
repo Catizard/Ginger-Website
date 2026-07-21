@@ -215,6 +215,7 @@ function handleClickDeleteTable(headerID: number) {
       loading = true;
       try {
         deleteTable(headerID);
+        loadData();
       } finally {
         loading = false;
       }
@@ -240,6 +241,7 @@ function handleClickSwitchTableType(headerID: number) {
           id: headerID,
           type: true,
         });
+        loadData();
       } finally {
         loading = false;
       }
@@ -261,6 +263,7 @@ function handleClickSwitchTableSelfHostFlag(headerID: number) {
           id: headerID,
           selfhostFlag: true,
         });
+        loadData();
       } finally {
         loading = false;
       }
