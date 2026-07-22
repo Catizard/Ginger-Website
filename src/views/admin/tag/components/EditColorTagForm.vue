@@ -8,10 +8,10 @@
         <n-input v-model:value="modelRef.tagName" />
       </n-form-item>
       <n-form-item :label="t('form.tagColor')">
-        <n-color-picker modes="hex" v-model:value="modelRef.tagColor" />
+        <n-color-picker :modes="['hex']" v-model:value="modelRef.tagColor" />
       </n-form-item>
       <n-form-item :label="t('form.tagTextColor')">
-        <n-color-picker modes="hex" v-model:value="modelRef.tagTextColor" />
+        <n-color-picker :modes="['hex']" v-model:value="modelRef.tagTextColor" />
       </n-form-item>
       <n-form-item :label="t('form.tagComment')">
         <n-input v-model:value="modelRef.tagComment" />
