@@ -1,4 +1,4 @@
-import { ArrowForward, DownloadOutline, InformationOutline, PencilOutline, RefreshOutline, SwapHorizontalOutline } from "@vicons/ionicons5";
+import { ArrowForward, DownloadOutline, InformationOutline, PencilOutline, RefreshOutline, RemoveOutline, SwapHorizontalOutline } from "@vicons/ionicons5";
 import { WavingHandOutlined } from "@vicons/material";
 
 export const icons = {
@@ -8,5 +8,6 @@ export const icons = {
   switch: SwapHorizontalOutline,
   forward: ArrowForward,
   welcome: WavingHandOutlined,
-  info: InformationOutline
+  info: InformationOutline,
+  delete: RemoveOutline
 }

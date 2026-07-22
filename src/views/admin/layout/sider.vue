@@ -77,6 +77,11 @@ const menuOptions = computed(() => [
     icon: renderIcon(DownloadOutline),
     children: [
       {
+        label: renderOption("/admin/files/manage", t('menu.admin.files.manage')),
+        key: "/admin/files/manage",
+        icon: renderIcon(ListOutline)
+      },
+      {
         label: renderOption("/admin/files/log", t('menu.admin.files.log')),
         key: "/admin/files/log",
         icon: renderIcon(ListOutline)

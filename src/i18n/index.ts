@@ -1,3 +1,4 @@
+import { fullDeleteFile } from "@/api/files";
 import { createI18n } from "vue-i18n";
 import type { I18nOptions } from "vue-i18n";
 
@@ -41,7 +42,8 @@ const messages = {
         },
         files: {
           filesStorage: "文件存储",
-          log: "日志"
+          log: "日志",
+          manage: "管理"
         }
       },
       integrations: "整合",
@@ -77,7 +79,9 @@ const messages = {
         refreshTableCoverage: "你确定你真的要刷新这个表的覆盖率吗?",
         tableCategoryManage: "难度表分类组管理",
         deleteTag: "删除颜色标签",
-        specialTables: "特别标注难度表管理"
+        specialTables: "特别标注难度表管理",
+        filesManage: "文件管理",
+        fullDeleteFile: "完全删除文件"
       },
       bindTagToTable: "绑定一个标签到该难度表",
       editTableHeader: "修改难度表信息",
@@ -164,7 +168,8 @@ const messages = {
         },
         files: {
           filesStorage: "File Storage",
-          log: "Logs"
+          log: "Logs",
+          manage: "Manage"
         }
       },
       integrations: "Integrations",
@@ -204,7 +209,9 @@ const messages = {
         refreshTableCoverage: "Do you really want to update this table's coverage?",
         categoryManage: "Manage Table Categories",
         deleteTag: "Delete this color tag",
-        specialTablesManage: "Manage Special Tables"
+        specialTablesManage: "Manage Special Tables",
+        filesManage: "Manage Files",
+        fullDeleteFile: "Fully Delete File"
       },
       bindTagToTable: "Bind a color tag to this table",
       editTableHeader: "Edit Table Info",

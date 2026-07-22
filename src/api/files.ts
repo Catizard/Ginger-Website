@@ -9,6 +9,8 @@ export interface QueryFileEntryVo {
   artistLike?: string | null,
   md5?: string | null,
   tableID?: number | null,
+  orderBy?: string | null,
+  orderDirection?: "ASC" | "DESC" | null,
   pageRequest: PageRequest,
 }
 
@@ -37,4 +39,8 @@ export function findFileEntries(query: QueryFileEntryVo): Promise<PageResponse<F
 
 export function selectFileLogs(query: QueryFileLogVo): Promise<PageResponse<FileLog[]>> {
   return request.post('/files/selectLogList', query);
+}
+
+export function fullDeleteFile(id: number): Promise<void> {
+  return request.get(`/admin/files/fullDelete/${id}`)
 }

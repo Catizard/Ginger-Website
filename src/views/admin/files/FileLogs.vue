@@ -1,7 +1,7 @@
 <!-- Render the logs of updating or deleting files on the server -->
 <template>
   <TitleWithButtons :title="t('title.admin.fileLogs')" />
-  <n-data-table :loading="loading" :data="data" :pagination="pagination" :columns="columns" />
+  <n-data-table remote :loading="loading" :data="data" :pagination="pagination" :columns="columns" />
 </template>
 
 <script setup lang="tsx">
@@ -47,7 +47,7 @@ async function loadData() {
       },
     });
     if (logs.data != null) {
-      pagination.itemCount = logs.total;
+      pagination.pageCount = logs.pageCount;
       data.value = [...logs.data];
     }
   } finally {
