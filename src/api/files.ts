@@ -21,6 +21,7 @@ export interface FileEntryDto {
   fileSize: number,
   createTime: number,
   downloadURL: string,
+  fileManifest: Map<string, number>
 }
 
 export interface FileLog {

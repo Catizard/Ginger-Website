@@ -1,6 +1,6 @@
 <!-- Manage the files on the server, you can also view this component as the internal version of FileDataTable -->
 <template>
-  <TitleWithButtons :title="t('title.admin.filesManage')"></TitleWithButtons>
+  <TitleWithButtons :title="t('title.admin.filesManage')" />
   <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
     :row-key="(row: FileEntryDto) => row.downloadURL" @update:sorter="handleUpdateSorter" />
 </template>
@@ -15,6 +15,7 @@ import SongDataTable from '@/views/main/download/components/SongDataTable.vue';
 import { humanFileSize } from '@/utils/format';
 import { createPagination } from '@/utils/page';
 import { Convert, type Sorter } from '@/api/sorter';
+import FileName from '@/components/FileName.vue';
 
 const { t } = useI18n();
 const dialog = useDialog();
@@ -32,7 +33,14 @@ const columns: DataTableColumns<FileEntryDto> = [
       )
     }
   },
-  { title: t('columns.name'), key: "fileName" },
+  {
+    title: t('columns.name'), key: "fileName",
+    render(row: FileEntryDto): VNode {
+      return (
+        <FileName fileEntry={row} />
+      )
+    }
+  },
   {
     title: t('columns.size'), key: "fileSize", sorter: true,
     render(row) {

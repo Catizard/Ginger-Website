@@ -50,6 +50,7 @@ import { useI18n } from 'vue-i18n';
 import { humanFileSize } from '@/utils/format';
 import SongDataTable from './SongDataTable.vue';
 import DownloadButton from './DownloadButton.vue';
+import FileName from '@/components/FileName.vue';
 
 const { t } = useI18n();
 const props = defineProps<{
@@ -97,15 +98,20 @@ const columns: DataTableColumns<FileEntryDto> = [
       )
     }
   },
-  { title: "Name", key: "fileName" },
   {
-    title: "Size", key: "fileSize",
+    title: t('columns.name'), key: "fileName",
+    render(row: FileEntryDto): VNode {
+      return <FileName fileEntry={row} />
+    }
+  },
+  {
+    title: t('columns.size'), key: "fileSize",
     render(row) {
       return humanFileSize(row.fileSize);
     }
   },
   {
-    title: "Actions", key: "actions",
+    title: t('columns.actions'), key: "actions",
     render(row): VNode {
       return (
         <DownloadButton downloadURL={row.downloadURL} />
