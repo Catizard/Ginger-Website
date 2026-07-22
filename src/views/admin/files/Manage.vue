@@ -8,7 +8,7 @@
 <script setup lang="tsx">
 import { findFileEntries, fullDeleteFile, type FileEntryDto, type QueryFileEntryVo } from '@/api/files';
 import TitleWithButtons from '@/components/TitleWithButtons.vue';
-import { NButton, useDialog, type DataTableColumns, type DataTableSortState } from 'naive-ui';
+import { NButton, NTime, useDialog, type DataTableColumns, type DataTableSortState } from 'naive-ui';
 import { ref, type Ref, type VNode } from 'vue';
 import { useI18n } from 'vue-i18n';
 import SongDataTable from '@/views/main/download/components/SongDataTable.vue';
@@ -41,7 +41,12 @@ const columns: DataTableColumns<FileEntryDto> = [
     }
   },
   {
-    title: t('time'), key: "createTime"
+    title: t('time'), key: "createTime",
+    render(row: FileEntryDto): VNode {
+      return (
+        <NTime time={row.createTime} unix />
+      )
+    }
   },
   {
     title: "Actions", key: "actions",

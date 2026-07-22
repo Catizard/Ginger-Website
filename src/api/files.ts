@@ -19,6 +19,7 @@ export interface FileEntryDto {
   shardMD5: string,
   fileName: string,
   fileSize: number,
+  createTime: number,
   downloadURL: string,
 }
 

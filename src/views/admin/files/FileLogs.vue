@@ -9,7 +9,7 @@ import { selectFileLogs, type FileLog } from '@/api/files';
 import TitleWithButtons from '@/components/TitleWithButtons.vue';
 import { humanFileSize } from '@/utils/format';
 import { createPagination } from '@/utils/page';
-import { NText, type DataTableColumns, type PaginationProps } from 'naive-ui';
+import { NText, NTime, type DataTableColumns, type PaginationProps } from 'naive-ui';
 import { ref, type Reactive, type Ref, type VNode } from 'vue';
 import { useI18n } from 'vue-i18n';
 
@@ -20,6 +20,11 @@ const pagination: Reactive<PaginationProps> = createPagination(loadData);
 const columns: DataTableColumns<FileLog> = [
   {
     title: t('columns.time'), key: "createTime",
+    render(row: FileLog): VNode {
+      return (
+        <NTime time={row.createTime} unix />
+      )
+    }
   },
   {
     title: t('columns.type'), key: "type",
