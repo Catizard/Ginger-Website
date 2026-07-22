@@ -33,9 +33,9 @@ const show = defineModel<boolean>("show");
 const tableRef = ref<InstanceType<typeof NDataTable> | null>(null);
 let data: Ref<any[]> = ref([] as T[]);
 const columns: DataTableColumns<T> = [
-  { title: t('column.name'), key: props.labelField },
+  { title: t('columns.name'), key: props.labelField },
   {
-    title: t('column.rowIndex'), key: "RowIndex",
+    title: t('columns.rowIndex'), key: "RowIndex",
     render(_, rowIndex: number) {
       return rowIndex + 1;
     }

@@ -18,7 +18,7 @@ import { setLocale, type Lang } from '@/i18n';
 import { NIcon } from 'naive-ui';
 import { computed, h, type Component } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
-import { DownloadOutline, ListOutline } from '@vicons/ionicons5';
+import { BookOutline, CompassOutline, DownloadOutline, FileTrayFullOutline, GridOutline, ListOutline, PricetagOutline, ReceiptOutline } from '@vicons/ionicons5';
 
 const router = useRouter();
 const { t, locale } = useI18n();
@@ -40,7 +40,7 @@ const menuOptions = computed(() => [
   {
     label: t('menu.admin.table.table'),
     key: '/admin/table',
-    icon: renderIcon(DownloadOutline),
+    icon: renderIcon(BookOutline),
     children: [
       {
         label: renderOption("/admin/table/manage", t('menu.admin.table.manage')),
@@ -50,19 +50,19 @@ const menuOptions = computed(() => [
       {
         label: renderOption("/admin/table/category", t('menu.admin.table.category')),
         key: '/admin/table/category',
-        icon: renderIcon(ListOutline)
+        icon: renderIcon(GridOutline)
       },
       {
         label: renderOption("/admin/table/special", t("menu.admin.table.special")),
         key: "/admin/table/special",
-        icon: renderIcon(ListOutline)
+        icon: renderIcon(CompassOutline)
       }
     ]
   },
   {
     label: t('menu.admin.tag.tag'),
     key: '/admin/tag',
-    icon: renderIcon(DownloadOutline),
+    icon: renderIcon(PricetagOutline),
     children: [
       {
         label: renderOption("/admin/tag/manage", t('menu.admin.tag.manage')),
@@ -74,7 +74,7 @@ const menuOptions = computed(() => [
   {
     label: t('menu.admin.files.filesStorage'),
     key: "admin/files",
-    icon: renderIcon(DownloadOutline),
+    icon: renderIcon(FileTrayFullOutline),
     children: [
       {
         label: renderOption("/admin/files/manage", t('menu.admin.files.manage')),
@@ -84,7 +84,7 @@ const menuOptions = computed(() => [
       {
         label: renderOption("/admin/files/log", t('menu.admin.files.log')),
         key: "/admin/files/log",
-        icon: renderIcon(ListOutline)
+        icon: renderIcon(ReceiptOutline)
       }
     ]
   }

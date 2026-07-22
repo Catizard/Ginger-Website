@@ -22,8 +22,7 @@ const dialog = useDialog();
 const loading: Ref<boolean> = ref(false);
 let data: Ref<Array<FileEntryDto>> = ref([]);
 const pagination = createPagination(loadData);
-const sorter: Ref<Sorter> = ref({
-});
+const sorter: Ref<Sorter> = ref({});
 const columns: DataTableColumns<FileEntryDto> = [
   {
     type: "expand",
@@ -33,15 +32,15 @@ const columns: DataTableColumns<FileEntryDto> = [
       )
     }
   },
-  { title: t('name'), key: "fileName" },
+  { title: t('columns.name'), key: "fileName" },
   {
-    title: t('size'), key: "fileSize", sorter: true,
+    title: t('columns.size'), key: "fileSize", sorter: true,
     render(row) {
       return humanFileSize(row.fileSize);
     }
   },
   {
-    title: t('time'), key: "createTime",
+    title: t('columns.time'), key: "createTime",
     render(row: FileEntryDto): VNode {
       return (
         <NTime time={row.createTime} unix />
@@ -49,7 +48,7 @@ const columns: DataTableColumns<FileEntryDto> = [
     }
   },
   {
-    title: "Actions", key: "actions",
+    title: t('columns.actions'), key: "actions",
     render(row: FileEntryDto): VNode {
       return (
         <NButton type="error" onClick={() => handleClickDeleteFile(row.id)}>

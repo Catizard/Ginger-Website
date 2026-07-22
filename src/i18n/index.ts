@@ -1,4 +1,3 @@
-import { fullDeleteFile } from "@/api/files";
 import { createI18n } from "vue-i18n";
 import type { I18nOptions } from "vue-i18n";
 
@@ -38,7 +37,8 @@ const messages = {
         },
         tag: {
           tag: "颜色标签",
-          manage: "管理"
+          manage: "管理",
+          special: "标记特殊表"
         },
         files: {
           filesStorage: "文件存储",
@@ -64,7 +64,8 @@ const messages = {
       tag: "标签",
       category: "分类组",
       orderIndex: "排序索引",
-      preview: "预览"
+      preview: "预览",
+      rowIndex: "索引"
     },
     title: {
       about: '关于 Ginger Rush',
@@ -81,7 +82,9 @@ const messages = {
         deleteTag: "删除颜色标签",
         specialTables: "特别标注难度表管理",
         filesManage: "文件管理",
-        fullDeleteFile: "完全删除文件"
+        fullDeleteFile: "完全删除文件",
+        fileLogs: "文件日志",
+        tagManage: "标签管理"
       },
       bindTagToTable: "绑定一个标签到该难度表",
       editTableHeader: "修改难度表信息",
@@ -89,7 +92,8 @@ const messages = {
       newTableCategory: "新建分类组",
       specialTables: "常用难度表",
       specialEvents: "最近活动",
-      welcome: "欢迎"
+      welcome: "欢迎",
+      newSpecialTable: "标记特殊表"
     },
     button: {
       back: '返回',
@@ -160,7 +164,8 @@ const messages = {
         table: {
           table: "Table",
           manage: "Manage",
-          category: "Category"
+          category: "Category",
+          special: "Mark Special"
         },
         tag: {
           tag: "Color Tag",
@@ -193,7 +198,8 @@ const messages = {
       category: "Category",
       orderIndex: "Order Index",
       preview: "Preview",
-      time: "Time"
+      time: "Time",
+      rowIndex: "Index"
     },
     title: {
       about: 'About Ginger Rush',
@@ -211,7 +217,9 @@ const messages = {
         deleteTag: "Delete this color tag",
         specialTablesManage: "Manage Special Tables",
         filesManage: "Manage Files",
-        fullDeleteFile: "Fully Delete File"
+        fullDeleteFile: "Fully Delete File",
+        fileLogs: "File Logs",
+        tagManage: "Manage Tags"
       },
       bindTagToTable: "Bind a color tag to this table",
       editTableHeader: "Edit Table Info",
@@ -219,7 +227,11 @@ const messages = {
       newTableCategory: "Create category",
       specialTables: "Commonly Used Tables",
       specialEvents: "Recent Activity",
-      welcome: "Welcome"
+      welcome: "Welcome",
+      editColorTag: "Edit Color Tag",
+      sortCategories: "Sort Categories",
+      editTableCategory: "Edit Category",
+      newSpecialTable: "Mark As Special Table"
     },
     button: {
       back: 'Back',
@@ -277,9 +289,7 @@ const i18n = createI18n<I18nOptions, 'en'>({
   locale: getSavedLocale(),
   fallbackLocale: 'en',
   messages,
-  missing: (locale, key) => {
-    return key;
-  },
+  missingWarn: true,
 });
 
 export function setLocale(lang: Lang) {
