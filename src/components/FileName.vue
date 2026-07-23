@@ -26,7 +26,7 @@ const fileName = computed<string>(() => {
 });
 
 const isWrong = computed<boolean>(() => {
-  // No audio file is attached
-  return !Object.keys(fileEntry.fileManifest).some(key => audioExts.includes(key.toLowerCase()));
+  // No audio file is attached or no sabun inside
+  return !Object.keys(fileEntry.fileManifest).some(key => audioExts.includes(key.toLowerCase())) || fileEntry.songCount == 0;
 })
 </script>

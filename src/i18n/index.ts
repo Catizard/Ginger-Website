@@ -65,7 +65,8 @@ const messages = {
       category: "分类组",
       orderIndex: "排序索引",
       preview: "预览",
-      rowIndex: "索引"
+      rowIndex: "索引",
+      songCount: "差分数量"
     },
     title: {
       about: '关于 Ginger Rush',
@@ -199,7 +200,8 @@ const messages = {
       orderIndex: "Order Index",
       preview: "Preview",
       time: "Time",
-      rowIndex: "Index"
+      rowIndex: "Index",
+      songCount: "Sabun Count"
     },
     title: {
       about: 'About Ginger Rush',

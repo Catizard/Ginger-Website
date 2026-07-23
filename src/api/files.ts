@@ -21,7 +21,8 @@ export interface FileEntryDto {
   fileSize: number,
   createTime: number,
   downloadURL: string,
-  fileManifest: Map<string, number>
+  fileManifest: Map<string, number>,
+  songCount: number;
 }
 
 export interface FileLog {

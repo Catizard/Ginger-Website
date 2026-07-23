@@ -47,6 +47,7 @@ const columns: DataTableColumns<FileEntryDto> = [
       return humanFileSize(row.fileSize);
     }
   },
+  { title: t('columns.songCount'), key: "songCount", },
   {
     title: t('columns.time'), key: "createTime",
     render(row: FileEntryDto): VNode {
