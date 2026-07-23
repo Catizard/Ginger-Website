@@ -263,7 +263,9 @@ const messages = {
         table: "Table",
         selfHost: "Self Host",
         external: "External"
-      }
+      },
+      missingAnyAudio: "No Audio Files",
+      noSabunInside: "No Sabun Files"
     },
     dialog: {
       importTable: {

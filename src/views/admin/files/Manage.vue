@@ -1,6 +1,43 @@
 <!-- Manage the files on the server, you can also view this component as the internal version of FileDataTable -->
 <template>
   <TitleWithButtons :title="t('title.admin.filesManage')" />
+  <!-- Search Area -->
+  <n-flex gap="8" vertical>
+    <n-flex gap="8" horizontal :wrap="false">
+      <n-input-group>
+        <n-input v-model:value="fuzzyKeyword" clearable :placeholder="t('placeholder.searchFuzzyKeyword')" autofocus>
+          <template #prefix>
+            <n-icon :component="icons.search" />
+          </template>
+        </n-input>
+        <n-button type="primary" @click="loadData()">
+          {{ t('button.search') }}
+        </n-button>
+      </n-input-group>
+
+      <n-button type="info" @click="useAdvancedSearch = !useAdvancedSearch">
+        <template #icon>
+          <n-icon :component="icons.advancedSearch" />
+        </template>
+      </n-button>
+    </n-flex>
+    <template v-if="useAdvancedSearch">
+      <n-input-group>
+        <n-input v-model:value="fileNameLike" clearable :placeholder="t('placeholder.searchFuzzyFileName')" />
+        <n-input v-model:value="titleLike" clearable :placeholder="t('placeholder.searchFuzzyTitle')" />
+        <n-input v-model:value="artistLike" clearable :placeholder="t('placeholder.searchFuzzyArtist')" />
+      </n-input-group>
+      <n-input-group>
+        <n-checkbox v-model:checked="missingAnyAudio">
+          {{ t('misc.missingAnyAudio') }}
+        </n-checkbox>
+        <n-checkbox v-model:checked="noSabunInside">
+          {{ t('misc.noSabunInside') }}
+        </n-checkbox>
+      </n-input-group>
+    </template>
+  </n-flex>
+  <!-- Table Area -->
   <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
     :row-key="(row: FileEntryDto) => row.downloadURL" @update:sorter="handleUpdateSorter" />
 </template>
@@ -16,6 +53,7 @@ import { humanFileSize } from '@/utils/format';
 import { createPagination } from '@/utils/page';
 import { Convert, type Sorter } from '@/api/sorter';
 import FileName from '@/components/FileName.vue';
+import { icons } from '@/utils/icons';
 
 const { t } = useI18n();
 const dialog = useDialog();
@@ -24,6 +62,17 @@ const loading: Ref<boolean> = ref(false);
 let data: Ref<Array<FileEntryDto>> = ref([]);
 const pagination = createPagination(loadData);
 const sorter: Ref<Sorter> = ref({});
+
+// Search parameters
+const fuzzyKeyword: Ref<string | null> = ref(null);
+
+const useAdvancedSearch = ref(false);
+const fileNameLike: Ref<string | null> = ref(null);
+const titleLike: Ref<string | null> = ref(null);
+const artistLike: Ref<string | null> = ref(null);
+const missingAnyAudio = ref(false);
+const noSabunInside = ref(false);
+
 const columns: DataTableColumns<FileEntryDto> = [
   {
     type: "expand",
@@ -76,7 +125,16 @@ function loadData() {
     },
     orderBy: sorter.value.orderBy,
     orderDirection: sorter.value.orderDirection,
+    fuzzyKeyword: fuzzyKeyword.value ?? null,
   };
+
+  if (useAdvancedSearch.value) {
+    query.fileNameLike = fileNameLike.value ?? null;
+    query.titleLike = titleLike.value ?? null;
+    query.artistLike = artistLike.value ?? null;
+    query.missingAnyAudio = missingAnyAudio.value ?? null;
+    query.noSabunInside = noSabunInside.value ?? null;
+  }
 
   console.log('query: ', query);
 

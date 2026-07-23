@@ -9,6 +9,8 @@ export interface QueryFileEntryVo {
   artistLike?: string | null,
   md5?: string | null,
   tableID?: number | null,
+  missingAnyAudio?: boolean | null,
+  noSabunInside?: boolean | null,
   orderBy?: string | null,
   orderDirection?: "ASC" | "DESC" | null,
   pageRequest: PageRequest,

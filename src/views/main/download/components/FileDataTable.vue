@@ -6,7 +6,7 @@
       <n-input-group>
         <n-input v-model:value="fuzzyKeyword" clearable :placeholder="t('placeholder.searchFuzzyKeyword')" autofocus>
           <template #prefix>
-            <n-icon :component="SearchIcon" />
+            <n-icon :component="icons.search" />
           </template>
         </n-input>
         <n-button type="primary" @click="clickSearch">
@@ -16,7 +16,7 @@
 
       <n-button type="info" @click="useAdvancedSearch = !useAdvancedSearch">
         <template #icon>
-          <n-icon :component="AdvancedSearchIcon" />
+          <n-icon :component="icons.advancedSearch" />
         </template>
       </n-button>
     </n-flex>
@@ -44,13 +44,13 @@
 import { findFileEntries, type FileEntryDto, type QueryFileEntryVo } from '@/api/files';
 import { NButton, NIcon, type DataTableColumns, NFlex, NInput } from 'naive-ui';
 import { reactive, ref, watch, type Ref, type VNode } from 'vue';
-import { SearchOutline as SearchIcon, ColorWandOutline as AdvancedSearchIcon } from '@vicons/ionicons5';
 import { debounce } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
 import { humanFileSize } from '@/utils/format';
 import SongDataTable from './SongDataTable.vue';
 import DownloadButton from './DownloadButton.vue';
 import FileName from '@/components/FileName.vue';
+import { icons } from '@/utils/icons';
 
 const { t } = useI18n();
 const props = defineProps<{
