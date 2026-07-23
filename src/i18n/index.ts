@@ -20,7 +20,10 @@ const messages = {
         step1: '首先，你需要将 BMS 文件压缩成一个简单的压缩包。假设你想上传这个谱面（硬核機動），它是存储在你磁盘上的一个目录：',
         step2: '你需要将整个目录（硬核機動）压缩成单个归档文件，并将其放在任何文件共享服务上。我建议使用 <a href="https://gofile.io">gofile</a>。',
         step3: '打包完成后，你需要在 GitHub 上创建一个 ticket，或者更准确地说，在这个 GitHub 仓库中创建一个新 issue：<a href="https://github.com/Catizard/Ginger-Tracker">Ginger-Tracker</a>，之后一切都会处理妥当。',
-      }
+      },
+      packageIsPotentiallyBroken: "这个包很有可能出错了，我们不推荐你下载它",
+      packageIsBanned: "这个包被管理员标记为存在严重问题，他将无法被下载，如有疑问请联系管理员",
+      packageIsBannedWithReason: "这个包被管理员标记为存在严重问题, 原因: {reason}，他将无法被下载，如有疑问请联系管理员",
     },
     menu: {
       download: {
@@ -66,7 +69,8 @@ const messages = {
       orderIndex: "排序索引",
       preview: "预览",
       rowIndex: "索引",
-      songCount: "差分数量"
+      songCount: "差分数量",
+      status: "状态"
     },
     title: {
       about: '关于 Ginger Rush',
@@ -85,7 +89,8 @@ const messages = {
         filesManage: "文件管理",
         fullDeleteFile: "完全删除文件",
         fileLogs: "文件日志",
-        tagManage: "标签管理"
+        tagManage: "标签管理",
+        unbanPackage: "恢复该包"
       },
       bindTagToTable: "绑定一个标签到该难度表",
       editTableHeader: "修改难度表信息",
@@ -104,7 +109,8 @@ const messages = {
       delete: "删除",
       newTag: "创建新的颜色标签",
       new: "创建",
-      seeMore: "查看所有"
+      seeMore: "查看所有",
+      ban: "禁用"
     },
     placeholder: {
       searchFuzzyKeyword: "根据文件名，标题或艺术家搜索",
@@ -119,7 +125,9 @@ const messages = {
         table: "普通包",
         selfHost: "自主维护",
         external: "外部导入"
-      }
+      },
+      enabled: "启用",
+      banned: "禁用"
     },
     dialog: {
       importTable: {
@@ -133,7 +141,8 @@ const messages = {
       category: "分类组",
       tagColor: "标签颜色",
       tagTextColor: "文本颜色",
-      tagComment: "注释"
+      tagComment: "注释",
+      bannedReason: "原因"
     }
   },
   en: {
@@ -152,7 +161,10 @@ const messages = {
         step1: 'First, you\'ll have to compress your bms files into a simple compressed archive. Suppose you want to upload this package(硬核機動), it\'s a directory stored on your disk:',
         step2: 'You need to compress the whole directory (硬核機動) into a single archive file, and put it on any file share service. I suggest using <a href="https://gofile.io">gofile</a>.',
         step3: 'After packaging it, you\'ll need to open a ticket on github, or more accurately, open a new issue in this github repo: <a href="https://github.com/Catizard/Ginger-Tracker">Ginger-Tracker</a> and everything will be handled then.',
-      }
+      },
+      packageIsPotentiallyBroken: "This package is potentially broken, we don't recommand you to download this package",
+      packageIsBanned: "This package has been marked as having severe problems, it won't be able to download. If you have further questions, please contact us",
+      packageIsBannedWithReason: "This package has been marked as having severe problems, reason: {reason} it won't be able to download. If you have further questions, please contact us",
     },
     menu: {
       download: {
@@ -201,7 +213,8 @@ const messages = {
       preview: "Preview",
       time: "Time",
       rowIndex: "Index",
-      songCount: "Sabun Count"
+      songCount: "Sabun Count",
+      status: "Status"
     },
     title: {
       about: 'About Ginger Rush',
@@ -221,7 +234,8 @@ const messages = {
         filesManage: "Manage Files",
         fullDeleteFile: "Fully Delete File",
         fileLogs: "File Logs",
-        tagManage: "Manage Tags"
+        tagManage: "Manage Tags",
+        unbanPackage: "Unban Package"
       },
       bindTagToTable: "Bind a color tag to this table",
       editTableHeader: "Edit Table Info",
@@ -248,7 +262,8 @@ const messages = {
       sortCategories: "Sort Categories",
       newTag: "New Color Tag",
       new: "Create",
-      seeMore: "See More"
+      seeMore: "See More",
+      ban: "Ban"
     },
     placeholder: {
       searchFuzzyKeyword: "Search by file name, title or artist",
@@ -265,7 +280,9 @@ const messages = {
         external: "External"
       },
       missingAnyAudio: "No Audio Files",
-      noSabunInside: "No Sabun Files"
+      noSabunInside: "No Sabun Files",
+      enabled: "Enabled",
+      disabled: "Disabled"
     },
     dialog: {
       importTable: {
@@ -279,7 +296,8 @@ const messages = {
       category: "Category",
       tagColor: "Tag Color",
       tagTextColor: "Text Color",
-      tagComment: "Comment"
+      tagComment: "Comment",
+      bannedReason: "Reason"
     }
   },
 };

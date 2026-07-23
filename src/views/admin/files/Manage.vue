@@ -40,12 +40,14 @@
   <!-- Table Area -->
   <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
     :row-key="(row: FileEntryDto) => row.downloadURL" @update:sorter="handleUpdateSorter" />
+
+  <BanPackageForm ref="banPackageFormRef" />
 </template>
 
 <script setup lang="tsx">
-import { findFileEntries, fullDeleteFile, type FileEntryDto, type QueryFileEntryVo } from '@/api/files';
+import { findFileEntries, fullDeleteFile, unbanPackage, type FileEntryDto, type QueryFileEntryVo } from '@/api/files';
 import TitleWithButtons from '@/components/TitleWithButtons.vue';
-import { NButton, NTime, useDialog, type DataTableColumns, type DataTableSortState } from 'naive-ui';
+import { NButton, NFlex, NIcon, NTag, NTime, useDialog, type DataTableColumns, type DataTableSortState } from 'naive-ui';
 import { ref, type Ref, type VNode } from 'vue';
 import { useI18n } from 'vue-i18n';
 import SongDataTable from '@/views/main/download/components/SongDataTable.vue';
@@ -54,9 +56,12 @@ import { createPagination } from '@/utils/page';
 import { Convert, type Sorter } from '@/api/sorter';
 import FileName from '@/components/FileName.vue';
 import { icons } from '@/utils/icons';
+import BanPackageForm from './components/BanPackageForm.vue';
 
 const { t } = useI18n();
 const dialog = useDialog();
+
+const banPackageFormRef: Ref<InstanceType<typeof BanPackageForm> | null> = ref(null);
 
 const loading: Ref<boolean> = ref(false);
 let data: Ref<Array<FileEntryDto>> = ref([]);
@@ -106,6 +111,23 @@ const columns: DataTableColumns<FileEntryDto> = [
     }
   },
   {
+    title: t('columns.status'), key: "banned",
+    render(row: FileEntryDto): VNode {
+      return (
+        <NFlex>
+          {
+            row.banned != 0
+              ? <NTag type='error'> {t('misc.disabled')} </NTag>
+              : <NTag type="primary"> {t('misc.enabled')} </NTag>
+          }
+          <NButton type="info" size='tiny' onClick={() => handleClickBanOrUnbanPackage(row.id, row.banned)}>
+            <NIcon component={icons.edit} />
+          </NButton >
+        </NFlex>
+      )
+    }
+  },
+  {
     title: t('columns.actions'), key: "actions",
     render(row: FileEntryDto): VNode {
       return (
@@ -136,13 +158,12 @@ function loadData() {
     query.noSabunInside = noSabunInside.value ?? null;
   }
 
-  console.log('query: ', query);
-
   findFileEntries(query)
     .then(result => {
       if (result.data != null) {
         pagination.pageCount = result.pageCount;
         data.value = [...result.data];
+        console.log(data.value);
       }
     }).finally(() => { loading.value = false });
 }
@@ -169,6 +190,29 @@ function handleClickDeleteFile(id: number) {
 function handleUpdateSorter(option: DataTableSortState) {
   sorter.value = Convert(option);
   loadData();
+}
+
+function handleClickBanOrUnbanPackage(id: number, banned: number) {
+  let loading = false;
+  if (banned != 0) {
+    dialog.create({
+      loading: loading,
+      title: t('title.admin.unbanPackage'),
+      negativeText: t('button.cancel'),
+      positiveText: t('button.yes'),
+      onPositiveClick: async () => {
+        loading = true;
+        try {
+          await unbanPackage(id);
+          loadData();
+        } finally {
+          loading = false;
+        }
+      }
+    })
+  } else {
+    banPackageFormRef.value?.open(id);
+  }
 }
 
 loadData();

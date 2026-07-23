@@ -1,5 +1,5 @@
 import { ArrowForward, ColorWandOutline, DownloadOutline, InformationOutline, PencilOutline, RefreshOutline, RemoveOutline, SearchOutline, SwapHorizontalOutline, WarningOutline } from "@vicons/ionicons5";
-import { WavingHandOutlined } from "@vicons/material";
+import { ErrorOutlined, WavingHandOutlined } from "@vicons/material";
 
 export const icons = {
   edit: PencilOutline,
@@ -12,5 +12,6 @@ export const icons = {
   delete: RemoveOutline,
   warning: WarningOutline,
   search: SearchOutline,
-  advancedSearch: ColorWandOutline
+  advancedSearch: ColorWandOutline,
+  error: ErrorOutlined
 }

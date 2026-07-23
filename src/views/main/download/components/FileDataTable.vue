@@ -48,7 +48,7 @@ import { debounce } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
 import { humanFileSize } from '@/utils/format';
 import SongDataTable from './SongDataTable.vue';
-import DownloadButton from './DownloadButton.vue';
+import FileDownloadButton from './FileDownloadButton.vue';
 import FileName from '@/components/FileName.vue';
 import { icons } from '@/utils/icons';
 
@@ -92,7 +92,6 @@ const columns: DataTableColumns<FileEntryDto> = [
   {
     type: "expand",
     renderExpand(row: FileEntryDto): VNode {
-      console.log(row);
       return (
         <SongDataTable entryID={row.id} />
       )
@@ -106,15 +105,15 @@ const columns: DataTableColumns<FileEntryDto> = [
   },
   {
     title: t('columns.size'), key: "fileSize",
-    render(row) {
+    render(row: FileEntryDto) {
       return humanFileSize(row.fileSize);
     }
   },
   {
     title: t('columns.actions'), key: "actions",
-    render(row): VNode {
+    render(row: FileEntryDto): VNode {
       return (
-        <DownloadButton downloadURL={row.downloadURL} />
+        <FileDownloadButton fileEntry={row} />
       )
     }
   }

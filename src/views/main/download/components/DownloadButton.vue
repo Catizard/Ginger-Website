@@ -1,6 +1,6 @@
 <!-- A simple button that opens the direct download link when clicking -->
 <template>
-  <NButton type="info" round size="small" @click="open">
+  <NButton type="info" round size="small" @click="open" :disabled="disabled">
     <template #icon>
       <NIcon :component="DownloadIcon" />
     </template>
@@ -14,11 +14,12 @@ import { useI18n } from 'vue-i18n';
 import { DownloadOutline as DownloadIcon } from "@vicons/ionicons5";
 
 const { t } = useI18n();
-const props = defineProps<{
+const { downloadURL, disabled = true } = defineProps<{
   downloadURL: string,
+  disabled?: boolean,
 }>();
 
 function open() {
-  window.open(props.downloadURL, '_blank');
+  window.open(downloadURL, '_blank');
 }
 </script>

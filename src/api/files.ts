@@ -25,6 +25,8 @@ export interface FileEntryDto {
   downloadURL: string,
   fileManifest: Map<string, number>,
   songCount: number;
+  banned: number;
+  bannedReason: string;
 }
 
 export interface FileLog {
@@ -38,6 +40,11 @@ export interface QueryFileLogVo {
   pageRequest: PageRequest,
 }
 
+export interface BanPackageVo {
+  id: number,
+  bannedReason: string,
+}
+
 export function findFileEntries(query: QueryFileEntryVo): Promise<PageResponse<FileEntryDto[]>> {
   return request.post('/files/selectList', query);
 }
@@ -47,5 +54,14 @@ export function selectFileLogs(query: QueryFileLogVo): Promise<PageResponse<File
 }
 
 export function fullDeleteFile(id: number): Promise<void> {
-  return request.get(`/admin/files/fullDelete/${id}`)
+  return request.get(`/admin/files/fullDelete/${id}`);
 }
+
+export function banPackage(param: BanPackageVo): Promise<void> {
+  return request.post("/admin/files/ban", param);
+}
+
+export function unbanPackage(id: number): Promise<void> {
+  return request.get(`/admin/files/unban/${id}`);
+}
+
