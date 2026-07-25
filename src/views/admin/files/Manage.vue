@@ -37,9 +37,12 @@
       </n-input-group>
     </template>
   </n-flex>
-  <!-- Table Area -->
-  <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-    :row-key="(row: FileEntryDto) => row.downloadURL" @update:sorter="handleUpdateSorter" />
+
+  <n-card style="margin-top: 8px">
+    <!-- Table Area -->
+    <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
+      :row-key="(row: FileEntryDto) => row.downloadURL" @update:sorter="handleUpdateSorter" />
+  </n-card>
 
   <BanPackageForm ref="banPackageFormRef" />
 </template>
@@ -163,7 +166,6 @@ function loadData() {
       if (result.data != null) {
         pagination.pageCount = result.pageCount;
         data.value = [...result.data];
-        console.log(data.value);
       }
     }).finally(() => { loading.value = false });
 }

@@ -97,6 +97,5 @@ function loadData() {
   }).finally(() => loading.value = false);
 }
 
-console.log('1');
 loadData();
 </script>

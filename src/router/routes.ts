@@ -67,6 +67,16 @@ const adminRoutes: RouteRecordRaw[] = [
     name: "admin-files-log",
     path: "/admin/files/log",
     component: () => import("../views/admin/files/FileLogs.vue")
+  },
+  {
+    name: "admin-files-sabuns",
+    path: "/admin/files/sabuns",
+    component: () => import("../views/admin/files/Sabuns.vue")
+  },
+  {
+    name: "admin-monitor-missingSabuns",
+    path: "/admin/monitor/missingSabuns",
+    component: () => import("../views/admin/monitor/missingSabuns.vue")
   }
 ];
 

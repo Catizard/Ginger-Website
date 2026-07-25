@@ -140,3 +140,7 @@ export function updateTableHeader(updateParam: UpdateTableHeaderVo): Promise<voi
 export function switchTableFlags(flags: SwitchTableFlagsVo): Promise<void> {
   return request.post("/admin/table/switchFlags", flags);
 }
+
+export function updateMissingSabuns(): Promise<void> {
+  return request.get("/admin/table/update/missingSabuns")
+}

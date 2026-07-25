@@ -18,7 +18,8 @@ import { setLocale, type Lang } from '@/i18n';
 import { NIcon } from 'naive-ui';
 import { computed, h, type Component } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
-import { BookOutline, CompassOutline, DownloadOutline, FileTrayFullOutline, GridOutline, ListOutline, PricetagOutline, ReceiptOutline } from '@vicons/ionicons5';
+import { BookOutline, CompassOutline, FileTrayFullOutline, GridOutline, ListOutline, PricetagOutline, ReceiptOutline, Eye, DocumentTextOutline } from '@vicons/ionicons5';
+import { QuestionMarkOutlined } from '@vicons/material';
 
 const router = useRouter();
 const { t, locale } = useI18n();
@@ -82,9 +83,26 @@ const menuOptions = computed(() => [
         icon: renderIcon(ListOutline)
       },
       {
+        label: renderOption("/admin/files/sabuns", t('menu.admin.files.sabuns')),
+        key: "/admin/files/sabuns",
+        icon: renderIcon(DocumentTextOutline)
+      },
+      {
         label: renderOption("/admin/files/log", t('menu.admin.files.log')),
         key: "/admin/files/log",
         icon: renderIcon(ReceiptOutline)
+      }
+    ]
+  },
+  {
+    label: t('menu.admin.monitor.monitor'),
+    key: "admin/monitor",
+    icon: renderIcon(Eye),
+    children: [
+      {
+        label: renderOption("/admin/monitor/missingSabuns", t("menu.admin.monitor.missingSabuns")),
+        key: "/admin/monitor/missingSabuns",
+        icon: renderIcon(QuestionMarkOutlined),
       }
     ]
   }

@@ -45,8 +45,13 @@ const messages = {
         },
         files: {
           filesStorage: "文件存储",
+          sabuns: "差分",
           log: "日志",
           manage: "管理"
+        },
+        monitor: {
+          monitor: "监控",
+          missingSabuns: "缺失差分"
         }
       },
       integrations: "整合",
@@ -70,7 +75,9 @@ const messages = {
       preview: "预览",
       rowIndex: "索引",
       songCount: "差分数量",
-      status: "状态"
+      status: "状态",
+      md5: "MD5",
+      sha256: "Sha256"
     },
     title: {
       about: '关于 Ginger Rush',
@@ -90,7 +97,8 @@ const messages = {
         fullDeleteFile: "完全删除文件",
         fileLogs: "文件日志",
         tagManage: "标签管理",
-        unbanPackage: "恢复该包"
+        unbanPackage: "恢复该包",
+        syncMissingSabuns: "同步缺失差分",
       },
       bindTagToTable: "绑定一个标签到该难度表",
       editTableHeader: "修改难度表信息",
@@ -99,7 +107,9 @@ const messages = {
       specialTables: "常用难度表",
       specialEvents: "最近活动",
       welcome: "欢迎",
-      newSpecialTable: "标记特殊表"
+      newSpecialTable: "标记特殊表",
+      missingSabuns: "缺失差分",
+      chart: "差分"
     },
     button: {
       back: '返回',
@@ -110,7 +120,8 @@ const messages = {
       newTag: "创建新的颜色标签",
       new: "创建",
       seeMore: "查看所有",
-      ban: "禁用"
+      ban: "禁用",
+      sync: "同步"
     },
     placeholder: {
       searchFuzzyKeyword: "根据文件名，标题或艺术家搜索",
@@ -133,7 +144,9 @@ const messages = {
       importTable: {
         success: "导入难度表成功"
       },
-      requestSent: "请求已发送, 如果你想看到提交后的数据, 请稍后刷新页面查看"
+      requestSent: "请求已发送, 如果你想看到提交后的数据, 请稍后刷新页面查看",
+      copiedSuccessfully: "已复制到剪贴板",
+      copiedUnsuccessfully: "复制到剪贴板失败，原因: {err}"
     },
     form: {
       name: "名称",
@@ -187,7 +200,12 @@ const messages = {
         files: {
           filesStorage: "File Storage",
           log: "Logs",
-          manage: "Manage"
+          manage: "Manage",
+          sabuns: "Sabuns"
+        },
+        monitor: {
+          monitor: "Monitor",
+          missingSabuns: "Missing Charts"
         }
       },
       integrations: "Integrations",
@@ -214,7 +232,9 @@ const messages = {
       time: "Time",
       rowIndex: "Index",
       songCount: "Sabun Count",
-      status: "Status"
+      status: "Status",
+      md5: "MD5",
+      sha256: "Sha256"
     },
     title: {
       about: 'About Ginger Rush',
@@ -235,7 +255,8 @@ const messages = {
         fullDeleteFile: "Fully Delete File",
         fileLogs: "File Logs",
         tagManage: "Manage Tags",
-        unbanPackage: "Unban Package"
+        unbanPackage: "Unban Package",
+        syncMissingSabuns: "Sync Missing Sabuns"
       },
       bindTagToTable: "Bind a color tag to this table",
       editTableHeader: "Edit Table Info",
@@ -247,7 +268,9 @@ const messages = {
       editColorTag: "Edit Color Tag",
       sortCategories: "Sort Categories",
       editTableCategory: "Edit Category",
-      newSpecialTable: "Mark As Special Table"
+      newSpecialTable: "Mark As Special Table",
+      missingSabuns: "Missing Charts",
+      chart: "Sabuns"
     },
     button: {
       back: 'Back',
@@ -263,7 +286,8 @@ const messages = {
       newTag: "New Color Tag",
       new: "Create",
       seeMore: "See More",
-      ban: "Ban"
+      ban: "Ban",
+      sync: "Sync"
     },
     placeholder: {
       searchFuzzyKeyword: "Search by file name, title or artist",
@@ -288,7 +312,9 @@ const messages = {
       importTable: {
         success: "Importing difficult table successfully"
       },
-      requestSent: "Request has been sent. If you want to see the data change, refresh the page later"
+      requestSent: "Request has been sent. If you want to see the data change, refresh the page later",
+      copiedSuccessfully: "Copied to clipboard successfully",
+      copiedUnsuccessfully: "Failed to copy to clipboard, reason: {err}"
     },
     form: {
       name: "Name",
