@@ -77,6 +77,16 @@ const adminRoutes: RouteRecordRaw[] = [
     name: "admin-monitor-missingSabuns",
     path: "/admin/monitor/missingSabuns",
     component: () => import("../views/admin/monitor/missingSabuns.vue")
+  },
+  {
+    name: "admin-monitor-reconcileRuns",
+    path: "/admin/monitor/reconcileRuns",
+    component: () => import("../views/admin/monitor/reconcileRuns.vue")
+  },
+  {
+    name: "admin-monitor-mismatchFiles",
+    path: "/admin/monitor/mismatchFiles",
+    component: () => import("../views/admin/monitor/mismatchFiles.vue")
   }
 ];
 

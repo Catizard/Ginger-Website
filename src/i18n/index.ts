@@ -51,7 +51,9 @@ const messages = {
         },
         monitor: {
           monitor: "监控",
-          missingSabuns: "缺失差分"
+          missingSabuns: "缺失差分",
+          reconcileRuns: "调和日志",
+          mismatchFiles: "不匹配文件"
         }
       },
       integrations: "整合",
@@ -77,7 +79,10 @@ const messages = {
       songCount: "差分数量",
       status: "状态",
       md5: "MD5",
-      sha256: "Sha256"
+      sha256: "Sha256",
+      startAt: "起始于",
+      endAt: "结束于",
+      elapsedTime: "耗时"
     },
     title: {
       about: '关于 Ginger Rush',
@@ -99,6 +104,7 @@ const messages = {
         tagManage: "标签管理",
         unbanPackage: "恢复该包",
         syncMissingSabuns: "同步缺失差分",
+        auditFiles: "审计不匹配的文件"
       },
       bindTagToTable: "绑定一个标签到该难度表",
       editTableHeader: "修改难度表信息",
@@ -109,7 +115,9 @@ const messages = {
       welcome: "欢迎",
       newSpecialTable: "标记特殊表",
       missingSabuns: "缺失差分",
-      chart: "差分"
+      chart: "差分",
+      reconcileRuns: "调节任务运行日志",
+      mismatchFiles: "不匹配的文件"
     },
     button: {
       back: '返回',
@@ -121,7 +129,8 @@ const messages = {
       new: "创建",
       seeMore: "查看所有",
       ban: "禁用",
-      sync: "同步"
+      sync: "同步",
+      auditFiles: "审查文件"
     },
     placeholder: {
       searchFuzzyKeyword: "根据文件名，标题或艺术家搜索",
@@ -205,7 +214,9 @@ const messages = {
         },
         monitor: {
           monitor: "Monitor",
-          missingSabuns: "Missing Charts"
+          missingSabuns: "Missing Charts",
+          reconcileRuns: "Reconciles",
+          mismatchFiles: "Mismatch Files"
         }
       },
       integrations: "Integrations",
@@ -234,7 +245,10 @@ const messages = {
       songCount: "Sabun Count",
       status: "Status",
       md5: "MD5",
-      sha256: "Sha256"
+      sha256: "Sha256",
+      startAt: "Starts At",
+      endAt: "Ends At",
+      elapsedTime: "Elasped Time"
     },
     title: {
       about: 'About Ginger Rush',
@@ -256,7 +270,8 @@ const messages = {
         fileLogs: "File Logs",
         tagManage: "Manage Tags",
         unbanPackage: "Unban Package",
-        syncMissingSabuns: "Sync Missing Sabuns"
+        syncMissingSabuns: "Sync Missing Sabuns",
+        auditFiles: "Audit Mismatched Files"
       },
       bindTagToTable: "Bind a color tag to this table",
       editTableHeader: "Edit Table Info",
@@ -270,7 +285,9 @@ const messages = {
       editTableCategory: "Edit Category",
       newSpecialTable: "Mark As Special Table",
       missingSabuns: "Missing Charts",
-      chart: "Sabuns"
+      chart: "Sabuns",
+      reconcileRuns: "Reconcile Runs",
+      mismatchFiles: "Mismatched Files"
     },
     button: {
       back: 'Back',
@@ -287,7 +304,8 @@ const messages = {
       new: "Create",
       seeMore: "See More",
       ban: "Ban",
-      sync: "Sync"
+      sync: "Sync",
+      auditFiles: "Audit Files"
     },
     placeholder: {
       searchFuzzyKeyword: "Search by file name, title or artist",

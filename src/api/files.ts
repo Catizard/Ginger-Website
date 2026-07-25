@@ -65,3 +65,6 @@ export function unbanPackage(id: number): Promise<void> {
   return request.get(`/admin/files/unban/${id}`);
 }
 
+export function auditFiles(): Promise<void> {
+  return request.get(`/admin/files/audit`)
+}
