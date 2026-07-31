@@ -15,6 +15,10 @@ import { type DataTableColumns, type PaginationProps } from 'naive-ui';
 import { ref, type Reactive, type Ref, type VNode } from 'vue';
 import { useI18n } from 'vue-i18n';
 import CopyableHashField from '@/components/CopyableHashField.vue';
+import SongBPM from '@/components/SongBPM.vue';
+import PlayMode from '@/components/PlayMode.vue';
+import SongTotal from '@/components/SongTotal.vue';
+import humanizeDuration from 'humanize-duration';
 
 const { t } = useI18n();
 const loading = ref(false);
@@ -36,7 +40,7 @@ const columns: DataTableColumns<SongData> = [
         return (<>/</>);
       }
       return (
-        <CopyableHashField hash={row.md5} maxWidth={"240px"} />
+        <CopyableHashField hash={row.md5} maxWidth={"220px"} />
       );
     }
   },
@@ -47,7 +51,41 @@ const columns: DataTableColumns<SongData> = [
         return (<>/</>);
       }
       return (
-        <CopyableHashField hash={row.sha256} maxWidth={"240px"} />
+        <CopyableHashField hash={row.sha256} maxWidth={"220px"} />
+      )
+    }
+  },
+  { title: t('columns.genre'), key: "genre", width: "120px" },
+  {
+    title: t('columns.playMode'), key: "mode",
+    render(row: SongData): VNode {
+      return <PlayMode mode={row.mode} />
+    }
+  },
+  {
+    title: t('columns.length'), key: "length",
+    render(row: SongData): VNode {
+      console.log(row.length);
+      return (
+        <>
+          {humanizeDuration(row.length, { maxDecimalPoints: 2 })}
+        </>
+      )
+    }
+  },
+  {
+    title: t('columns.bpm'), key: "bpm", width: "120px",
+    render(row: SongData): VNode {
+      return (
+        <SongBPM bpm={row.bpm} minBPM={row.minBPM} maxBPM={row.maxBPM} />
+      )
+    }
+  },
+  {
+    title: t('columns.total'), key: "total", width: "120px",
+    render(row: SongData): VNode {
+      return (
+        <SongTotal total={row.total} totalType={row.totalType} />
       )
     }
   },

@@ -11,6 +11,41 @@ export interface SongData {
   artist: string,
   subArtist: string,
   fileName: string,
+  genre: string,
+  backBMP: string,
+  banner: string,
+  bpm: number,
+  minBPM: number,
+  maxBPM: number,
+  difficulty: string,
+  judgeRank: number,
+  judgeRankType: string,
+  total: number,
+  totalType: string,
+  mode: string,
+  playLevel: string,
+  player: number,
+  preview: string,
+  stageFile: string,
+  length: number
+}
+
+export const PlayMode = {
+  BEAT_5K: "BEAT_5K",
+  BEAT_7K: "BEAT_7K",
+  BEAT_10K: "BEAT_10K",
+  BEAT_14K: "BEAT_14K",
+  POPN_5K: "POPN_5K",
+  POPN_9K: "POPN_9K",
+  KEYBOARD_24K: "KEYBOARD_24K",
+  KEYBOARD_24K_DOUBLE: "KEYBOARD_24K_DOUBLE"
+} as const;
+
+export type PlayModeType = typeof PlayMode[keyof typeof PlayMode]
+
+export function toPlayModeType(mode: string): PlayModeType | null {
+  const has = Object.values(PlayMode).includes(mode as PlayModeType);
+  return has ? mode as PlayModeType : null;
 }
 
 export interface QuerySongDataVo {

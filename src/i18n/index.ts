@@ -82,7 +82,12 @@ const messages = {
       sha256: "Sha256",
       startAt: "起始于",
       endAt: "结束于",
-      elapsedTime: "耗时"
+      elapsedTime: "耗时",
+      genre: "风格",
+      playMode: "模式",
+      length: "长度",
+      bpm: "BPM",
+      total: "Total"
     },
     title: {
       about: '关于 Ginger Rush',
@@ -248,7 +253,12 @@ const messages = {
       sha256: "Sha256",
       startAt: "Starts At",
       endAt: "Ends At",
-      elapsedTime: "Elasped Time"
+      elapsedTime: "Elasped Time",
+      genre: "Genre",
+      playMode: "Mode",
+      length: "Duration",
+      bpm: "BPM",
+      total: "Total"
     },
     title: {
       about: 'About Ginger Rush',
