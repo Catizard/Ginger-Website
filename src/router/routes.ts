@@ -87,6 +87,11 @@ const adminRoutes: RouteRecordRaw[] = [
     name: "admin-monitor-mismatchFiles",
     path: "/admin/monitor/mismatchFiles",
     component: () => import("../views/admin/monitor/mismatchFiles.vue")
+  },
+  {
+    name: "admin-monitor-pendingFiles",
+    path: "/admin/monitor/pendingFiles",
+    component: () => import("../views/admin/monitor/pendingFiles.vue")
   }
 ];
 

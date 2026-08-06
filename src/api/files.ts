@@ -45,6 +45,23 @@ export interface BanPackageVo {
   bannedReason: string,
 }
 
+export interface FilePending {
+  id: number,
+  entryID: number | null,
+  type: string,
+  shardMD5: string,
+  fileName: string,
+  fileSize: number,
+  fileManifest: Map<string, number>,
+  diffSong: string,
+  status: "AWAIT" | "DONE" | "CANCEL",
+  createTime: number
+}
+
+export interface QueryFilePendingVo {
+  pageRequest: PageRequest,
+}
+
 export function findFileEntries(query: QueryFileEntryVo): Promise<PageResponse<FileEntryDto[]>> {
   return request.post('/files/selectList', query);
 }
@@ -66,5 +83,13 @@ export function unbanPackage(id: number): Promise<void> {
 }
 
 export function auditFiles(): Promise<void> {
-  return request.get(`/admin/files/audit`)
+  return request.get(`/admin/files/audit`);
+}
+
+export function selectPendingFilesList(query: QueryFilePendingVo): Promise<PageResponse<FilePending[]>> {
+  return request.post(`/admin/files/selectPendingFilesList`, query);
+}
+
+export function cancelPending(id: number): Promise<void> {
+  return request.get(`/admin/files/register/cancel/${id}`);
 }

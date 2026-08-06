@@ -18,7 +18,7 @@ import { setLocale, type Lang } from '@/i18n';
 import { NIcon } from 'naive-ui';
 import { computed, h, type Component } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
-import { BookOutline, CompassOutline, FileTrayFullOutline, GridOutline, ListOutline, PricetagOutline, ReceiptOutline, Eye, DocumentTextOutline, Analytics, DocumentsOutline } from '@vicons/ionicons5';
+import { BookOutline, CompassOutline, FileTrayFullOutline, GridOutline, ListOutline, PricetagOutline, ReceiptOutline, Eye, DocumentTextOutline, Analytics, DocumentsOutline, AlbumsOutline } from '@vicons/ionicons5';
 import { QuestionMarkOutlined } from '@vicons/material';
 
 const router = useRouter();
@@ -99,6 +99,11 @@ const menuOptions = computed(() => [
     key: "admin/monitor",
     icon: renderIcon(Eye),
     children: [
+      {
+        label: renderOption("/admin/monitor/pendingFiles", t("menu.admin.monitor.pendingFiles")),
+        key: "/admin/monitor/pendingFiles",
+        icon: renderIcon(AlbumsOutline)
+      },
       {
         label: renderOption("/admin/monitor/reconcileRuns", t("menu.admin.monitor.reconcileRuns")),
         key: "/admin/monitor/reconcileRuns",

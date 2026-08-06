@@ -53,7 +53,8 @@ const messages = {
           monitor: "监控",
           missingSabuns: "缺失差分",
           reconcileRuns: "调和日志",
-          mismatchFiles: "不匹配文件"
+          mismatchFiles: "不匹配文件",
+          pendingFiles: "等待队列"
         }
       },
       integrations: "整合",
@@ -109,7 +110,8 @@ const messages = {
         tagManage: "标签管理",
         unbanPackage: "恢复该包",
         syncMissingSabuns: "同步缺失差分",
-        auditFiles: "审计不匹配的文件"
+        auditFiles: "审计不匹配的文件",
+        cancelPending: "取消该上传请求"
       },
       bindTagToTable: "绑定一个标签到该难度表",
       editTableHeader: "修改难度表信息",
@@ -122,7 +124,8 @@ const messages = {
       missingSabuns: "缺失差分",
       chart: "差分",
       reconcileRuns: "调节任务运行日志",
-      mismatchFiles: "不匹配的文件"
+      mismatchFiles: "不匹配的文件",
+      pendingFiles: "等待队列"
     },
     button: {
       back: '返回',
@@ -221,7 +224,8 @@ const messages = {
           monitor: "Monitor",
           missingSabuns: "Missing Charts",
           reconcileRuns: "Reconciles",
-          mismatchFiles: "Mismatch Files"
+          mismatchFiles: "Mismatch Files",
+          pendingFiles: "Pending Files"
         }
       },
       integrations: "Integrations",
@@ -281,7 +285,8 @@ const messages = {
         tagManage: "Manage Tags",
         unbanPackage: "Unban Package",
         syncMissingSabuns: "Sync Missing Sabuns",
-        auditFiles: "Audit Mismatched Files"
+        auditFiles: "Audit Mismatched Files",
+        cancelPending: "Cancel this pending request"
       },
       bindTagToTable: "Bind a color tag to this table",
       editTableHeader: "Edit Table Info",
@@ -297,7 +302,8 @@ const messages = {
       missingSabuns: "Missing Charts",
       chart: "Sabuns",
       reconcileRuns: "Reconcile Runs",
-      mismatchFiles: "Mismatched Files"
+      mismatchFiles: "Mismatched Files",
+      pendingFiles: "PendingFiles"
     },
     button: {
       back: 'Back',
