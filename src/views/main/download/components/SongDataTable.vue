@@ -9,6 +9,9 @@ import SongTitleParagraph from '@/components/SongTitleParagraph.vue';
 import type { DataTableColumns } from 'naive-ui';
 import { reactive, ref, watch, type Ref, type VNode } from 'vue';
 import { useI18n } from 'vue-i18n';
+import JudgeRank from '@/components/JudgeRank.vue';
+import SongBPM from '@/components/SongBPM.vue';
+import SongTotal from '@/components/SongTotal.vue';
 
 const { t } = useI18n();
 
@@ -24,6 +27,30 @@ const columns: DataTableColumns<SongData> = [
     render(row: SongData): VNode {
       return (
         <SongTitleParagraph lost={false} data={row} />
+      )
+    }
+  },
+  {
+    title: t('columns.judge'), key: "judge", width: "125px", align: "center",
+    render(row: SongData): VNode {
+      return (
+        <JudgeRank judgeRank={row.judgeRank} />
+      )
+    }
+  },
+  {
+    title: t('columns.bpm'), key: "bpm", width: "175px", align: "center",
+    render(row: SongData): VNode {
+      return (
+        <SongBPM bpm={row.bpm} minBPM={row.minBPM} maxBPM={row.maxBPM} />
+      )
+    }
+  },
+  {
+    title: t('columns.total'), key: "total", width: "175px", align: "center",
+    render(row: SongData): VNode {
+      return (
+        <SongTotal notes={row.notes} total={row.total} />
       )
     }
   },
