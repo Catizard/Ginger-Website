@@ -90,7 +90,8 @@ const messages = {
       length: "长度",
       bpm: "BPM",
       total: "Total",
-      notes: "键数"
+      notes: "键数",
+      judge: "判定"
     },
     title: {
       about: '关于 Ginger Rush',
@@ -266,7 +267,8 @@ const messages = {
       length: "Duration",
       bpm: "BPM",
       total: "Total",
-      notes: "Notes"
+      notes: "Notes",
+      judge: "Judge"
     },
     title: {
       about: 'About Ginger Rush',

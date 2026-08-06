@@ -49,6 +49,19 @@ export function toPlayModeType(mode: string): PlayModeType | null {
   return has ? mode as PlayModeType : null;
 }
 
+export const JudgeRank = {
+  BMS_RANK: "BMS_RANK",
+  BMS_DEFEXRANK: "BMS_DEFEXRANK",
+  BMSON_JUDGERANK: "BMSON_JUDGERANK"
+}
+
+export type JudgeRankType = typeof JudgeRank[keyof typeof JudgeRank];
+
+export function toJudgeRankType(mode: string): JudgeRankType | null {
+  const has = Object.values(JudgeRank).includes(mode as JudgeRankType);
+  return has ? mode as JudgeRankType : null;
+}
+
 export interface QuerySongDataVo {
 }
 

@@ -4,7 +4,9 @@
     <template #icon>
       <NIcon :component="DownloadIcon" />
     </template>
-    {{ t('button.download') }}
+    <template v-if="showText">
+      {{ t('button.download') }}
+    </template>
   </NButton>
 </template>
 
@@ -14,9 +16,10 @@ import { useI18n } from 'vue-i18n';
 import { DownloadOutline as DownloadIcon } from "@vicons/ionicons5";
 
 const { t } = useI18n();
-const { downloadURL, disabled = true } = defineProps<{
+const { downloadURL, disabled = true, showText = true } = defineProps<{
   downloadURL: string,
   disabled?: boolean,
+  showText?: boolean
 }>();
 
 function open() {

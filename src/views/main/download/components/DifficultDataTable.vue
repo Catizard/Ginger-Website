@@ -57,12 +57,15 @@ import { debounce } from 'lodash-es';
 import { selectDataList, type DownloadableTableDataDto, type QueryTableDataVo, type TableHeader } from '@/api/table';
 import type { FileEntryDto } from '@/api/files';
 import { useI18n } from 'vue-i18n';
-import { SearchOutline as SearchIcon, ColorWandOutline as AdvancedSearchIcon, DownloadOutline as DownloadIcon } from '@vicons/ionicons5';
+import { SearchOutline as SearchIcon, ColorWandOutline as AdvancedSearchIcon } from '@vicons/ionicons5';
 import { NButton, NIcon, type DataTableColumns } from 'naive-ui';
 import SongTitleParagraph from '@/components/SongTitleParagraph.vue';
 import { humanFileSize } from '@/utils/format';
 import DownloadButton from './DownloadButton.vue';
 import ColorTag from '@/components/ColorTag.vue';
+import JudgeRank from '@/components/JudgeRank.vue';
+import SongTotal from '@/components/SongTotal.vue';
+import SongBPM from '@/components/SongBPM.vue';
 
 const props = defineProps<{
   tableID: number | null,
@@ -101,15 +104,7 @@ const useAdvancedSearch = ref(false);
 let data: Ref<DownloadableTableDataDto[]> = ref([]);
 const columns: DataTableColumns<DownloadableTableDataDto> = [
   {
-    title: t('columns.title'), key: "title",
-    render: (row: DownloadableTableDataDto): VNode => {
-      return (
-        <SongTitleParagraph lost={!row.downloadURL} data={row} />
-      )
-    }
-  },
-  {
-    title: t('columns.level'), key: "level",
+    title: t('columns.level'), key: "level", width: "75px", align: "center",
     render(row: DownloadableTableDataDto): VNode {
       return (
         <ColorTag
@@ -122,19 +117,51 @@ const columns: DataTableColumns<DownloadableTableDataDto> = [
     }
   },
   {
-    title: t('columns.size'), key: "fileSize",
+    title: t('columns.title'), key: "title",
+    render: (row: DownloadableTableDataDto): VNode => {
+      return (
+        <SongTitleParagraph lost={!row.downloadURL} data={row} />
+      )
+    }
+  },
+  {
+    title: t('columns.judge'), key: "judge", width: "125px", align: "center",
+    render(row: DownloadableTableDataDto): VNode {
+      return (
+        <JudgeRank judgeRank={row.judgeRank} />
+      )
+    }
+  },
+  {
+    title: t('columns.bpm'), key: "bpm", width: "175px", align: "center",
+    render(row: DownloadableTableDataDto): VNode {
+      return (
+        <SongBPM bpm={row.bpm} minBPM={row.minBPM} maxBPM={row.maxBPM} />
+      )
+    }
+  },
+  {
+    title: t('columns.total'), key: "total", width: "175px", align: "center",
+    render(row: DownloadableTableDataDto): VNode {
+      return (
+        <SongTotal notes={row.notes} total={row.total} />
+      )
+    }
+  },
+  {
+    title: t('columns.size'), key: "fileSize", width: "125px", align: "center",
     render(row) {
       return humanFileSize(row.fileSize)
     }
   },
   {
-    title: t('columns.actions'), key: "actions",
+    title: t('columns.actions'), key: "actions", width: "85px", align: "center",
     render(row): VNode | null {
       if (!row.downloadURL) {
         return null;
       }
       return (
-        <DownloadButton downloadURL={row.downloadURL} />
+        <DownloadButton downloadURL={row.downloadURL} disabled={row.downloadURL == ""} showText={false} />
       )
     }
   }

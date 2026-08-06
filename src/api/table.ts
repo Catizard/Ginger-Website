@@ -71,6 +71,14 @@ export interface DownloadableTableDataDto {
   fileName: string,
   fileSize: number,
   downloadURL: string,
+  judgeRank: number,
+  judgeRankType: string,
+  total: number,
+  totalType: string,
+  bpm: number,
+  minBPM: number,
+  maxBPM: number,
+  notes: number
 }
 
 export interface MissingTableData {

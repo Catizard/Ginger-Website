@@ -8,12 +8,7 @@ import type { PlayModeType } from '@/api/songs';
 import { computed } from 'vue';
 import { toPlayModeType } from '@/api/songs';
 import { NTag } from 'naive-ui';
-
-export interface TagColor {
-  color?: string;
-  borderColor?: string;
-  textColor?: string;
-}
+import type { TagColor } from './tag';
 
 const { mode: orgMode } = defineProps<{
   mode: string

@@ -46,8 +46,7 @@ const columns: DataTableColumns<DownloadableTableDataDto> = [
       }
       return (
         <NButton type="info" round size="small" onClick={() => window.open(row.downloadURL, '_blank')}>
-          <NIcon component={icons.download}>
-          </NIcon>
+          <NIcon component={icons.download} />
           {t('button.download')}
         </NButton>
       )
