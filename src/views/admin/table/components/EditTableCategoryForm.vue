@@ -7,7 +7,7 @@
       <n-form-item :label="t('form.name')">
         <n-input v-model:value="modelRef.name" />
       </n-form-item>
-      <n-form-item :label="t('form.formIndex')">
+      <n-form-item :label="t('form.orderIndex')">
         <n-input v-model:value="modelRef.orderIndex" />
       </n-form-item>
     </n-form>

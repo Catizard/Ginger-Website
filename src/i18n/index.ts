@@ -174,7 +174,8 @@ const messages = {
       tagColor: "标签颜色",
       tagTextColor: "文本颜色",
       tagComment: "注释",
-      bannedReason: "原因"
+      bannedReason: "原因",
+      orderIndex: "排序索引"
     }
   },
   en: {
@@ -360,7 +361,8 @@ const messages = {
       tagColor: "Tag Color",
       tagTextColor: "Text Color",
       tagComment: "Comment",
-      bannedReason: "Reason"
+      bannedReason: "Reason",
+      orderIndex: "Order Index"
     }
   },
 };
