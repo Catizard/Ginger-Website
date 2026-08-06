@@ -83,7 +83,7 @@ const columns: DataTableColumns<SongData> = [
     title: t('columns.total'), key: "total", width: "200px",
     render(row: SongData): VNode {
       return (
-        <SongTotal total={row.total} totalType={row.totalType} notes={row.notes} />
+        <SongTotal total={row.total} notes={row.notes} />
       )
     }
   },
