@@ -18,7 +18,7 @@ import CopyableHashField from '@/components/CopyableHashField.vue';
 import SongBPM from '@/components/SongBPM.vue';
 import PlayMode from '@/components/PlayMode.vue';
 import SongTotal from '@/components/SongTotal.vue';
-import humanizeDuration from 'humanize-duration';
+import prettyMS from "pretty-ms";
 
 const { t } = useI18n();
 const loading = ref(false);
@@ -34,28 +34,27 @@ const columns: DataTableColumns<SongData> = [
     }
   },
   {
-    title: t('columns.md5'), key: "md5",
+    title: t('columns.md5'), key: "md5", minWidth: "130px",
     render(row: SongData): VNode {
       if (row.md5 == "") {
         return (<>/</>);
       }
       return (
-        <CopyableHashField hash={row.md5} maxWidth={"220px"} />
+        <CopyableHashField hash={row.md5} maxWidth={"120px"} />
       );
     }
   },
   {
-    title: t('columns.sha256'), key: "sha256",
+    title: t('columns.sha256'), key: "sha256", minWidth: "130px",
     render(row: SongData): VNode {
       if (row.sha256 == "") {
         return (<>/</>);
       }
       return (
-        <CopyableHashField hash={row.sha256} maxWidth={"220px"} />
+        <CopyableHashField hash={row.sha256} maxWidth={"120px"} />
       )
     }
   },
-  { title: t('columns.genre'), key: "genre", width: "120px" },
   {
     title: t('columns.playMode'), key: "mode",
     render(row: SongData): VNode {
@@ -63,12 +62,11 @@ const columns: DataTableColumns<SongData> = [
     }
   },
   {
-    title: t('columns.length'), key: "length",
+    title: t('columns.length'), key: "length", width: "60px",
     render(row: SongData): VNode {
-      console.log(row.length);
       return (
         <>
-          {humanizeDuration(row.length, { maxDecimalPoints: 2 })}
+          {prettyMS(row.length, { colonNotation: true, secondsDecimalDigits: 0 })}
         </>
       )
     }
@@ -82,12 +80,15 @@ const columns: DataTableColumns<SongData> = [
     }
   },
   {
-    title: t('columns.total'), key: "total", width: "120px",
+    title: t('columns.total'), key: "total", width: "200px",
     render(row: SongData): VNode {
       return (
-        <SongTotal total={row.total} totalType={row.totalType} />
+        <SongTotal total={row.total} totalType={row.totalType} notes={row.notes} />
       )
     }
+  },
+  {
+    title: t('columns.notes'), key: "notes", width: "75px",
   },
   { title: t('columns.name'), key: "fileName", }
 ];

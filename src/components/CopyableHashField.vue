@@ -1,6 +1,6 @@
 <!-- Render a hash text ellipsis itself when it's too long, with a copy button -->
 <template>
-  <n-flex align="center">
+  <n-flex align="center" :wrap="false">
     <n-ellipsis :style="{ maxWidth: props.maxWidth }">
       {{ props.hash }}
     </n-ellipsis>

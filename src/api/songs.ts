@@ -27,7 +27,8 @@ export interface SongData {
   player: number,
   preview: string,
   stageFile: string,
-  length: number
+  length: number,
+  notes: number
 }
 
 export const PlayMode = {

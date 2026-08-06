@@ -1,41 +1,26 @@
 <template>
-  <n-layout-sider bordered collapse-mode="width" :collapsed-width="64" :width="220" :native-scrollbar="false"
-    class="sider">
-    <div class="logo" @click="handleClickLogo">
-      <img src="/gingerrush-title+logo.png" alt="Ginger Rush" class="logo-img" />
-    </div>
+  <n-layout-sider :collapsed="collapsed" bordered collapse-mode="width" :collapsed-width="64" :width="220"
+    :native-scrollbar="false" class="sider" show-trigger @collapse="collapsed = true" @expand="collapsed = false">
+    <Logo :collapsed="collapsed" />
     <n-menu :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" class="menu"
       defaultValue="/admin/table/manage" />
-    <div class="lang-switch">
-      <n-select @update:value="handleSelectLang" :defaultValue="locale" :options="langOptions" size="small" />
-    </div>
+    <lang-switch :collapsed="collapsed" />
   </n-layout-sider>
 </template>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
-import { setLocale, type Lang } from '@/i18n';
 import { NIcon } from 'naive-ui';
-import { computed, h, type Component } from 'vue';
-import { RouterLink, useRouter } from 'vue-router';
+import { computed, h, ref, type Component } from 'vue';
+import { RouterLink } from 'vue-router';
 import { BookOutline, CompassOutline, FileTrayFullOutline, GridOutline, ListOutline, PricetagOutline, ReceiptOutline, Eye, DocumentTextOutline, Analytics, DocumentsOutline, AlbumsOutline } from '@vicons/ionicons5';
 import { QuestionMarkOutlined } from '@vicons/material';
+import Logo from '@/components/Logo.vue';
+import LangSwitch from '@/components/LangSwitch.vue';
 
-const router = useRouter();
-const { t, locale } = useI18n();
+const { t } = useI18n();
 
-function handleSelectLang(lang: Lang) {
-  setLocale(lang);
-}
-
-function handleClickLogo() {
-  router.push('/about');
-}
-
-const langOptions = [
-  { label: '中文', value: 'zh' },
-  { label: 'English', value: 'en' },
-];
+const collapsed = ref(false);
 
 const menuOptions = computed(() => [
   {
@@ -142,35 +127,5 @@ function renderOption(path: string, name: string) {
   border-right: 1px solid var(--n-border-color, rgba(0, 0, 0, 0.06));
   display: flex;
   flex-direction: column;
-}
-
-.logo {
-  border-bottom: 1px solid var(--n-border-color, rgba(0, 0, 0, 0.06));
-  padding: 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.2s ease;
-}
-
-.logo:hover {
-  background-color: var(--n-color-hover, rgba(0, 0, 0, 0.02));
-}
-
-.logo-img {
-  max-width: 100%;
-  height: auto;
-  max-height: 48px;
-}
-
-.menu {
-  padding: 8px;
-  flex: 1;
-}
-
-.lang-switch {
-  padding: 8px 12px 12px;
-  border-top: 1px solid var(--n-border-color, rgba(0, 0, 0, 0.06));
 }
 </style>

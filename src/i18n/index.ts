@@ -36,7 +36,8 @@ const messages = {
         table: {
           table: "难度表",
           manage: "管理",
-          category: "分组"
+          category: "分组",
+          special: "标记特殊表"
         },
         tag: {
           tag: "颜色标签",
@@ -88,7 +89,8 @@ const messages = {
       playMode: "模式",
       length: "长度",
       bpm: "BPM",
-      total: "Total"
+      total: "Total",
+      notes: "键数"
     },
     title: {
       about: '关于 Ginger Rush',
@@ -262,7 +264,8 @@ const messages = {
       playMode: "Mode",
       length: "Duration",
       bpm: "BPM",
-      total: "Total"
+      total: "Total",
+      notes: "Notes"
     },
     title: {
       about: 'About Ginger Rush',

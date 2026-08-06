@@ -5,9 +5,12 @@
     /
   </template>
   <template v-else>
-    <n-flex vertical>
+    <n-flex :wrap="false">
       <n-text strong>
         {{ total }}
+      </n-text>
+      <n-text v-if="notes != 0">
+        ({{ (total / notes).toFixed(2) }}/note)
       </n-text>
       <n-text teritry>
         {{ totalType }}
@@ -20,5 +23,6 @@
 const { total, totalType } = defineProps<{
   total: number,
   totalType: string,
+  notes: number
 }>();
 </script>
