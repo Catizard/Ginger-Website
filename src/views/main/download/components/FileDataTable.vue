@@ -32,10 +32,10 @@
   <!-- data table, auto hide itself if no data -->
   <div style="margin-top: 8px" v-if="data.length > 0">
     <n-data-table v-if="disableCard" remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-      :row-key="(row: FileEntryDto) => row.downloadURL" />
+      rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
     <n-card v-else>
       <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-        :row-key="(row: FileEntryDto) => row.downloadURL" />
+        rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
     </n-card>
   </div>
 </template>
@@ -166,5 +166,9 @@ watch([() => props.tableID, fuzzyKeyword, fileNameLike, titleLike, artistLike], 
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
   border: 1px solid var(--n-border-color, rgba(0, 0, 0, 0.06));
   overflow: hidden;
+}
+
+:deep(.n-data-table-tr--expanded:not(.common-row) > td) {
+  padding: 0 !important;
 }
 </style>

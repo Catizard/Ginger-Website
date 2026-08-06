@@ -43,10 +43,10 @@
   <!-- data table -->
   <div style="margin-top: 8px;">
     <n-data-table v-if="disableCard" remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-      :row-key="(row: FileEntryDto) => row.downloadURL" />
+      :row-key="(row: FileEntryDto) => row.downloadURL" striped />
     <n-card v-else>
       <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-        :row-key="(row: FileEntryDto) => row.downloadURL" />
+        :row-key="(row: FileEntryDto) => row.downloadURL" striped />
     </n-card>
   </div>
 </template>
