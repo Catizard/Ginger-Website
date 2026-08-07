@@ -38,7 +38,7 @@
           <n-grid x-gap="12" :cols="2">
             <n-gi v-for="item in data" :key="item.id">
               <PackageCard :fileName="item.fileName" :fileSize="item.fileSize" :downloadCount="item.accessCount"
-                :createTime="item.createTime" :songs="item.songs" />
+                :createTime="item.createTime" :songs="item.songs" :downloadURL="item.downloadURL" />
             </n-gi>
           </n-grid>
         </n-spin>

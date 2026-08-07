@@ -1,6 +1,6 @@
 <!-- Render a card component for a bms package -->
 <template>
-  <div class="package-card" :class="{ 'package-card--expanded': isHover }">
+  <div class="package-card" :class="{ 'package-card--expanded': isHoveringDetails }">
     <div class="card-row">
       <div class="card-thumb">
         <n-image :src="backURL" :width="100" :height="100" object-fit="cover" object-poisition="center" lazy />
@@ -17,7 +17,7 @@
             {{ humanFileSize(fileSize) }}
           </n-flex>
         </div>
-        <div class="meta-area" @mouseenter="isHover = true" @mouseout="isHover = false">
+        <div class="meta-area" @mouseenter="isHoveringDetails = true" @mouseleave="isHoveringDetails = false">
           <n-tag v-for="item in modeDetails" :key="item.name" size="tiny" :color="item.color">
             {{ item.name }}
             <n-divider vertical style="margin: 2px;" />
@@ -26,8 +26,13 @@
         </div>
       </div>
     </div>
+
+    <div class="hover-overlay" @click.stop="handleClickDownload">
+      <n-icon size="36" :component="icons.download" color="white" />
+    </div>
+
     <transition name="fade">
-      <div v-if="isHover" class="detail-list">
+      <div v-if="isHoveringDetails" class="detail-list">
         <div class="detail-item" v-for="item in songDetails" :key="item.id">
           <n-tag size="tiny" :color="item.color">
             {{ item.modeName }}
@@ -46,16 +51,17 @@ import { humanFileSize } from '@/utils/format';
 import type { SongData } from '@/api/songs';
 import { getPlayModeColorSchema, type TagColor } from './tag';
 
-const { fileName, fileSize, downloadCount, createTime, songs = [] } = defineProps<{
-  fileName: String,
+const { fileName, fileSize, downloadCount, createTime, songs = [], downloadURL } = defineProps<{
+  fileName: string,
   fileSize: number,
   downloadCount: number,
   createTime: number,
-  songs: SongData[]
+  songs: SongData[],
+  downloadURL: string,
 }>()
 
 const backURL = ref("https://cdn.luogu.com.cn/upload/image_hosting/4q21epwd.png");
-const isHover = ref(false);
+const isHoveringDetails = ref(false);
 
 export interface modeDetail {
   name: string,
@@ -138,6 +144,10 @@ function convertModeOrderIndex(mode: string): number {
   }
 }
 
+function handleClickDownload() {
+  window.open(downloadURL, '_blank');
+}
+
 </script>
 
 <style lang="css" scoped>
@@ -204,7 +214,7 @@ function convertModeOrderIndex(mode: string): number {
 .meta-area {
   height: 20px;
   flex-shrink: 0;
-  z-index: 1;
+  z-index: 6;
   display: flex;
   align-items: center;
   padding-left: 5px;
@@ -233,5 +243,31 @@ function convertModeOrderIndex(mode: string): number {
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.hover-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  border-radius: 8px;
+  transition: background 0.3s;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.package-card:hover .hover-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hover-overlay:hover {
+  background: rgba(0, 0, 0, 0.3);
 }
 </style>
