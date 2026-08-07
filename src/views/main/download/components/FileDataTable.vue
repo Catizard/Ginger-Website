@@ -30,13 +30,26 @@
   </n-flex>
 
   <!-- data table, auto hide itself if no data -->
-  <div style="margin-top: 8px" v-if="data.length > 0">
-    <n-data-table v-if="disableCard" remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-      rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
-    <n-card v-else>
-      <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-        rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
-    </n-card>
+  <!-- TODO: v-if="data.length > 0" is removed here to make local test easier -->
+  <div style="margin-top: 8px">
+    <template v-if="useCardView">
+      <n-grid x-gap="12" :cols="2">
+        <n-gi>
+          <PackageCard />
+        </n-gi>
+        <n-gi>
+          <PackageCard />
+        </n-gi>
+      </n-grid>
+    </template>
+    <template v-else>
+      <n-data-table v-if="disableCard" remote :loading="loading" :columns="columns" :data="data"
+        :pagination="pagination" rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
+      <n-card v-else>
+        <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
+          rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
+      </n-card>
+    </template>
   </div>
 </template>
 
@@ -51,6 +64,7 @@ import SongDataTable from './SongDataTable.vue';
 import FileDownloadButton from './FileDownloadButton.vue';
 import FileName from '@/components/FileName.vue';
 import { icons } from '@/utils/icons';
+import PackageCard from '@/components/PackageCard.vue';
 
 const { t } = useI18n();
 const props = defineProps<{
@@ -68,6 +82,8 @@ const artistLike: Ref<string | null> = ref(null);
 
 // show advanced search tab?
 const useAdvancedSearch = ref(false);
+
+const useCardView = ref(true);
 
 let data: Ref<Array<FileEntryDto>> = ref([]);
 
@@ -161,13 +177,6 @@ watch([() => props.tableID, fuzzyKeyword, fileNameLike, titleLike, artistLike], 
 </script>
 
 <style scoped>
-.download-card {
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
-  border: 1px solid var(--n-border-color, rgba(0, 0, 0, 0.06));
-  overflow: hidden;
-}
-
 :deep(.n-data-table-tr--expanded:not(.common-row) > td) {
   padding: 0 !important;
 }
