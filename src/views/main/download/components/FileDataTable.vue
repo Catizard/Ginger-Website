@@ -34,14 +34,15 @@
   <template v-if="useCardView">
     <div class="scroll-container">
       <n-infinite-scroll :distance="100" @load="loadData">
-        <n-grid x-gap="12" :cols="2">
-          <n-gi v-for="item in data" :key="item.id">
-            <PackageCard :fileName="item.fileName" :fileSize="item.fileSize" :downloadCount="item.accessCount"
-              :createTime="item.createTime" :songs="item.songs" />
-          </n-gi>
-        </n-grid>
-        <n-spin v-if="loading" />
-        <n-divider v-if="noMore"></n-divider>
+        <n-spin :show="loading">
+          <n-grid x-gap="12" :cols="2">
+            <n-gi v-for="item in data" :key="item.id">
+              <PackageCard :fileName="item.fileName" :fileSize="item.fileSize" :downloadCount="item.accessCount"
+                :createTime="item.createTime" :songs="item.songs" />
+            </n-gi>
+          </n-grid>
+        </n-spin>
+        <n-divider v-if="noMore" />
       </n-infinite-scroll>
     </div>
   </template>
@@ -158,9 +159,13 @@ function loadData() {
     query.artistLike = artistLike.value ?? null;
   }
 
+
   findFileEntries(query)
     .then(result => {
       if (result.data != null) {
+        if (query.pageRequest.page == 1) {
+          data.value = [];
+        }
         pagination.pageCount = result.pageCount;
         if (result.data.length > 0) {
           data.value.push(...result.data);
@@ -176,6 +181,7 @@ function loadData() {
 
 function clickSearch() {
   debouncedLoadData.cancel();
+  pagination.page = 1;
   loadData();
 }
 
