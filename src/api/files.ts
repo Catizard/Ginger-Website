@@ -1,6 +1,7 @@
 // Files interfaces & types
 import request from './client';
 import { type PageRequest, type PageResponse } from './page';
+import type { SongData } from './songs';
 
 export interface QueryFileEntryVo {
   fuzzyKeyword?: string | null,
@@ -23,10 +24,12 @@ export interface FileEntryDto {
   fileSize: number,
   createTime: number,
   downloadURL: string,
+  accessCount: number,
   fileManifest: Map<string, number>,
   songCount: number;
   banned: number;
   bannedReason: string;
+  songs: SongData[];
 }
 
 export interface FileLog {

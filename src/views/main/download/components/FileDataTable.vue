@@ -31,32 +31,34 @@
 
   <!-- data table, auto hide itself if no data -->
   <!-- TODO: v-if="data.length > 0" is removed here to make local test easier -->
-  <div style="margin-top: 8px">
-    <template v-if="useCardView">
-      <n-grid x-gap="12" :cols="2">
-        <n-gi>
-          <PackageCard />
-        </n-gi>
-        <n-gi>
-          <PackageCard />
-        </n-gi>
-      </n-grid>
-    </template>
-    <template v-else>
-      <n-data-table v-if="disableCard" remote :loading="loading" :columns="columns" :data="data"
-        :pagination="pagination" rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
-      <n-card v-else>
-        <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-          rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
-      </n-card>
-    </template>
-  </div>
+  <template v-if="useCardView">
+    <div class="scroll-container">
+      <n-infinite-scroll :distance="100" @load="loadData">
+        <n-grid x-gap="12" :cols="2">
+          <n-gi v-for="item in data" :key="item.id">
+            <PackageCard :fileName="item.fileName" :fileSize="item.fileSize" :downloadCount="item.accessCount"
+              :createTime="item.createTime" :songs="item.songs" />
+          </n-gi>
+        </n-grid>
+        <n-spin v-if="loading" />
+        <n-divider v-if="noMore"></n-divider>
+      </n-infinite-scroll>
+    </div>
+  </template>
+  <template v-else>
+    <n-data-table v-if="disableCard" remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
+      rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
+    <n-card v-else>
+      <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
+        rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
+    </n-card>
+  </template>
 </template>
 
 <script lang="tsx" setup>
 import { findFileEntries, type FileEntryDto, type QueryFileEntryVo } from '@/api/files';
 import { NButton, NIcon, type DataTableColumns, NFlex, NInput } from 'naive-ui';
-import { reactive, ref, watch, type Ref, type VNode } from 'vue';
+import { onMounted, reactive, ref, watch, type Ref, type VNode } from 'vue';
 import { debounce } from 'lodash-es';
 import { useI18n } from 'vue-i18n';
 import { humanFileSize } from '@/utils/format';
@@ -73,6 +75,7 @@ const props = defineProps<{
 }>();
 
 const loading: Ref<boolean> = ref(false);
+const noMore: Ref<boolean> = ref(false);
 
 // searching parameters
 const fuzzyKeyword: Ref<string | null> = ref(null);
@@ -89,7 +92,7 @@ let data: Ref<Array<FileEntryDto>> = ref([]);
 
 const pagination = reactive({
   page: 1,
-  pageSize: 10,
+  pageSize: 20,
   pageCount: 0,
   showSizePicker: true,
   pageSizes: [10, 20, 50],
@@ -158,8 +161,15 @@ function loadData() {
   findFileEntries(query)
     .then(result => {
       if (result.data != null) {
-        data.value = [...result.data];
         pagination.pageCount = result.pageCount;
+        if (result.data.length > 0) {
+          data.value.push(...result.data);
+          pagination.page += 1;
+        }
+        if (result.data.length < pagination.pageSize) {
+          noMore.value = true;
+        }
+        console.log(data.value);
       }
     }).finally(() => { loading.value = false });
 }
@@ -168,6 +178,10 @@ function clickSearch() {
   debouncedLoadData.cancel();
   loadData();
 }
+
+onMounted(() => {
+  loadData();
+})
 
 watch([() => props.tableID, fuzzyKeyword, fileNameLike, titleLike, artistLike], () => {
   loading.value = true;
@@ -179,5 +193,12 @@ watch([() => props.tableID, fuzzyKeyword, fileNameLike, titleLike, artistLike], 
 <style scoped>
 :deep(.n-data-table-tr--expanded:not(.common-row) > td) {
   padding: 0 !important;
+}
+
+.scroll-container {
+  margin-top: 8px;
+  flex: 1;
+  overflow-y: auto;
+  height: 100vh;
 }
 </style>
