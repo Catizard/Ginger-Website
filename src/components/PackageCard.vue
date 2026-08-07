@@ -11,15 +11,40 @@
           <n-p style="color: white; margin-top: 5px;">现在还没内容</n-p>
         </div>
         <div class="meta-area" @mouseenter="isHover = true" @mouseout="isHover = false">
-          1122334455
+          <n-tag type="info" size="tiny" :color="{ color: '#C5E7D0', textColor: '#47755A' }">
+            7-BMS
+            <n-divider vertical style="margin: 2px" />
+            2
+          </n-tag>
+          <n-tag type="info" size="tiny" :color="{ color: '#F1E7B4', textColor: '#7B6A33' }">
+            9-PMS
+            <n-divider vertical style="margin: 2px" />
+            11
+          </n-tag>
         </div>
       </div>
     </div>
     <transition name="fade">
       <div v-if="isHover" class="detail-list">
         <div class="detail-item">
-          <span class="level">123</span>
-          <span class="title">456</span>
+          <n-tag type="info" size="tiny" :color="{ color: '#C5E7D0', textColor: '#47755A' }">
+            7-BMS
+          </n-tag>
+          <span strong>A Sabun's title, or not</span>
+        </div>
+
+        <div class="detail-item">
+          <n-tag type="info" size="tiny" :color="{ color: '#C5E7D0', textColor: '#47755A' }">
+            7-BMS
+          </n-tag>
+          <span strong>A Sabun's title, freedom dive!!!</span>
+        </div>
+
+        <div class="detail-item">
+          <n-tag type="info" size="tiny" :color="{ color: '#F1E7B4', textColor: '#7B6A33' }">
+            9-PMS
+          </n-tag>
+          <span strong>A Sabun's title. No idea what should i put here blah blah blah test super long </span>
         </div>
       </div>
     </transition>
@@ -92,17 +117,19 @@ const isHover = ref(false);
 
 .meta-area {
   height: 20px;
-  background-color: red;
   flex-shrink: 0;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  padding-left: 5px;
 }
 
 .detail-list {
   width: 100%;
-  /* 占满卡片宽度 */
   background: #f9f9f9;
   padding: 8px 12px;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   gap: 12px;
   font-size: 0.75rem;
