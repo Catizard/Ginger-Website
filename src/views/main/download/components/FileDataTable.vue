@@ -14,6 +14,15 @@
         </n-button>
       </n-input-group>
 
+      <n-button-group>
+        <n-button :type="useCardView ? 'primary' : 'default'" @click="useCardView = true">
+          <n-icon :component="icons.grid" />
+        </n-button>
+        <n-button :type="!useCardView ? 'primary' : 'default'" @click="useCardView = false">
+          <n-icon :component="icons.list" />
+        </n-button>
+      </n-button-group>
+
       <n-button type="info" @click="useAdvancedSearch = !useAdvancedSearch">
         <template #icon>
           <n-icon :component="icons.advancedSearch" />
@@ -30,14 +39,30 @@
   </n-flex>
 
   <!-- data table, auto hide itself if no data -->
-  <div style="margin-top: 8px" v-if="data.length > 0">
-    <n-data-table v-if="disableCard" remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-      rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
-    <n-card v-else>
-      <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-        rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
-    </n-card>
-  </div>
+  <template v-if="data.length > 0">
+    <template v-if="useCardView">
+      <div class="scroll-container">
+        <n-infinite-scroll :distance="100" @load="loadData">
+          <n-spin :show="loading">
+            <n-grid x-gap="12" :cols="2">
+              <n-gi v-for="item in data" :key="item.id">
+                <PackageCard :fileEntry="item" />
+              </n-gi>
+            </n-grid>
+          </n-spin>
+          <n-divider v-if="noMore" />
+        </n-infinite-scroll>
+      </div>
+    </template>
+    <template v-else>
+      <n-data-table v-if="disableCard" remote :loading="loading" :columns="columns" :data="data"
+        :pagination="pagination" rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
+      <n-card v-else>
+        <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
+          rowClassName="common-row" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
+      </n-card>
+    </template>
+  </template>
 </template>
 
 <script lang="tsx" setup>
@@ -51,6 +76,7 @@ import SongDataTable from './SongDataTable.vue';
 import FileDownloadButton from './FileDownloadButton.vue';
 import FileName from '@/components/FileName.vue';
 import { icons } from '@/utils/icons';
+import PackageCard from '@/components/PackageCard.vue';
 
 const { t } = useI18n();
 const props = defineProps<{
@@ -59,6 +85,7 @@ const props = defineProps<{
 }>();
 
 const loading: Ref<boolean> = ref(false);
+const noMore: Ref<boolean> = ref(false);
 
 // searching parameters
 const fuzzyKeyword: Ref<string | null> = ref(null);
@@ -69,14 +96,16 @@ const artistLike: Ref<string | null> = ref(null);
 // show advanced search tab?
 const useAdvancedSearch = ref(false);
 
+const useCardView = ref(true);
+
 let data: Ref<Array<FileEntryDto>> = ref([]);
 
 const pagination = reactive({
   page: 1,
-  pageSize: 10,
+  pageSize: 20,
   pageCount: 0,
   showSizePicker: true,
-  pageSizes: [10, 20, 50],
+  pageSizes: [20, 50, 100],
   onChange: (page: number) => {
     pagination.page = page;
     loadData();
@@ -121,7 +150,8 @@ const columns: DataTableColumns<FileEntryDto> = [
 
 const debouncedLoadData = debounce(loadData, 500);
 
-function loadData() {
+async function loadData() {
+  console.log('triggered, with page: ', pagination.page);
   let query: QueryFileEntryVo = {
     pageRequest: {
       page: pagination.page,
@@ -139,21 +169,37 @@ function loadData() {
     query.artistLike = artistLike.value ?? null;
   }
 
-  findFileEntries(query)
-    .then(result => {
-      if (result.data != null) {
-        data.value = [...result.data];
-        pagination.pageCount = result.pageCount;
+  try {
+    const result = await findFileEntries(query)
+    if (result.data != null) {
+      if (useCardView.value && query.pageRequest.page == 1) {
+        data.value = [];
       }
-    }).finally(() => { loading.value = false });
+      pagination.pageCount = result.pageCount;
+      if (result.data.length > 0) {
+        if (useCardView.value) {
+          data.value.push(...result.data);
+          pagination.page += 1;
+        } else {
+          data.value = [...result.data];
+        }
+      }
+      if (result.data.length < pagination.pageSize) {
+        noMore.value = true;
+      }
+    }
+  } finally {
+    loading.value = false;
+  }
 }
 
 function clickSearch() {
   debouncedLoadData.cancel();
+  pagination.page = 1;
   loadData();
 }
 
-watch([() => props.tableID, fuzzyKeyword, fileNameLike, titleLike, artistLike], () => {
+watch([() => props.tableID, fuzzyKeyword, fileNameLike, titleLike, artistLike, useCardView], () => {
   loading.value = true;
   pagination.page = 1;
   debouncedLoadData();
@@ -161,14 +207,14 @@ watch([() => props.tableID, fuzzyKeyword, fileNameLike, titleLike, artistLike], 
 </script>
 
 <style scoped>
-.download-card {
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
-  border: 1px solid var(--n-border-color, rgba(0, 0, 0, 0.06));
-  overflow: hidden;
-}
-
 :deep(.n-data-table-tr--expanded:not(.common-row) > td) {
   padding: 0 !important;
+}
+
+.scroll-container {
+  margin-top: 8px;
+  flex: 1;
+  overflow-y: auto;
+  height: 130vh;
 }
 </style>

@@ -1,10 +1,10 @@
 <!-- Render the logo image for the sidebar -->
 <template>
   <div v-if="collapsed == true" class="logo" @click="handleClickLogo">
-    <img src="/gingerrush-logo.png" alt="Ginger Rush" class="logo-img-collasped" />
+    <img src="@/assets/images/gingerrush-logo.png" alt="Ginger Rush" class="logo-img-collasped" />
   </div>
   <div v-else class="logo" @click="handleClickLogo">
-    <img src="/gingerrush-title+logo.png" alt="Ginger Rush" class="logo-img-no-collapsed" />
+    <img src="@/assets/images/gingerrush-title+logo.png" alt="Ginger Rush" class="logo-img-no-collapsed" />
   </div>
 </template>
 

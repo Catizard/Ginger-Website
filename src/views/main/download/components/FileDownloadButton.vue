@@ -13,7 +13,6 @@ const { fileEntry } = defineProps<{
 }>();
 
 const packageBanned = computed<boolean>(() => {
-  console.log('fileEntry: ', fileEntry);
   return fileEntry.banned != 0;
 });
 </script>
