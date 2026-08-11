@@ -120,6 +120,9 @@ const bannerURL = computed<string>(() => {
   if (fileEntry.backBMPURL != "") {
     return fileEntry.backBMPURL;
   }
+  if (fileEntry.stageFileURL != "") {
+    return fileEntry.stageFileURL;
+  }
   return "";
 });
 
@@ -129,6 +132,9 @@ const backBMPURL = computed<string>(() => {
   }
   if (fileEntry.bannerURL != "") {
     return fileEntry.bannerURL;
+  }
+  if (fileEntry.stageFileURL != "") {
+    return fileEntry.stageFileURL;
   }
   return "";
 });

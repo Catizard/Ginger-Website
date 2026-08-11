@@ -31,6 +31,7 @@ export interface FileEntryDto {
   bannedReason: string;
   bannerURL: string,
   backBMPURL: string,
+  stageFileURL: string,
   songs: SongData[];
   publicID: string,
 }
