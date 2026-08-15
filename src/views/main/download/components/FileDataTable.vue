@@ -44,7 +44,7 @@
       <div class="scroll-container">
         <n-infinite-scroll :distance="100" @load="loadData">
           <n-spin :show="loading">
-            <n-grid x-gap="12" :cols="2">
+            <n-grid cols="1 m:2 l:2" item-responsive responsive="screen">
               <n-gi v-for="item in data" :key="item.id">
                 <PackageCard :fileEntry="item" />
               </n-gi>
