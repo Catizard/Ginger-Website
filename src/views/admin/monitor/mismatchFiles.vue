@@ -4,6 +4,9 @@
     <n-button type="primary" @click="handleClickAuditFiles">
       {{ t('button.auditFiles') }}
     </n-button>
+    <n-button type="error" @click="handleClickDelete">
+      {{ t('button.delete') }}
+    </n-button>
   </TitleWithButtons>
   <n-data-table remote :loading="loading" :data="data" :columns="columns" :pagination="pagination" />
 </template>
@@ -15,7 +18,7 @@ import { useI18n } from 'vue-i18n';
 import { createPagination } from '@/utils/page';
 import TitleWithButtons from '@/components/TitleWithButtons.vue';
 import { selectMismatchFilesList, type FileMismatch } from '@/api/mismatchFiles';
-import { auditFiles } from "@/api/files";
+import { auditFiles, deleteAllRedundantFiles } from "@/api/files";
 
 const { t } = useI18n();
 const dialog = useDialog();
@@ -23,6 +26,8 @@ const dialog = useDialog();
 const loading = ref(false);
 const data: Ref<FileMismatch[]> = ref([]);
 const columns: DataTableColumns<FileMismatch> = [
+  { title: t('columns.name'), key: "fileName" },
+  { title: t('columns.type'), key: "type" },
 ];
 const pagination = createPagination(loadData);
 
@@ -52,6 +57,25 @@ function handleClickAuditFiles() {
       loading = true;
       try {
         await auditFiles();
+        loadData();
+      } finally {
+        loading = false;
+      }
+    }
+  });
+}
+
+function handleClickDelete() {
+  let loading = false;
+  dialog.create({
+    loading: loading,
+    title: t('title.admin.deleteRedundantFiles'),
+    negativeText: t('button.cancel'),
+    positiveText: t('button.yes'),
+    onPositiveClick: async () => {
+      loading = true;
+      try {
+        await deleteAllRedundantFiles();
         loadData();
       } finally {
         loading = false;

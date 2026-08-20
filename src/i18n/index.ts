@@ -114,7 +114,8 @@ const messages = {
         unbanPackage: "恢复该包",
         syncMissingSabuns: "同步缺失差分",
         auditFiles: "审计不匹配的文件",
-        cancelPending: "取消该上传请求"
+        cancelPending: "取消该上传请求",
+        deleteRedundantFiles: "删除多余的文件"
       },
       bindTagToTable: "绑定一个标签到该难度表",
       editTableHeader: "修改难度表信息",
@@ -292,7 +293,8 @@ const messages = {
         unbanPackage: "Unban Package",
         syncMissingSabuns: "Sync Missing Sabuns",
         auditFiles: "Audit Mismatched Files",
-        cancelPending: "Cancel this pending request"
+        cancelPending: "Cancel this pending request",
+        deleteRedundantFiles: "Delete Redundant Files"
       },
       bindTagToTable: "Bind a color tag to this table",
       editTableHeader: "Edit Table Info",

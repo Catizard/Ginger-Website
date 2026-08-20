@@ -100,3 +100,7 @@ export function selectPendingFilesList(query: QueryFilePendingVo): Promise<PageR
 export function cancelPending(id: number): Promise<void> {
   return request.get(`/admin/files/register/cancel/${id}`);
 }
+
+export function deleteAllRedundantFiles(): Promise<void> {
+  return request.get("/admin/files/deleteAllRedundantFiles")
+}
