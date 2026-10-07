@@ -61,13 +61,22 @@ export interface FilePending {
   fileSize: number,
   fileManifest: Map<string, number>,
   diffSong: string,
-  status: "AWAIT" | "DONE" | "CANCEL",
+  status: FilePendingStatus,
   createTime: number
 }
 
 export interface QueryFilePendingVo {
   pageRequest: PageRequest,
+  fileNameLike?: string | null,
+  withinStatus?: string[] | null,
 }
+
+export type FilePendingStatus = "AWAIT" | "DONE" | "CANCEL";
+export const FilePendingStatusValue = [
+  "AWAIT",
+  "DONE",
+  "CANCEL",
+];
 
 export function findFileEntries(query: QueryFileEntryVo): Promise<PageResponse<FileEntryDto[]>> {
   return request.post('/files/selectList', query);
@@ -102,5 +111,9 @@ export function cancelPending(id: number): Promise<void> {
 }
 
 export function deleteAllRedundantFiles(): Promise<void> {
-  return request.get("/admin/files/deleteAllRedundantFiles")
+  return request.get("/admin/files/deleteAllRedundantFiles");
+}
+
+export function deleteAllAwaitPendings(): Promise<void> {
+  return request.get(`/admin/files/deleteAllAwaitPendings`);
 }

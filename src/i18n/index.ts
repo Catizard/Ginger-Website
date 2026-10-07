@@ -115,7 +115,8 @@ const messages = {
         syncMissingSabuns: "同步缺失差分",
         auditFiles: "审计不匹配的文件",
         cancelPending: "取消该上传请求",
-        deleteRedundantFiles: "删除多余的文件"
+        deleteRedundantFiles: "删除多余的文件",
+        deleteAllAwaitPendings: "删除所有排队请求"
       },
       bindTagToTable: "绑定一个标签到该难度表",
       editTableHeader: "修改难度表信息",
@@ -142,7 +143,8 @@ const messages = {
       seeMore: "查看所有",
       ban: "禁用",
       sync: "同步",
-      auditFiles: "审查文件"
+      auditFiles: "审查文件",
+      deleteAllAwaitPendings: "删除所有排队请求"
     },
     placeholder: {
       searchFuzzyKeyword: "根据文件名，标题或艺术家搜索",
@@ -294,7 +296,8 @@ const messages = {
         syncMissingSabuns: "Sync Missing Sabuns",
         auditFiles: "Audit Mismatched Files",
         cancelPending: "Cancel this pending request",
-        deleteRedundantFiles: "Delete Redundant Files"
+        deleteRedundantFiles: "Delete Redundant Files",
+        deleteAllAwaitPendings: "Delete All Awaiting Pendings"
       },
       bindTagToTable: "Bind a color tag to this table",
       editTableHeader: "Edit Table Info",
@@ -329,7 +332,8 @@ const messages = {
       seeMore: "See More",
       ban: "Ban",
       sync: "Sync",
-      auditFiles: "Audit Files"
+      auditFiles: "Audit Files",
+      deleteAllAwaitPendings: "Delete All Awaitings"
     },
     placeholder: {
       searchFuzzyKeyword: "Search by file name, title or artist",
