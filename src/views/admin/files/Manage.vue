@@ -151,6 +151,7 @@ function loadData() {
     orderBy: sorter.value.orderBy,
     orderDirection: sorter.value.orderDirection,
     fuzzyKeyword: fuzzyKeyword.value ?? null,
+    useDirectURL: false,
   };
 
   if (useAdvancedSearch.value) {
