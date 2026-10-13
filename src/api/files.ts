@@ -15,6 +15,7 @@ export interface QueryFileEntryVo {
   orderBy?: string | null,
   orderDirection?: "ASC" | "DESC" | null,
   pageRequest: PageRequest,
+  useDirectURL: boolean | null,
 }
 
 export interface FileEntryDto {

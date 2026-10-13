@@ -161,6 +161,7 @@ async function loadData() {
     fuzzyKeyword: fuzzyKeyword.value ?? null,
     md5: "",
     tableID: props.tableID,
+    useDirectURL: false
   };
 
   if (useAdvancedSearch.value) {
