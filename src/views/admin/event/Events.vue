@@ -23,11 +23,12 @@ import TitleWithButtons from '@/components/TitleWithButtons.vue';
 import type { DataTableColumns } from 'naive-ui';
 import { ref, type Ref, type VNode } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { NTime } from "naive-ui";
+import { NFlex, NTime } from "naive-ui";
 import { createPagination } from '@/utils/page';
 import { icons } from "@/utils/icons";
 import PublishEventForm from './PublishEventForm.vue';
 import EventLogEntry from './EventLogEntry.vue';
+import AdminAvatar from '@/components/AdminAvatar.vue';
 
 const { t } = useI18n();
 const publishEventFormRef: Ref<InstanceType<typeof PublishEventForm> | null> = ref(null);
@@ -44,7 +45,17 @@ const columns: DataTableColumns<EventLog> = [
     }
   },
   { title: t('columns.type'), key: "eventType", },
-  { title: t('columns.createUser'), key: "createUser", },
+  {
+    title: t('columns.createUser'), key: "createUser",
+    render(row: EventLog): VNode {
+      return (
+        <NFlex align="center">
+          <AdminAvatar admin={row.createUser} />
+          {row.createUser}
+        </NFlex>
+      )
+    }
+  },
   {
     title: t('columns.time'), key: "createTime",
     render(row: EventLog): VNode {
