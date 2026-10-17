@@ -72,11 +72,6 @@ const menuOptions = computed(() => [
         key: "/admin/files/sabuns",
         icon: renderIcon(DocumentTextOutline)
       },
-      {
-        label: renderOption("/admin/files/log", t('menu.admin.files.log')),
-        key: "/admin/files/log",
-        icon: renderIcon(ReceiptOutline)
-      }
     ]
   },
   {
@@ -103,6 +98,11 @@ const menuOptions = computed(() => [
         label: renderOption("/admin/monitor/mismatchFiles", t('menu.admin.monitor.mismatchFiles')),
         key: "/admin/monitor/mismatchFiles",
         icon: renderIcon(DocumentsOutline)
+      },
+      {
+        label: renderOption("/admin/event/events", t('menu.admin.event.events')),
+        key: "/admin/event/events",
+        icon: renderIcon(ReceiptOutline),
       }
     ]
   }

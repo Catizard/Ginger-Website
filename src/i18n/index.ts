@@ -56,6 +56,9 @@ const messages = {
           reconcileRuns: "调和日志",
           mismatchFiles: "不匹配文件",
           pendingFiles: "等待队列"
+        },
+        event: {
+          events: "事件"
         }
       },
       integrations: "整合",
@@ -91,7 +94,8 @@ const messages = {
       bpm: "BPM",
       total: "Total",
       notes: "键数",
-      judge: "判定"
+      judge: "判定",
+      createUser: "用户"
     },
     title: {
       about: '关于 Ginger Rush',
@@ -116,7 +120,9 @@ const messages = {
         auditFiles: "审计不匹配的文件",
         cancelPending: "取消该上传请求",
         deleteRedundantFiles: "删除多余的文件",
-        deleteAllAwaitPendings: "删除所有排队请求"
+        deleteAllAwaitPendings: "删除所有排队请求",
+        events: "事件列表",
+        publishEvent: "发布事件"
       },
       bindTagToTable: "绑定一个标签到该难度表",
       editTableHeader: "修改难度表信息",
@@ -144,7 +150,8 @@ const messages = {
       ban: "禁用",
       sync: "同步",
       auditFiles: "审查文件",
-      deleteAllAwaitPendings: "删除所有排队请求"
+      deleteAllAwaitPendings: "删除所有排队请求",
+      publish: "发布"
     },
     placeholder: {
       searchFuzzyKeyword: "根据文件名，标题或艺术家搜索",
@@ -179,7 +186,12 @@ const messages = {
       tagTextColor: "文本颜色",
       tagComment: "注释",
       bannedReason: "原因",
-      orderIndex: "排序索引"
+      orderIndex: "排序索引",
+      message: "消息"
+    },
+    event: {
+      uploadPackage: "上传了一个包: {fileName}",
+      deletePackage: "删除了一个包: {fileName}"
     }
   },
   en: {
@@ -233,6 +245,9 @@ const messages = {
           reconcileRuns: "Reconciles",
           mismatchFiles: "Mismatch Files",
           pendingFiles: "Pending Files"
+        },
+        event: {
+          events: "Events",
         }
       },
       integrations: "Integrations",
@@ -271,7 +286,8 @@ const messages = {
       bpm: "BPM",
       total: "Total",
       notes: "Notes",
-      judge: "Judge"
+      judge: "Judge",
+      createUser: "User"
     },
     title: {
       about: 'About Ginger Rush',
@@ -297,7 +313,9 @@ const messages = {
         auditFiles: "Audit Mismatched Files",
         cancelPending: "Cancel this pending request",
         deleteRedundantFiles: "Delete Redundant Files",
-        deleteAllAwaitPendings: "Delete All Awaiting Pendings"
+        deleteAllAwaitPendings: "Delete All Awaiting Pendings",
+        events: "Events",
+        publishEvent: "Publish Event"
       },
       bindTagToTable: "Bind a color tag to this table",
       editTableHeader: "Edit Table Info",
@@ -333,7 +351,8 @@ const messages = {
       ban: "Ban",
       sync: "Sync",
       auditFiles: "Audit Files",
-      deleteAllAwaitPendings: "Delete All Awaitings"
+      deleteAllAwaitPendings: "Delete All Awaitings",
+      publish: "Publish"
     },
     placeholder: {
       searchFuzzyKeyword: "Search by file name, title or artist",
@@ -370,7 +389,12 @@ const messages = {
       tagTextColor: "Text Color",
       tagComment: "Comment",
       bannedReason: "Reason",
-      orderIndex: "Order Index"
+      orderIndex: "Order Index",
+      message: "Message"
+    },
+    event: {
+      uploadPackage: "Uploaded a package: {fileName}",
+      deletePackage: "Deleted a package: {fileName}"
     }
   },
 };

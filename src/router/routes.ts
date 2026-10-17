@@ -64,11 +64,6 @@ const adminRoutes: RouteRecordRaw[] = [
     component: () => import("../views/admin/files/Manage.vue")
   },
   {
-    name: "admin-files-log",
-    path: "/admin/files/log",
-    component: () => import("../views/admin/files/FileLogs.vue")
-  },
-  {
     name: "admin-files-sabuns",
     path: "/admin/files/sabuns",
     component: () => import("../views/admin/files/Sabuns.vue")
@@ -92,6 +87,11 @@ const adminRoutes: RouteRecordRaw[] = [
     name: "admin-monitor-pendingFiles",
     path: "/admin/monitor/pendingFiles",
     component: () => import("../views/admin/monitor/pendingFiles.vue")
+  },
+  {
+    name: "admin-event-events",
+    path: "/admin/event/events",
+    component: () => import("../views/admin/event/Events.vue"),
   }
 ];
 
