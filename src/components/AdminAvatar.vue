@@ -12,7 +12,7 @@ const props = defineProps({
 
 const adminAvatars = [
   { name: "Catizard", avatarURL: "https://github.com/Catizard.png" },
-  { name: "Yuntian", avatarURL: "https://github.com/Yuntian52s.png" }
+  { name: "Yuntian52", avatarURL: "https://github.com/Yuntian52s.png" }
 ];
 
 const avatarURL = computed(() => adminAvatars.find(it => it.name == props.admin)?.avatarURL);
