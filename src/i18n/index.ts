@@ -152,7 +152,8 @@ const messages = {
       sync: "同步",
       auditFiles: "审查文件",
       deleteAllAwaitPendings: "删除所有排队请求",
-      publish: "发布"
+      publish: "发布",
+      loadMore: "加载更多"
     },
     placeholder: {
       searchFuzzyKeyword: "根据文件名，标题或艺术家搜索",
@@ -359,7 +360,8 @@ const messages = {
       sync: "Sync",
       auditFiles: "Audit Files",
       deleteAllAwaitPendings: "Delete All Awaitings",
-      publish: "Publish"
+      publish: "Publish",
+      loadMore: "Load More"
     },
     placeholder: {
       searchFuzzyKeyword: "Search by file name, title or artist",

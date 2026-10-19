@@ -1,12 +1,18 @@
 <!-- An infinite scroll timeline that shows the recent events -->
 <template>
-  <n-timeline>
+  <n-timeline icon-size="32">
     <template v-for="item in items">
-      <n-timeline-item v-if="item.kind == 'day'" :title="item.date" type="success" />
+      <n-timeline-item v-if="item.kind == 'day'" :title="item.date" type="success">
+        <template #icon>
+          <n-icon :component="icons.calendar" />
+        </template>
+      </n-timeline-item>
       <n-timeline-item v-else type="info">
+        <template #icon>
+          <AdminAvatar :admin="item.createUser" />
+        </template>
         <template #header>
           <n-flex align="center">
-            <AdminAvatar :admin="item.createUser" />
             <n-text strong bold>
               {{ item.createUser }}
             </n-text>
@@ -15,11 +21,18 @@
         </template>
       </n-timeline-item>
     </template>
+    <n-timeline-item v-if="hasMore">
+      <n-button type="info" @click="loadData">
+        {{ t('button.loadMore') }}
+      </n-button>
+    </n-timeline-item>
   </n-timeline>
 </template>
 
 <script setup lang="tsx">
-import { EventLogType, selectDaySections, toEventLogType } from '@/api/event'; import AdminAvatar from '@/components/AdminAvatar.vue';
+import { EventLogType, selectDaySections, toEventLogType } from '@/api/event';
+import AdminAvatar from '@/components/AdminAvatar.vue';
+import { icons } from "@/utils/icons";
 
 import { ref, type Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -53,13 +66,13 @@ async function loadData() {
   try {
     const ret = await selectDaySections({
       beforeDate: nextCursor.value,
-      limitDays: 7,
+      limitDays: 1,
     });
 
     nextCursor.value = ret.nextCursor;
     hasMore.value = ret.hasMore;
 
-    items.value = [...ret.days.flatMap(it => {
+    const next = [...ret.days.flatMap(it => {
       return [
         {
           kind: "day",
@@ -90,7 +103,7 @@ async function loadData() {
       ] as Item[];
     })];
 
-    console.log(items.value);
+    items.value.push(...next);
   } finally {
     loading.value = false;
   }
