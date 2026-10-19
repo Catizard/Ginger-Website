@@ -136,7 +136,8 @@ const messages = {
       chart: "差分",
       reconcileRuns: "调节任务运行日志",
       mismatchFiles: "不匹配的文件",
-      pendingFiles: "等待队列"
+      pendingFiles: "等待队列",
+      recentEvents: "近期事件"
     },
     button: {
       back: '返回',
@@ -191,7 +192,12 @@ const messages = {
     },
     event: {
       uploadPackage: "上传了一个包: {fileName}",
-      deletePackage: "删除了一个包: {fileName}"
+      deletePackage: "删除了一个包: {fileName}",
+      desc: {
+        manualNote: ": {message}",
+        uploadPackage: "更新了 {count} 个曲包",
+        deletePackage: "删除了 {count} 个曲包",
+      }
     }
   },
   en: {
@@ -332,7 +338,8 @@ const messages = {
       chart: "Sabuns",
       reconcileRuns: "Reconcile Runs",
       mismatchFiles: "Mismatched Files",
-      pendingFiles: "PendingFiles"
+      pendingFiles: "Pending Files",
+      recentEvents: "Recent Events"
     },
     button: {
       back: 'Back',
@@ -394,7 +401,12 @@ const messages = {
     },
     event: {
       uploadPackage: "Uploaded a package: {fileName}",
-      deletePackage: "Deleted a package: {fileName}"
+      deletePackage: "Deleted a package: {fileName}",
+      desc: {
+        manualNote: ": {message}",
+        uploadPackage: "uploaded {count} packages",
+        deletePackage: "deleted {count} packages",
+      }
     }
   },
 };

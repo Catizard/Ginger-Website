@@ -14,9 +14,15 @@
     <SpecialTables jumpType="EVENT" :tables="specialEvents" :title="t('title.specialEvents')" />
   </div>
 
-  <!-- Foot -->
+  <!-- Contributors -->
   <div style="margin-top: 32px;">
     <Contributors />
+  </div>
+
+  <!-- Recent Events -->
+  <div style="margin-top: 32px;">
+    <TitleWithButtons :title="t('title.recentEvents')" />
+    <RecentEvents />
   </div>
 </template>
 
@@ -29,6 +35,8 @@ import { selectSpecialTableListWithFullInfo } from '@/api/specialTable';
 import { useI18n } from 'vue-i18n';
 import SpecialTables from './components/SpecialTables.vue';
 import Contributors from './components/Contributors.vue';
+import TitleWithButtons from '@/components/TitleWithButtons.vue';
+import RecentEvents from '../RecentEvents.vue';
 
 const { t } = useI18n();
 

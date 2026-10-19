@@ -21,6 +21,31 @@ export interface InsertManualEventLogVo {
   message: string,
 }
 
+export interface QueryEventLogDaySectionsVo {
+  beforeDate?: string | null,
+  limitDays?: number,
+}
+
+export interface EventLogDaySectionSummaryDto {
+  days: EventLogDaySection[],
+  nextCursor: string | null,
+  hasMore: boolean,
+}
+
+export interface EventLogDaySection {
+  date: string,
+  groups: AggregatedEventGroup[]
+}
+
+export interface AggregatedEventGroup {
+  date: string,
+  createUser: string,
+  eventType: string,
+  count: number,
+  aggregatable: boolean,
+  payload: string,
+}
+
 export const EventLogType = {
   UPLOAD_PACKAGE: "UPLOAD_PACKAGE",
   DELETE_PACKAGE: "DELETE_PACKAGE",
@@ -40,4 +65,8 @@ export function publishEvent(insertVo: InsertManualEventLogVo): Promise<void> {
 
 export function selectEventLogs(query: QueryEventLogVo): Promise<PageResponse<EventLog[]>> {
   return request.post("/admin/event/selectList", query);
+}
+
+export function selectDaySections(query: QueryEventLogDaySectionsVo): Promise<EventLogDaySectionSummaryDto> {
+  return request.post("/event/selectDaySections", query);
 }

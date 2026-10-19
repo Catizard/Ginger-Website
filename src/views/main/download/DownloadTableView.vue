@@ -42,7 +42,6 @@ import FileDataTable from './components/FileDataTable.vue';
 import { selectOneHeader, type TableHeader } from '@/api/table';
 import DifficultDataTable from './components/DifficultDataTable.vue';
 
-
 const { t } = useI18n();
 const route = useRoute();
 
