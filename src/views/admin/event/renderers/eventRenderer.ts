@@ -1,11 +1,14 @@
-import { EventLogType, toEventLogType, type EventLog } from "@/api/event";
+import { EventLogType, toEventLogType, type AggregatedEventGroup, type EventLog } from "@/api/event";
 import type { Component } from "vue";
 import UploadPackageRenderer from "./UploadPackageRenderer.vue";
 import FallbackEventLogRenderer from "./FallbackEventLogRenderer.vue";
 import DeletePackageRenderer from "./DeletePackageRenderer.vue";
 import ManualNoteRenderer from "./ManualNoteRenderer.vue";
+import CreateTableRenderer from "./CreateTableRenderer.vue";
+import DeleteTableRenderer from "./DeleteTableRenderer.vue";
 
-export function parsePayload<T>(event: EventLog): T {
+export function parsePayload<T>(event: EventLog | AggregatedEventGroup): T {
+  console.log('parsePayload: type: ', event.eventType, ' payload: ', event.payload);
   const eventType = toEventLogType(event.eventType);
   if (eventType == null) {
     return "" as T;
@@ -19,6 +22,8 @@ export function parsePayload<T>(event: EventLog): T {
 export const eventLogRenderers: Record<string, Component> = {
   UPLOAD_PACKAGE: UploadPackageRenderer,
   DELETE_PACKAGE: DeletePackageRenderer,
+  CREATE_TABLE: CreateTableRenderer,
+  DELETE_TABLE: DeleteTableRenderer,
   MANUAL_NOTE: ManualNoteRenderer,
 }
 
@@ -34,4 +39,14 @@ export interface PackageUploadEvent {
 export interface PackageDeleteEvent {
   actor: string,
   fileName: string,
+}
+
+export interface TableCreateEvent {
+  actor: string,
+  tableName: string
+}
+
+export interface TableDeleteEvent {
+  actor: string,
+  tableName: string
 }

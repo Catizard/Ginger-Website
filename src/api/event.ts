@@ -49,6 +49,8 @@ export interface AggregatedEventGroup {
 export const EventLogType = {
   UPLOAD_PACKAGE: "UPLOAD_PACKAGE",
   DELETE_PACKAGE: "DELETE_PACKAGE",
+  CREATE_TABLE: "CREATE_TABLE",
+  DELETE_TABLE: "DELETE_TABLE",
   MANUAL_NOTE: "MANUAL_NOTE",
 } as const;
 

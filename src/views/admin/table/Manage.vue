@@ -36,7 +36,7 @@ const editTableHeaderFormRef: Ref<InstanceType<typeof EditTableHeaderForm> | nul
 const importTableURL = ref('');
 function handleClickImport() {
   modal.create({
-    title: t('title.importTableFromURL'),
+    title: t('title.admin.importTableFromURL'),
     preset: "dialog",
     content: (): VNode => {
       return (

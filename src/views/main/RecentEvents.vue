@@ -1,6 +1,6 @@
 <!-- An infinite scroll timeline that shows the recent events -->
 <template>
-  <n-timeline icon-size="32">
+  <n-timeline :icon-size="32">
     <template v-for="item in items">
       <n-timeline-item v-if="item.kind == 'day'" :title="item.date" type="success">
         <template #icon>
@@ -36,6 +36,7 @@ import { icons } from "@/utils/icons";
 
 import { ref, type Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { parsePayload, type TableCreateEvent, type TableDeleteEvent } from '../admin/event/renderers/eventRenderer';
 
 type Item = DayItem | GroupItem;
 
@@ -66,7 +67,7 @@ async function loadData() {
   try {
     const ret = await selectDaySections({
       beforeDate: nextCursor.value,
-      limitDays: 1,
+      limitDays: 7,
     });
 
     nextCursor.value = ret.nextCursor;
@@ -96,6 +97,12 @@ async function loadData() {
             groupItem.desc = t('event.desc.uploadPackage', { count: gr.count });
           } else if (evt == EventLogType.DELETE_PACKAGE) {
             groupItem.desc = t('event.desc.deletePackage', { count: gr.count });
+          } else if (evt == EventLogType.CREATE_TABLE) {
+            const createTableEvent: TableCreateEvent = parsePayload(gr);
+            groupItem.desc = t('event.desc.createTable', { tableName: createTableEvent.tableName });
+          } else if (evt == EventLogType.DELETE_TABLE) {
+            const deleteTableEvent: TableDeleteEvent = parsePayload(gr);
+            groupItem.desc = t('event.desc.deleteTable', { tableName: deleteTableEvent.tableName });
           }
 
           return groupItem;

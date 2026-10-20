@@ -1,3 +1,4 @@
+import { importTableFromURL } from "@/api/admin";
 import { createI18n } from "vue-i18n";
 import type { I18nOptions } from "vue-i18n";
 
@@ -107,6 +108,7 @@ const messages = {
       specialThanks: "特别致谢",
       admin: {
         tableManage: "难度表管理",
+        importTableFromURL: "从URL中导入表",
         refreshTableCoverage: "你确定你真的要刷新这个表的覆盖率吗?",
         tableCategoryManage: "难度表分类组管理",
         deleteTag: "删除颜色标签",
@@ -194,10 +196,14 @@ const messages = {
     event: {
       uploadPackage: "上传了一个包: {fileName}",
       deletePackage: "删除了一个包: {fileName}",
+      createTable: "新增了一个难度表: {tableName}",
+      deleteTable: "删除了一个难度表: {tableName}",
       desc: {
         manualNote: ": {message}",
         uploadPackage: "更新了 {count} 个曲包",
         deletePackage: "删除了 {count} 个曲包",
+        createTable: "新增了一个难度表: {tableName}",
+        deleteTable: "删除了一个难度表: {tableName}",
       }
     }
   },
@@ -404,10 +410,14 @@ const messages = {
     event: {
       uploadPackage: "Uploaded a package: {fileName}",
       deletePackage: "Deleted a package: {fileName}",
+      createTable: "Added a difficulty table: {tableName}",
+      deleteTable: "Deleted a difficulty table: {tableName}",
       desc: {
         manualNote: ": {message}",
         uploadPackage: "uploaded {count} packages",
         deletePackage: "deleted {count} packages",
+        createTable: "added a difficulty table: {tableName}",
+        deleteTable: "deleted a difficulty table: {tableName}"
       }
     }
   },
