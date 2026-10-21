@@ -1,4 +1,3 @@
-import { importTableFromURL } from "@/api/admin";
 import { createI18n } from "vue-i18n";
 import type { I18nOptions } from "vue-i18n";
 
@@ -25,6 +24,8 @@ const messages = {
       packageIsPotentiallyBroken: "这个包很有可能出错了，我们不推荐你下载它",
       packageIsBanned: "这个包被管理员标记为存在严重问题，他将无法被下载，如有疑问请联系管理员",
       packageIsBannedWithReason: "这个包被管理员标记为存在严重问题, 原因: {reason}，他将无法被下载，如有疑问请联系管理员",
+      hideNoURLCharts: "隐藏没有url的差分",
+      showAllCharts: "显示所有差分"
     },
     menu: {
       download: {
@@ -227,6 +228,8 @@ const messages = {
       packageIsPotentiallyBroken: "This package is potentially broken, we don't recommand you to download this package",
       packageIsBanned: "This package has been marked as having severe problems, it won't be able to download. If you have further questions, please contact us",
       packageIsBannedWithReason: "This package has been marked as having severe problems, reason: {reason} it won't be able to download. If you have further questions, please contact us",
+      hideNoURLCharts: "Hide no URL charts",
+      showAllCharts: "Show all charts"
     },
     menu: {
       download: {
