@@ -108,7 +108,7 @@ export type URLStrategy = "HIDE_NO_URL" | "SHOW_ALL";
 export interface QueryMissingTableDataVo {
   pageRequest: PageRequest,
   headerID?: number | null,
-  urlStrategy: URLStrategy,
+  urlStrategy?: URLStrategy,
 }
 
 export interface SwitchTableFlagsVo {
@@ -116,7 +116,6 @@ export interface SwitchTableFlagsVo {
   type?: boolean,
   selfhostFlag?: boolean,
 }
-
 
 export function selectHeaderList(query: QueryTableHeaderVo): Promise<TableHeader[]> {
   return request.post('/table/selectHeaderList', query)
