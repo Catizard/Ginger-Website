@@ -17,8 +17,12 @@
       </n-input-group>
     </n-flex>
   </n-flex>
-  <n-data-table remote :loading="loading" :data="data" :columns="columns" :pagination="pagination"
-    :row-key="(row: MissingTableData) => row.id" />
+
+  <n-card>
+    <n-data-table remote :loading="loading" :data="data" :columns="columns" :pagination="pagination"
+      :row-key="(row: MissingTableData) => row.id" />
+  </n-card>
+
 </template>
 
 <script setup lang="tsx">
