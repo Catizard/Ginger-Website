@@ -55,7 +55,8 @@ const specialThanks = [
   { name: 'nyannurs', url: 'https://www.twitch.tv/beachsidebunny', avatarURL: "https://github.com/nyannurs.png" },
   { name: "Seraxis", url: 'https://github.com/seraxis', avatarURL: 'https://github.com/seraxis.png' },
   { name: "Rai", url: 'https://github.com/radiden', avatarURL: 'https://github.com/radiden.png' },
-  { name: "Yuntian", url: "https://github.com/Yuntian52s", avatarURL: "https://github.com/Yuntian52s.png" }
+  { name: "Yuntian", url: "https://github.com/Yuntian52s", avatarURL: "https://github.com/Yuntian52s.png" },
+  { name: "kg", url: "https://github.com/brkDOTstl", avatarURL: "https://github.com/brkDOTstl.png" }
 ];
 
 function openLink(url: string) {
