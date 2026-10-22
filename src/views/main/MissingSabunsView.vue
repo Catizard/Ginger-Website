@@ -51,6 +51,10 @@ const urlStrategyOptions = [
   {
     label: t('desc.showAllCharts'),
     value: "SHOW_ALL"
+  },
+  {
+    label: t('desc.hideSabunCharts'),
+    value: "HIDE_SABUN",
   }
 ];
 const tableID: Ref<number | null> = ref(null);
