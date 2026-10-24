@@ -120,6 +120,7 @@ async function loadData() {
         page: pagination.page!!,
         pageSize: pagination.pageSize!!
       },
+      titleLike: titleLike.value,
       headerID: tableID.value,
       urlStrategy: urlStrategy.value,
     });

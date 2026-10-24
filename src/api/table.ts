@@ -109,6 +109,7 @@ export interface QueryMissingTableDataVo {
   pageRequest: PageRequest,
   headerID?: number | null,
   urlStrategy?: URLStrategy,
+  titleLike?: string | null,
 }
 
 export interface SwitchTableFlagsVo {
