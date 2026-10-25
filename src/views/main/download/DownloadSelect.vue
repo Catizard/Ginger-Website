@@ -74,4 +74,12 @@ watch(() => route.params.type, (queryType) => {
 :deep(.n-tag) {
   justify-content: center;
 }
+
+:deep(.n-collapse-item__header-main) {
+  min-width: 0;
+}
+
+:deep(.n-collapse-item__header-main .n-h2) {
+  overflow-wrap: anywhere;
+}
 </style>

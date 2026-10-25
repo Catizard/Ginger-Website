@@ -14,8 +14,8 @@
 <template>
   <!-- Search Area -->
   <n-flex gap="8" vertical>
-    <n-flex gap="8" horizontal :wrap="false">
-      <n-input-group>
+    <n-flex gap="8" horizontal class="search-row">
+      <n-input-group class="search-input">
         <n-input v-model:value="fuzzyKeyword" clearable :placeholder="t('placeholder.searchFuzzyKeyword')">
           <template #prefix>
             <n-icon :component="SearchIcon" />
@@ -32,22 +32,26 @@
         </template>
       </n-button>
     </n-flex>
-    <template v-if="useAdvancedSearch">
-      <n-input-group>
-        <n-input v-model:value="titleLike" clearable :placeholder="t('placeholder.searchFuzzyTitle')" />
-        <n-input v-model:value="artistLike" clearable :placeholder="t('placeholder.searchFuzzyArtist')" />
-      </n-input-group>
-    </template>
+    <div class="advanced-wrap" :class="{ 'advanced-wrap--open': useAdvancedSearch }">
+      <div class="advanced-inner">
+        <n-input-group class="advanced-group">
+          <n-input v-model:value="titleLike" clearable :placeholder="t('placeholder.searchFuzzyTitle')" />
+          <n-input v-model:value="artistLike" clearable :placeholder="t('placeholder.searchFuzzyArtist')" />
+        </n-input-group>
+      </div>
+    </div>
   </n-flex>
 
   <!-- data table -->
   <div style="margin-top: 8px;">
-    <n-data-table v-if="disableCard" remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-      :row-key="(row: FileEntryDto) => row.downloadURL" striped />
-    <n-card v-else>
-      <n-data-table remote :loading="loading" :columns="columns" :data="data" :pagination="pagination"
-        :row-key="(row: FileEntryDto) => row.downloadURL" striped />
-    </n-card>
+    <div class="results-anim" :key="resultAnimKey">
+      <n-data-table v-if="disableCard" remote :loading="loading" :columns="columns" :data="data" :scroll-x="900"
+        :pagination="pagination" :row-key="(row: FileEntryDto) => row.downloadURL" striped />
+      <n-card v-else>
+        <n-data-table remote :loading="loading" :columns="columns" :data="data" :scroll-x="900" :pagination="pagination"
+          :row-key="(row: FileEntryDto) => row.downloadURL" striped />
+      </n-card>
+    </div>
   </div>
 </template>
 
@@ -93,6 +97,9 @@ const pagination = reactive({
 });
 
 const loading = ref(false);
+// Bumped only on a full result replacement (new query), never on pagination.
+const resultAnimKey = ref(0);
+let pendingFresh = true;
 // searching parameters 
 const fuzzyKeyword: Ref<string | null> = ref(null);
 const titleLike: Ref<string | null> = ref(null);
@@ -187,12 +194,16 @@ function loadData() {
       if (result.data != null) {
         data.value = [...result.data];
         pagination.pageCount = result.pageCount;
+        if (pendingFresh) {
+          resultAnimKey.value += 1;
+        }
       }
-    }).finally(() => { loading.value = false });
+    }).finally(() => { loading.value = false; pendingFresh = false; });
 }
 
 function clickSearch() {
   debouncedLoadData.cancel();
+  pendingFresh = true;
   loadData();
 }
 
@@ -220,7 +231,82 @@ function tagComment(): string | null {
 
 watch([() => props.tableID, fuzzyKeyword, titleLike, artistLike], () => {
   loading.value = true;
+  pendingFresh = true;
   pagination.page = 1;
   debouncedLoadData();
 }, { immediate: true });
 </script>
+
+<style scoped>
+.search-row .search-input {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+
+.advanced-group {
+  display: flex;
+}
+
+.advanced-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows 200ms ease-out, visibility 0s linear 200ms;
+}
+
+.advanced-wrap--open {
+  grid-template-rows: 1fr;
+  visibility: visible;
+  transition: grid-template-rows 200ms ease-out, visibility 0s;
+}
+
+.advanced-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+.results-anim {
+  animation: results-in 180ms ease-out;
+}
+
+@keyframes results-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .advanced-wrap,
+  .advanced-wrap--open {
+    transition: none;
+  }
+
+  .results-anim {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .search-row .search-input {
+    flex: 1 1 100%;
+  }
+
+  .advanced-group {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .advanced-group :deep(.n-input) {
+    width: 100%;
+    margin-left: 0;
+    border-radius: 8px !important;
+  }
+}
+</style>

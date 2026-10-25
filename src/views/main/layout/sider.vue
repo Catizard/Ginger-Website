@@ -1,6 +1,6 @@
 <template>
-  <n-layout-sider :collapsed="collapsed" bordered collapse-mode="width" :collapsed-width="64" :width="220"
-    :native-scrollbar="false" class="sider" show-trigger @collapse="collapsed = true" @expand="collapsed = false">
+  <n-layout-sider :collapsed="collapsed" bordered collapse-mode="width" :collapsed-width="64" :width="siderWidth"
+    :native-scrollbar="false" class="sider" :show-trigger="!hideTrigger" @collapse="collapsed = true" @expand="collapsed = false">
     <Logo :collapsed="collapsed" />
     <n-menu :collapsed-width="64" :collapsed-icon-size="22" :options="menuOptions" class="menu"
       defaultValue="/download/list" />
@@ -25,8 +25,20 @@ import {
 import Logo from '@/components/Logo.vue';
 import LangSwitch from '@/components/LangSwitch.vue';
 
+const props = withDefaults(defineProps<{
+  hideTrigger?: boolean,
+}>(), {
+  hideTrigger: false,
+});
+
 const { t } = useI18n();
-const collapsed = ref(false);
+const tabletQuery = window.matchMedia('(min-width: 768px) and (max-width: 1023px)');
+const collapsed = ref(tabletQuery.matches);
+tabletQuery.addEventListener('change', e => {
+  collapsed.value = e.matches;
+});
+
+const siderWidth = computed(() => props.hideTrigger ? '100%' : 220);
 
 const menuOptions = computed(() => [
   {

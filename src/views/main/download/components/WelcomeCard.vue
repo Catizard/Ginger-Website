@@ -1,7 +1,7 @@
 <!-- Renders a card welcomes the users and presenting beginning hints & what's this website is for -->
 <template>
   <!-- About the website -->
-  <n-card class="about-card" :bordered="false" style="margin-top: 32px;">
+  <n-card class="about-card" :bordered="false">
     <template #header>
       <n-flex align="center">
         <n-icon size="24">

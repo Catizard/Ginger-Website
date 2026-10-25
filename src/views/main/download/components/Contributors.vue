@@ -1,11 +1,11 @@
 <template>
   <TitleWithButtons :title="t('title.contributors')" />
-  <n-flex justify="start" horizontal>
-    <n-card class="about-card" :bordered="false" style="width: 49%;" :wrap="false">
+  <div class="contributors-grid">
+    <n-card class="about-card" :bordered="false" :wrap="false">
       <template #header>
         <n-flex align="center">
           <n-icon :component="PeopleOutline" size="24" color="var(--n-primary-color)" />
-          <n-text strong style="font-size: 20px;">{{ t('title.codeContributors') }}</n-text>
+          <n-text strong class="card-title">{{ t('title.codeContributors') }}</n-text>
         </n-flex>
       </template>
       <n-list>
@@ -18,11 +18,11 @@
         </n-list-item>
       </n-list>
     </n-card>
-    <n-card class="about-card" :bordered="false" style="width: 49%; margin-left: auto;">
+    <n-card class="about-card" :bordered="false">
       <template #header>
         <n-flex align="center">
           <n-icon :component="HandshakeRound" size="24" color="var(--n-primary-color)" />
-          <n-text strong style="font-size: 20px;">{{ t('title.specialThanks') }}</n-text>
+          <n-text strong class="card-title">{{ t('title.specialThanks') }}</n-text>
         </n-flex>
       </template>
       <n-list>
@@ -35,7 +35,7 @@
         </n-list-item>
       </n-list>
     </n-card>
-  </n-flex>
+  </div>
 </template>
 
 <script setup lang="tsx">
@@ -65,6 +65,16 @@ function openLink(url: string) {
 </script>
 
 <style scoped>
+.contributors-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.card-title {
+  font-size: 20px;
+}
+
 .about-card {
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
@@ -96,5 +106,15 @@ function openLink(url: string) {
 :deep(.n-list-item) {
   padding: 12px 16px;
   border-radius: 8px;
+}
+
+@media (max-width: 767px) {
+  .contributors-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-title {
+    font-size: 17px;
+  }
 }
 </style>

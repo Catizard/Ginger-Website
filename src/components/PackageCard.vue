@@ -1,6 +1,7 @@
 <!-- Render a card component for a bms package -->
 <template>
-  <div class="package-card" :class="{ 'package-card--expanded': isHoveringDetails }">
+  <div ref="rootRef" class="package-card" :class="{ 'package-card--expanded': detailsOpen }"
+    @mouseenter="handleCardEnter" @mouseleave="scheduleClose">
     <div class="card-row">
       <div class="card-thumb" :style="!backBMPURL ? { backgroundColor: '#2A2A2A' } : {}">
         <n-image v-if="backBMPURL" :src="backBMPURL" :width="100" :height="100" object-fit="cover"
@@ -18,12 +19,15 @@
             {{ humanFileSize(fileEntry.fileSize) }}
           </n-flex>
         </div>
-        <div class="meta-area" @mouseenter="isHoveringDetails = true" @mouseleave="isHoveringDetails = false">
-          <n-tag v-for="item in modeDetails" :key="item.name" size="tiny" :color="item.color">
-            {{ item.name }}
-            <n-divider vertical style="margin: 2px;" />
-            {{ item.count }}
-          </n-tag>
+        <div class="meta-area" @click="handleMetaClick">
+          <span class="mode-chip" v-for="item in modeDetails" :key="item.name" :style="{
+            '--chip-bg': item.color.color,
+            '--chip-text': item.color.textColor,
+            '--chip-border': item.color.borderColor,
+          }">
+            <span class="mode-chip__name">{{ item.name }}</span>
+            <span class="mode-chip__count">{{ item.count }}</span>
+          </span>
         </div>
       </div>
     </div>
@@ -32,8 +36,9 @@
       <n-icon size="36" :component="icons.download" color="white" />
     </div>
 
-    <transition name="fade">
-      <div v-if="isHoveringDetails" class="detail-list">
+    <transition name="details">
+      <div v-if="detailsOpen" class="detail-list">
+        <div class="detail-title">{{ fileEntry.fileName }}</div>
         <div class="detail-item" v-for="item in songDetails" :key="item.id">
           <n-tag size="tiny" :color="item.color">
             {{ item.modeName }}
@@ -46,7 +51,7 @@
 </template>
 
 <script setup lang="tsx">
-import { computed, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { icons } from "@/utils/icons";
 import { humanFileSize } from '@/utils/format';
 import { getPlayModeColorSchema, type TagColor } from './tag';
@@ -56,7 +61,77 @@ const { fileEntry } = defineProps<{
   fileEntry: FileEntryDto
 }>()
 
-const isHoveringDetails = ref(false);
+const rootRef = ref<HTMLElement | null>(null);
+const detailsOpen = ref(false);
+const isTouch = window.matchMedia('(hover: none)').matches;
+
+let openTimer: ReturnType<typeof setTimeout> | null = null;
+let closeTimer: ReturnType<typeof setTimeout> | null = null;
+
+function cancelOpen() {
+  if (openTimer != null) {
+    clearTimeout(openTimer);
+    openTimer = null;
+  }
+}
+
+function cancelClose() {
+  if (closeTimer != null) {
+    clearTimeout(closeTimer);
+    closeTimer = null;
+  }
+}
+
+function scheduleOpen() {
+  cancelClose();
+  cancelOpen();
+  openTimer = setTimeout(() => {
+    detailsOpen.value = true;
+  }, 100);
+}
+
+function scheduleClose() {
+  cancelOpen();
+  cancelClose();
+  closeTimer = setTimeout(() => {
+    detailsOpen.value = false;
+  }, 220);
+}
+
+function handleCardEnter() {
+  if (isTouch) {
+    return;
+  }
+  scheduleOpen();
+}
+
+function handleMetaClick() {
+  if (!isTouch) {
+    return;
+  }
+  cancelOpen();
+  cancelClose();
+  detailsOpen.value = !detailsOpen.value;
+}
+
+function handleDocumentClick(e: MouseEvent) {
+  if (!isTouch || !detailsOpen.value) {
+    return;
+  }
+  if (rootRef.value && !rootRef.value.contains(e.target as Node)) {
+    detailsOpen.value = false;
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleDocumentClick);
+});
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleDocumentClick);
+  cancelOpen();
+  cancelClose();
+});
 
 export interface modeDetail {
   name: string,
@@ -198,19 +273,31 @@ function handleClickDownload() {
 
 .card-row {
   display: flex;
-  flex-shrink: 0;
-  height: 100px;
+  flex: 1 0 auto;
+  width: 100%;
+  min-height: 100px;
 }
 
 .card-thumb {
+  position: relative;
   width: 100px;
-  height: 100px;
+  height: auto;
+  align-self: stretch;
   flex-shrink: 0;
+  overflow: hidden;
+}
+
+.card-thumb :deep(.n-image) {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .card-body {
   display: flex;
   flex: 1;
+  min-width: 0;
   flex-direction: column;
   position: relative;
   background-size: cover;
@@ -233,17 +320,67 @@ function handleClickDownload() {
   z-index: 1;
   color: white;
   margin: 5px 5px;
+  min-width: 0;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
-  overflow-y: auto;
+  overflow: visible;
+}
+
+.overlay :deep(h3) {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.detail-list :deep(.n-tag) {
+  padding: 0 10px;
+  border-radius: 999px;
+}
+
+.detail-list :deep(.n-tag__content) {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mode-chip {
+  display: inline-flex;
+  align-items: stretch;
+  height: 18px;
+  font-size: 12px;
+  line-height: 1;
+  color: var(--chip-text, #68717B);
+  background: var(--chip-bg, #E3E5E7);
+  border: 1px solid var(--chip-border, #68717B);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.mode-chip__name {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 8px;
+  border-radius: 999px 0 0 999px;
+}
+
+.mode-chip__count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  padding: 0 7px;
+  border-radius: 0 999px 999px 0;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.08));
 }
 
 .meta-area {
-  height: 20px;
+  min-height: 20px;
   flex-shrink: 0;
   z-index: 6;
   display: flex;
   align-items: center;
-  padding-left: 5px;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 0 5px 5px;
 }
 
 .detail-list {
@@ -263,12 +400,49 @@ function handleClickDownload() {
   top: 100%;
   left: -2px;
   z-index: 10;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+.details-enter-active {
+  transition: opacity 180ms ease-out, transform 180ms ease-out;
+}
+
+.details-leave-active {
+  transition: opacity 140ms ease-out, transform 140ms ease-out;
+}
+
+.details-enter-from,
+.details-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .details-enter-active,
+  .details-leave-active {
+    transition: none;
+  }
+
+  .details-enter-from,
+  .details-leave-to {
+    transform: none;
+  }
 }
 
 .detail-item {
   display: flex;
   align-items: center;
   gap: 4px;
+}
+
+.detail-title {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #333;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .hover-overlay {
@@ -295,5 +469,30 @@ function handleClickDownload() {
 
 .hover-overlay:hover {
   background: rgba(0, 0, 0, 0.3);
+}
+
+@media (hover: none) {
+  .hover-overlay {
+    opacity: 1;
+    pointer-events: auto;
+    background: rgba(0, 0, 0, 0.25);
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 767px) {
+  .package-card {
+    min-height: 80px;
+  }
+
+  .card-row {
+    min-height: 80px;
+  }
+
+  .card-thumb {
+    width: 80px;
+  }
 }
 </style>

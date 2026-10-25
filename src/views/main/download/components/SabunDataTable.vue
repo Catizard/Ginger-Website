@@ -1,6 +1,6 @@
 <!-- Render a table component of a level folder from a difficult table -->
 <template>
-  <n-data-table remote :loading="loading" :columns="columns" :pagination="pagination" :data="data"
+  <n-data-table remote :loading="loading" :columns="columns" :pagination="pagination" :data="data" :scroll-x="480"
     :row-key="(row: TableData) => row.id" class="styled-table" />
 </template>
 

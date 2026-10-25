@@ -13,7 +13,7 @@
       <n-text strong style="font-size: 18px;">{{ currentTableName }}</n-text>
     </n-space>
 
-    <n-flex horizontal :wrap="false">
+    <n-flex horizontal :wrap="true" align="center" class="table-head">
       <n-radio-group v-model:value="viewingLevel">
         <n-radio-button value="package" default-checked>
           {{ "Package" }}

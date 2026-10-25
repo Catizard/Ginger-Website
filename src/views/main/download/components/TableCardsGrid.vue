@@ -1,34 +1,33 @@
 <!-- A grid of cards, each card renders a table's basic info and can navigate by clicking -->
 <template>
-  <n-grid :cols="2" :x-gap="20" :y-gap="20">
-    <n-grid-item v-for="table in tables" :key="table.id">
-      <n-card hoverable :title="table.name" @click="handleClickTable(table.id)" class="table-card" :bordered="false">
-        <template #header-extra>
-          <n-flex vertical>
-            <n-icon v-if="table.missingCount == 0 && table.dataCount != 0" :component="CheckmarkCircle" size="24"
-              color="#0E7A0D" />
-            <n-tag v-else type="info" round size="small">
-              {{ withinCoverage(table.dataCount, table.missingCount) }}
-            </n-tag>
-            <n-button v-if="table.selfhostFlag" size="tiny" @click.stop="handleCopyTableURL(table.id)">
-              Copy url
-            </n-button>
-          </n-flex>
-        </template>
-        <n-space vertical :size="8">
-          <n-flex align="center">
-            <!-- TODO: Fix the garbage data :( -->
-            <!-- <n-icon :component="ListOutline" size="16" color="var(--n-text-color-3)" /> -->
-            <!-- <n-text depth="3" style="font-size: 13px;">{{ t('difficultyLevel') }}: {{ table.levelOrders }}</n-text> -->
-          </n-flex>
-          <n-flex align="center">
-            <n-icon :component="MusicalNotesOutline" size="16" color="var(--n-text-color-3)" />
-            <n-text depth="3" style="font-size: 13px;">{{ t('misc.trackCount') }}: {{ table.dataCount }}</n-text>
-          </n-flex>
-        </n-space>
-      </n-card>
-    </n-grid-item>
-  </n-grid>
+  <div class="table-cards-grid">
+    <n-card v-for="table in tables" :key="table.id" hoverable :title="table.name" @click="handleClickTable(table.id)"
+      class="table-card" :bordered="false">
+      <template #header-extra>
+        <n-flex vertical>
+          <n-icon v-if="table.missingCount == 0 && table.dataCount != 0" :component="CheckmarkCircle" size="24"
+            color="#0E7A0D" />
+          <n-tag v-else type="info" round size="small">
+            {{ withinCoverage(table.dataCount, table.missingCount) }}
+          </n-tag>
+          <n-button v-if="table.selfhostFlag" size="tiny" @click.stop="handleCopyTableURL(table.id)">
+            Copy url
+          </n-button>
+        </n-flex>
+      </template>
+      <n-space vertical :size="8">
+        <n-flex align="center">
+          <!-- TODO: Fix the garbage data :( -->
+          <!-- <n-icon :component="ListOutline" size="16" color="var(--n-text-color-3)" /> -->
+          <!-- <n-text depth="3" style="font-size: 13px;">{{ t('difficultyLevel') }}: {{ table.levelOrders }}</n-text> -->
+        </n-flex>
+        <n-flex align="center">
+          <n-icon :component="MusicalNotesOutline" size="16" color="var(--n-text-color-3)" />
+          <n-text depth="3" style="font-size: 13px;">{{ t('misc.trackCount') }}: {{ table.dataCount }}</n-text>
+        </n-flex>
+      </n-space>
+    </n-card>
+  </div>
 </template>
 
 <script setup lang="tsx">
@@ -54,6 +53,16 @@ function handleCopyTableURL(id: number) {
 </script>
 
 <style scoped>
+.table-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.table-cards-grid > * {
+  min-width: 0;
+}
+
 .table-card {
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
@@ -62,8 +71,25 @@ function handleCopyTableURL(id: number) {
   cursor: pointer;
 }
 
+.table-card :deep(.n-card-header) {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.table-card :deep(.n-card-header__main) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .table-card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12), 0 2px 4px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
+}
+
+@media (max-width: 767px) {
+  .table-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
 }
 </style>

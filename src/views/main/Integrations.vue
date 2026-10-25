@@ -14,7 +14,7 @@
       <n-p>
         {{ t('desc.integrations.endlessdream0_3_0AndBefore') }}
         <br>
-        <pre>https://gingerrush.com/download/direct/%s</pre>
+        <pre class="url-pre">https://gingerrush.com/download/direct/%s</pre>
       </n-p>
       <img :src="endlessdream0_3_0AndBefore" />
     </n-card>
@@ -58,5 +58,24 @@ img {
   max-height: 500px;
   width: auto;
   height: auto;
+}
+
+.url-pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background-color: var(--n-code-color, rgba(0, 0, 0, 0.04));
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: monospace;
+}
+
+@media (max-width: 767px) {
+  .integrations-card :deep(.n-card__content) {
+    padding: 16px;
+  }
+
+  .integrations-card :deep(.n-h1) {
+    font-size: 20px;
+  }
 }
 </style>

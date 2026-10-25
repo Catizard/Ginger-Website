@@ -18,3 +18,11 @@ const props = defineProps<{
   title: string,
 }>()
 </script>
+
+<style scoped>
+@media (max-width: 767px) {
+  :deep(.n-h1) {
+    font-size: 20px;
+  }
+}
+</style>

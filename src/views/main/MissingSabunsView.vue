@@ -2,8 +2,8 @@
   <TitleWithButtons :title="t('title.missingSabuns')" />
   <!-- Search Area -->
   <n-flex gap="8" vertical>
-    <n-flex gap="8" horizontal :wrap="false">
-      <n-input-group>
+    <n-flex gap="8" horizontal>
+      <n-input-group class="missing-search">
         <n-input v-model:value="titleLike" clearable :placeholder="t('placeholder.searchFuzzyTitle')">
           <template #prefix>
             <n-icon :component="icons.search" />
@@ -11,7 +11,7 @@
         </n-input>
         <n-select v-model:value="tableID" :options="tableOptions" clearable />
         <n-select v-model:value="urlStrategy" :options="urlStrategyOptions" />
-        <n-button type="primary" @click="loadData()">
+        <n-button type="primary" @click="clickSearch">
           {{ t('button.search') }}
         </n-button>
       </n-input-group>
@@ -19,8 +19,10 @@
   </n-flex>
 
   <n-card>
-    <n-data-table remote :loading="loading" :data="data" :columns="columns" :pagination="pagination"
-      :row-key="(row: MissingTableData) => row.id" />
+    <div class="results-anim" :key="resultAnimKey">
+      <n-data-table remote :loading="loading" :data="data" :columns="columns" :scroll-x="900" :pagination="pagination"
+        :row-key="(row: MissingTableData) => row.id" />
+    </div>
   </n-card>
 
 </template>
@@ -39,6 +41,9 @@ import TitleWithButtons from '@/components/TitleWithButtons.vue';
 const { t } = useI18n();
 
 const loading = ref(false);
+// Bumped only on a full result replacement (new query), never on pagination.
+const resultAnimKey = ref(0);
+let pendingFresh = true;
 
 // Search parameters
 const titleLike = ref("");
@@ -128,10 +133,19 @@ async function loadData() {
     if (ret.data != null) {
       data.value = [...ret.data];
       pagination.pageCount = ret.pageCount;
+      if (pendingFresh) {
+        resultAnimKey.value += 1;
+      }
     }
   } finally {
     loading.value = false;
+    pendingFresh = false;
   }
+}
+
+function clickSearch() {
+  pendingFresh = true;
+  loadData();
 }
 
 async function loadTables() {
@@ -155,7 +169,56 @@ onMounted(() => {
 });
 
 watch([titleLike, urlStrategy, tableID], () => {
+  pendingFresh = true;
   pagination.pageCount = 1;
   loadData();
 });
 </script>
+
+<style scoped>
+.missing-search {
+  flex: 1 1 100%;
+  min-width: 0;
+}
+
+.results-anim {
+  animation: results-in 180ms ease-out;
+}
+
+@keyframes results-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .results-anim {
+    animation: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .missing-search {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .missing-search :deep(.n-input),
+  .missing-search :deep(.n-base-selection) {
+    width: 100%;
+    margin-left: 0;
+    border-radius: 8px !important;
+  }
+
+  .missing-search :deep(.n-button) {
+    margin-left: 0;
+    border-radius: 8px !important;
+  }
+}
+</style>

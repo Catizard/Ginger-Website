@@ -4,7 +4,7 @@
       <template #header>
         <n-flex align="center">
           <n-icon :component="CloudUploadOutline" size="24" color="var(--n-primary-color)" />
-          <n-text strong style="font-size: 20px;">{{ t('title.uploadPackage') }}</n-text>
+          <n-text strong class="card-title">{{ t('title.uploadPackage') }}</n-text>
         </n-flex>
       </template>
       <n-space vertical :size="16">
@@ -61,5 +61,23 @@ const { t } = useI18n();
   font-family: monospace;
   overflow-x: auto;
   line-height: 1.6;
+}
+
+.card-title {
+  font-size: 20px;
+}
+
+@media (max-width: 767px) {
+  .about-card :deep(.n-card__content) {
+    padding: 16px;
+  }
+
+  .about-card :deep(.n-card-header) {
+    padding: 16px 16px 8px;
+  }
+
+  .card-title {
+    font-size: 17px;
+  }
 }
 </style>

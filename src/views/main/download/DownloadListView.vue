@@ -3,24 +3,24 @@
   <FileDataTable />
 
   <!-- Welcome -->
-  <WelcomeCard style="margin-top: 32px;" />
+  <WelcomeCard class="section" />
 
   <!-- Commonly used tables -->
-  <div style="margin-top: 32px;" v-if="specialTables.length > 0">
+  <div class="section" v-if="specialTables.length > 0">
     <SpecialTables jumpType="TABLE" :tables="specialTables" :title="t('title.specialTables')" />
   </div>
   <!-- Recent Events -->
-  <div style="margin-top: 32px;" v-if="specialEvents.length > 0">
+  <div class="section" v-if="specialEvents.length > 0">
     <SpecialTables jumpType="EVENT" :tables="specialEvents" :title="t('title.specialEvents')" />
   </div>
 
   <!-- Contributors -->
-  <div style="margin-top: 32px;">
+  <div class="section">
     <Contributors />
   </div>
 
   <!-- Recent Events -->
-  <div style="margin-top: 32px;">
+  <div class="section">
     <TitleWithButtons :title="t('title.recentEvents')" />
     <RecentEvents />
   </div>
@@ -53,6 +53,10 @@ loadSpecialTables();
 </script>
 
 <style scoped>
+.section {
+  margin-top: var(--section-gap, 32px);
+}
+
 :deep(.styled-table .n-data-table-th) {
   font-weight: 600;
   color: var(--n-text-color-base);

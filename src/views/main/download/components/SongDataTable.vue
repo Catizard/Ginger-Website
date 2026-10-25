@@ -1,6 +1,7 @@
 <!-- Renders the songs under a file on server -->
 <template>
-  <n-data-table :columns="columns" :data="data" :pagination="pagination" :rowKey="(sd: SongData) => sd.id" />
+  <n-data-table :columns="columns" :data="data" :pagination="pagination" :scroll-x="560"
+    :rowKey="(sd: SongData) => sd.id" />
 </template>
 
 <script setup lang="tsx">
